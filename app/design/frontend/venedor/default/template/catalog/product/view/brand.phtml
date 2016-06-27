@@ -1,0 +1,11 @@
+<?php
+/**
+ * Product brand template
+ *
+ * @see Mage_Catalog_Block_Product_View_Description
+ */
+?>
+<?php $_manufacturer = $this->getProduct()->getAttributeText('manufacturer'); ?>
+<?php if ($_manufacturer): ?>
+    <p class="product-brand"><?php echo $this->__('Brand:') ?> <span><?php echo $_manufacturer ?></span></p>
+<?php endif; ?>

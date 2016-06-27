@@ -1,0 +1,25 @@
+
+@media (min-width: 1200px) {
+    
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    .caption.button {
+        font-size: 12px !important;
+        padding: 10px 12px !important;
+    }
+}
+
+@media (max-width: 767px) {
+    .caption.button {
+        font-size: 12px !important;
+        padding: 10px 12px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .caption.button {
+        font-size: 10px !important;
+        padding: 10px !important;
+    }
+}

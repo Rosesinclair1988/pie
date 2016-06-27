@@ -1,0 +1,41 @@
+<div class="language-switcher">
+    <?php
+    $stores = Mage::app()->getStores();
+	$currentStore = Mage::app()->getStore()->getName();
+    $enUrl = '';
+    $frUrl = '';
+	?>
+    <select onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
+        <?php foreach($stores as $store) : ?>
+            <?php $storeName = $store->getName() ?>
+            <?php
+            if ($store->getCode() == 'en') : $enUrl = $store->getBaseUrl();
+            elseif ($store->getCode() == 'default') : $frUrl = $store->getBaseUrl();
+            endif;
+            ?>
+            <?php if ( $currentStore == $storeName) : ?>
+                <option value="<?php echo $store->getBaseUrl(); ?>>
+                    <a href="<?php echo $store->getBaseUrl(); ?>" class="<?php echo $store->getCode()?> current">
+                        <span><?php echo $store->getName()?></span>
+                    </a>
+                </option>
+            <?php else : ?>
+                <option value=<?php echo $store->getBaseUrl(); ?>>
+                    <a href="<?php echo $store->getBaseUrl(); ?>" class="<?php echo $store->getCode()?>">
+                        <span><?php echo $store->getName()?></span>
+                    </a>
+                </option>
+            <?php endif ?>
+        <?php endforeach; ?>
+        <option value=<?php echo $enUrl.'international-ca' ?>>
+            <a href="<?php echo $enUrl.'international-ca' ?>" class="ca">
+                <span><?php echo $this->__('Canadian')?></span>
+            </a>
+        </option>
+        <option value=<?php echo $frUrl.'international-be' ?>>
+            <a href="<?php echo $frUrl.'international-be' ?>" class="be">
+                <span><?php echo $this->__('Belgian')?></span>
+            </a>
+        </option>
+    </select>
+</div>

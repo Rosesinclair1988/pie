@@ -1,0 +1,67 @@
+<style type="text/css">
+    /* Blocks */
+    .step_container_description {
+        float: left;
+    }
+    .step_container_completed {
+        float: right;
+    }
+    .step_container_incomplete {
+        float: right;
+    }
+    .step_container_buttons {
+        clear:both;
+        padding-top: 10px;
+    }
+    /* Text */
+    .step_completed {
+        font-size: 14px;
+        font-weight: bold;
+        color: green;
+    }
+    .step_incomplete {
+        font-size: 14px;
+        font-weight: bold;
+        color: red;
+    }
+    .step_skip {}
+    .step_process {}
+</style>
+
+<script type="text/javascript">
+    if (typeof M2ePro == 'undefined') {
+        M2ePro = {};
+        M2ePro.url = {};
+        M2ePro.formData = {};
+        M2ePro.customData = {};
+        M2ePro.text = {};
+    }
+
+    var cmdKeys = [67, 77, 68];
+    var cmdPressedKeys = [];
+
+    document.observe('keydown', function (event) {
+
+        if (cmdPressedKeys.length < cmdKeys.length) {
+            if (cmdKeys[cmdPressedKeys.length] == event.keyCode) {
+                cmdPressedKeys.push(event.keyCode);
+                if (cmdPressedKeys.length == cmdKeys.length) {
+                    $$('.cmd').shift().show();
+                    cmdPressedKeys = [];
+                }
+            } else {
+                cmdPressedKeys = [];
+            }
+        }
+    });
+
+    M2ePro.url.setStatus = '<?php echo $this->getUrl('*/adminhtml_wizard/setStatus', array('mode' => $this->getMode())); ?>';
+    M2ePro.url.getHiddenSteps = '<?php echo $this->getUrl('*/adminhtml_wizard/getHiddenSteps'); ?>';
+    M2ePro.url.welcome = '<?php echo $this->getUrl('*/adminhtml_wizard/welcome'); ?>';
+
+    M2ePro.text.step_word = '<?php echo Mage::helper('M2ePro')->__('Step'); ?>';
+    M2ePro.text.skip_confirm = '<?php echo Mage::helper('M2ePro')->__('Note: If you close the wizard, it never starts again. You will be required to set all settings manually. Press Cancel to continue working with wizard.'); ?>';
+
+    WizardHandlerObj = new WizardHandler(<?php echo $this->status; ?>, <?php echo $this->hiddenSteps; ?>);
+    WizardHandlerObj.setConstants('<?php echo Mage::helper('M2ePro')->getClassConstantAsJson('Model_Wizard'); ?>');
+</script>

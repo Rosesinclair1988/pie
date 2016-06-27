@@ -1,0 +1,16 @@
+<div class="amshopby-featured-wrapper">
+    <ul>
+        <?php var_dump($this->getItems());?>
+
+        <?php foreach ($this->getItems() as $item): ?>
+            <?php var_dump($item);?>
+            <li>
+                <a href="<?php echo $item->getUrl() ?>">
+
+                        <?php echo $this->htmlEscape($item->getTitle()) ?>
+                </a>
+            </li>
+        <?php endforeach ?>
+    </ul>
+</div>
+bbbbb

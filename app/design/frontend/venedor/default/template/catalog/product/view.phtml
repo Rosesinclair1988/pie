@@ -1,0 +1,273 @@
+<?php
+/**
+ * Product view template
+ *
+ * @see Mage_Catalog_Block_Product_View
+ * @see Mage_Review_Block_Product_View
+ */
+?>
+<?php 
+$venedor = $this->helper('venedor');
+$b = $venedor->getConfigGroup();
+$rowClass = $venedor->getRowClass();
+$spanClass = $venedor->getSpanClass();
+
+$_helper = $this->helper('catalog/output');
+?>
+<?php $_product = $this->getProduct(); ?>
+<script type="text/javascript">
+    var optionsPrice = new Product.OptionsPrice(<?php echo $this->getJsonConfig() ?>);
+</script>
+<div id="messages_product_view"><?php echo $this->getMessagesBlock()->getGroupedHtml() ?></div>
+<div class="product-view">
+    <div class="product-essential">
+    <form action="<?php echo $this->getSubmitUrl($_product) ?>" method="post" id="product_addtocart_form"<?php if($_product->getOptions()): ?> enctype="multipart/form-data"<?php endif; ?>>
+        <div class="no-display">
+            <input type="hidden" name="product" value="<?php echo $_product->getId() ?>" />
+            <input type="hidden" name="related_product" id="related-products-field" value="" />
+        </div>
+        
+        <div class="product-essential-inner <?php echo $rowClass ?>">
+            <div class="<?php echo $spanClass ?>7 product-img-box">
+                <?php echo $this->getChildHtml('media') ?>
+                <?php // show price and new, save sales in media.phtml
+                //echo $this->getPriceHtml($_product) ?>
+            </div>
+            <div class="<?php echo $spanClass ?>5 product-shop">
+                <div class="product-name">
+                    <h1><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></h1>
+                </div>
+                
+                <?php if (!$b['product']['price_on_image']) : ?>
+                <div class="price-review">
+                    <?php echo $this->getPriceHtml($_product, true) ?>
+                <?php endif; ?>
+                    
+                    <?php echo $this->getReviewsSummaryHtml($_product, false, true)?>
+                
+                <?php if (!$b['product']['price_on_image']) : ?></div><?php endif; ?>
+                
+                <?php echo $this->getChildHtml('alert_urls') ?>
+                <?php echo $this->getChildHtml('product_type_data') ?>
+                <?php echo $this->getChildHtml('product_brand') ?>
+                <?php echo $this->getTierPriceHtml() ?>
+                
+                <?php echo $this->getChildHtml('extrahint') ?>
+
+                <?php if (!$this->hasOptions()):?>
+                    <div class="add-to-box">
+                        <?php if($_product->isSaleable()): ?>
+                            <?php echo $this->getChildHtml('addtocart') ?>
+                        <?php endif; ?>
+                        <div class="add-links-wrap clearfix">
+                            <?php echo $this->getChildHtml('addto') ?>
+                            <?php if ($this->canEmailToFriend()): ?>
+                                <span class="email-friend"><a href="<?php echo $this->helper('catalog/product')->getEmailToFriendUrl($_product) ?>" class="button link-friend" title="<?php echo $this->__('Email to a Friend') ?>"><?php echo $this->__('To Friend') ?></a><span><?php echo $this->__('To Friend') ?></span></span>
+                            <?php endif; ?>
+                            
+                            <?php if ($venedor->getConfig('product/addthis_enable')) : ?>
+                                <!-- Social bookmarks from http://www.addthis.com/get/sharing  -->
+                                <div class="addthis-icons clearfix">
+                                    <span><?php echo $this->__('Share:') ?> </span>
+                                    <div class="addthis_toolbox addthis_default_style addthis_32x32_style">
+                                    <a class="addthis_button_preferred_1"></a>
+                                    <a class="addthis_button_preferred_2"></a>
+                                    <a class="addthis_button_preferred_3"></a>
+                                    <a class="addthis_button_preferred_4"></a>
+                                    <a class="addthis_button_compact"></a>
+                                    <a class="addthis_counter addthis_bubble_style"></a>
+                                    </div>
+                                    <script type="text/javascript" src="http://s7.addthis.com/js/300/addthis_widget.js#pubid=xa-5054e6c6502d114f"></script>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                    <?php echo $this->getChildHtml('extra_buttons') ?>
+                <?php elseif (!$_product->isSaleable()): ?>
+                    <div class="add-to-box">
+                        <?php echo $this->getChildHtml('addto') ?>
+                        <div class="add-links-wrap clearfix">
+                            <?php if ($this->canEmailToFriend()): ?>
+                                <span class="email-friend"><a href="<?php echo $this->helper('catalog/product')->getEmailToFriendUrl($_product) ?>" class="button link-friend" title="<?php echo $this->__('Email to a Friend') ?>"><?php echo $this->__('To Friend') ?></a><span><?php echo $this->__('To Friend') ?></span></span>
+                            <?php endif; ?>
+                            
+                            <?php if ($venedor->getConfig('product/addthis_enable')) : ?>
+                                <!-- Social bookmarks from http://www.addthis.com/get/sharing  -->
+                                <div class="addthis-icons clearfix">
+                                    <span><?php echo $this->__('Share:') ?> </span>
+                                    <div class="addthis_toolbox addthis_default_style addthis_32x32_style">
+                                    <a class="addthis_button_preferred_1"></a>
+                                    <a class="addthis_button_preferred_2"></a>
+                                    <a class="addthis_button_preferred_3"></a>
+                                    <a class="addthis_button_preferred_4"></a>
+                                    <a class="addthis_button_compact"></a>
+                                    <a class="addthis_counter addthis_bubble_style"></a>
+                                    </div>
+                                    <script type="text/javascript" src="http://s7.addthis.com/js/300/addthis_widget.js#pubid=xa-5054e6c6502d114f"></script>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                <?php endif; ?>
+
+                <?php echo $this->getChildHtml('other');?>
+                
+                <?php if ($_product->isSaleable() && $this->hasOptions()):?>
+                    <?php echo $this->getChildChildHtml('container2', '', true, true) ?>
+                    <div class="add-to-box">
+                        <?php echo $this->getChildChildHtml('container1', '', true, true) ?>
+                        <div class="add-links-wrap clearfix">
+                            <?php if ($this->canEmailToFriend()): ?>
+                                <span class="email-friend"><a href="<?php echo $this->helper('catalog/product')->getEmailToFriendUrl($_product) ?>" class="button link-friend" title="<?php echo $this->__('Email to a Friend') ?>"><?php echo $this->__('To Friend') ?></a><span><?php echo $this->__('To Friend') ?></span></span>
+                            <?php endif; ?>
+                            
+                            <?php if ($venedor->getConfig('product/addthis_enable')) : ?>
+                                <!-- Social bookmarks from http://www.addthis.com/get/sharing  -->
+                                <div class="addthis-icons clearfix">
+                                    <span><?php echo $this->__('Share:') ?> </span>
+                                    <div class="addthis_toolbox addthis_default_style addthis_32x32_style">
+                                    <a class="addthis_button_preferred_1"></a>
+                                    <a class="addthis_button_preferred_2"></a>
+                                    <a class="addthis_button_preferred_3"></a>
+                                    <a class="addthis_button_preferred_4"></a>
+                                    <a class="addthis_button_compact"></a>
+                                    <a class="addthis_counter addthis_bubble_style"></a>
+                                    </div>
+                                    <script type="text/javascript" src="http://s7.addthis.com/js/300/addthis_widget.js#pubid=xa-5054e6c6502d114f"></script>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                <?php endif;?>
+            </div>
+        </div>
+    </form>
+    <script type="text/javascript">
+    //<![CDATA[
+        var productAddToCartForm = new VarienForm('product_addtocart_form');
+        productAddToCartForm.submit = function(button, url) {
+            if (this.validator.validate()) {
+                var form = this.form;
+                var oldUrl = form.action;
+
+                if (url) {
+                   form.action = url;
+                }
+                var e = null;
+                try {
+                    this.form.submit();
+                } catch (e) {
+                }
+                this.form.action = oldUrl;
+                if (e) {
+                    throw e;
+                }
+
+                if (button && button != 'undefined') {
+                    button.disabled = true;
+                }
+            }
+        }.bind(productAddToCartForm);
+
+        productAddToCartForm.submitLight = function(button, url){
+            if(this.validator) {
+                var nv = Validation.methods;
+                delete Validation.methods['required-entry'];
+                delete Validation.methods['validate-one-required'];
+                delete Validation.methods['validate-one-required-by-name'];
+                // Remove custom datetime validators
+                for (var methodName in Validation.methods) {
+                    if (methodName.match(/^validate-datetime-.*/i)) {
+                        delete Validation.methods[methodName];
+                    }
+                }
+
+                if (this.validator.validate()) {
+                    if (url) {
+                        this.form.action = url;
+                    }
+                    this.form.submit();
+                }
+                Object.extend(Validation.methods, nv);
+            }
+        }.bind(productAddToCartForm);
+    //]]>
+    </script>
+    </div>
+
+    <div class="product-collateral">
+
+        <div class="product-info <?php echo $rowClass ?>">
+            <?php $related_html = $this->getChildHtml('catalog.product.related'); ?>
+            <?php if ($related_html) : ?>
+            <div class="<?php echo $spanClass ?>9 product-tabs">
+                <div class="box-additional box-tabs">
+                    <?php 
+                    $info_tabs_html = trim($this->getChildHtml('info_tabs'));
+                    if ($info_tabs_html) 
+                        echo $info_tabs_html; 
+                    ?>
+                </div>
+            </div>
+            <div class="<?php echo $spanClass ?>3 product-related">
+                <?php echo $related_html ?>
+            </div>
+            <?php else : ?>
+            <div class="<?php echo $spanClass ?>12 product-tabs">
+                <div class="box-additional box-tabs">
+                    <?php 
+                    $info_tabs_html = trim($this->getChildHtml('info_tabs'));
+                    if ($info_tabs_html) 
+                        echo $info_tabs_html; 
+                    ?>
+                </div>
+            </div>
+            <?php endif; ?>
+            <script type="text/javascript">
+            //<![CDATA[
+            jQuery(function($){
+                var venedor_product_timer;
+                
+                function venedor_product_resize() {
+                    if (VENEDOR_RESPONSIVE) {
+                        var winWidth = $(window).innerWidth();
+
+                        <?php if ($related_html) : ?>
+                        if (winWidth > 750 && ((!$('body').hasClass('bv3') && winWidth < 963) || ($('body').hasClass('bv3') && winWidth < 975))) {
+                            $('.product-related').removeClass('<?php echo $spanClass ?>3');
+                            $('.product-related').addClass('<?php echo $spanClass ?>12');
+                            $('.product-tabs').removeClass('<?php echo $spanClass ?>9');
+                            $('.product-tabs').addClass('<?php echo $spanClass ?>12');
+                        } else {
+                            $('.product-related').removeClass('<?php echo $spanClass ?>12');
+                            $('.product-related').addClass('<?php echo $spanClass ?>3');
+                            $('.product-tabs').removeClass('<?php echo $spanClass ?>12');
+                            $('.product-tabs').addClass('<?php echo $spanClass ?>9');
+                        }
+                        <?php endif; ?>
+                    }
+                    if (venedor_product_timer) clearTimeout(venedor_product_timer);
+                }
+                
+                <?php // open review tab ?>
+                $("#goto-reviews, #goto-reviews-form").click(function() {
+                    $("#product-tabs #tab-tabreviews").click();
+                });
+                
+                $(window).load(venedor_product_resize);
+
+                $(window).resize(function() {
+                    clearTimeout(venedor_product_timer); 
+                    venedor_product_timer = setTimeout(venedor_product_resize, 200); 
+                });
+            });
+            //]]>
+            </script>
+        </div>    
+        <?php echo $this->getChildHtml('upsell_products') ?>
+
+        <?php echo $this->getChildHtml('product_additional_data') ?>
+
+    </div>
+</div>
+

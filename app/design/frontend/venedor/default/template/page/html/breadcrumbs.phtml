@@ -1,0 +1,28 @@
+<?php
+$venedor = $this->helper('venedor');
+$containerClass = $venedor->getContainerClass();
+$b = $venedor->getConfigGroup();
+$c = $venedor->getConfigGroupDesign();
+?>
+<?php if($crumbs && is_array($crumbs)): ?>
+<div class="breadcrumbs">
+    <div class="<?php echo $containerClass ?>">
+        <ul>
+            <?php foreach($crumbs as $_crumbName=>$_crumbInfo): ?>
+                <li class="<?php echo $_crumbName ?>">
+                <?php if($_crumbInfo['link']): ?>
+                    <a href="<?php echo $_crumbInfo['link'] ?>" title="<?php echo $this->__($this->htmlEscape($_crumbInfo['title'])) ?>"><?php echo $this->__($this->htmlEscape($_crumbInfo['label'])) ?></a>
+                <?php elseif($_crumbInfo['last']): ?>
+                    <strong><?php echo $this->__($this->htmlEscape($_crumbInfo['label'])) ?></strong>
+                <?php else: ?>
+                    <?php echo $this->__($this->htmlEscape($_crumbInfo['label'])) ?>
+                <?php endif; ?>
+                <?php if(!$_crumbInfo['last']): ?>
+                    <span><?php echo $c['breadcrumbs']['separator'] ?> </span>
+                <?php endif; ?>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+</div>
+<?php endif; ?>

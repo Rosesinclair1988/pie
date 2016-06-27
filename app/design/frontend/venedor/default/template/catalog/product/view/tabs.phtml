@@ -1,0 +1,90 @@
+<?php
+/**
+ * Product view template
+ *
+ * @see Mage_Catalog_Block_Product_View
+ */
+?>
+
+<?php $_content = ''; ?>
+<?php foreach ($this->getTabs() as $_index => $_tab): ?>
+    <?php
+        if ($tmpBlock = $this->getChildHtml($_tab['alias'])) {
+            $_content .= '<dt class="tab-title" id="tab-'. $_tab['alias'] .'">'. $this->__($_tab['title']) .'</dt>';
+            $_content .= '<dd class="tab-section">'. $tmpBlock .'</dd>';
+        }
+    ?>
+<?php endforeach; ?>
+
+<?php if ($_content != ''): ?>
+    <dl id="product-tabs" class="product-tabs-inner">
+        <?php echo $_content ?>
+    </dl>
+    <script type="text/javascript">
+    //<![CDATA[
+    var crosssell_slider;
+        
+    jQuery(function($) {
+        var venedor_ptabs_timer;
+        var ptabs_width = 0;
+        $('#product-tabs > dt').click(function() {
+            old_tab = $('#product-tabs > dt.open').attr('id');
+            f = false;
+            if ($(this).hasClass('open'))
+                f = true;
+            w = $(window).width();
+            if (f && w == ptabs_width)
+                return;
+            ptabs_width = w;
+            $parent = $(this).parent();
+            $parent.find('> dt').removeClass('open');
+            $parent.find('> dd').stop().hide();
+            $(this).next().stop().show();
+            
+            $self = $(this);
+            $self.addClass('open');
+            $cur = $self.next();
+            $parent.stop().css('height', 'auto');
+            $cur.css('bottom', 'auto');
+            h = $parent.outerHeight();
+            c = $cur.outerHeight() + 3;
+            if (c > h) {
+                $parent.css({'height': c + 'px'});
+                $parent.find('> dt').last().css('border-bottom-width', '1px');
+            } else {
+                $cur.css('bottom', '0');
+                $parent.find('> dt').last().css('border-bottom-width', '0');
+            }
+            
+            if ( old_tab != 'tab-crosssell' && $(this).attr('id') == 'tab-crosssell') {
+                var slider = $('#crosssell-products-list').data('flexslider');
+                if (slider) {
+                    slider.resize();
+                    setTimeout(function() {
+                        ptabs_width = 0;
+                        venedor_ptabs_resize();
+                    }, 800);
+                }
+            }
+        });
+        
+        function venedor_ptabs_resize() {
+            $('#product-tabs > dt.open').click();
+            if (venedor_ptabs_timer) clearTimeout(venedor_ptabs_timer);
+        }
+        
+        $(window).resize(function() {
+            clearTimeout(venedor_ptabs_timer);
+            venedor_ptabs_timer = setTimeout(venedor_ptabs_resize, 200); 
+        });
+        
+        setTimeout(function() {
+            if ($('#product-tabs > dt.active').length)
+                $('#product-tabs > dt.active').first().click();
+            else
+                $('#product-tabs > dt').first().click();
+        }, 800);
+    });
+    //]]>    
+    </script>
+<?php endif; ?>

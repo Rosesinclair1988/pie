@@ -1,0 +1,143 @@
+<?php
+/**
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php 
+$venedor = $this->helper('venedor');
+$_items = $this->getItemCollection()->getItems(); 
+$b = $venedor->getConfigGroup();
+//Default image size
+$imgWidth = 228;
+$imgHeight = 228;
+
+//Aspect Ratio
+if ($b['product']['aspect_ratio'])
+    $imgHeight = $imgWidth * $b['product']['image_ratio'];
+?>
+<?php if($_items && count($_items) > 0): ?>
+<div class="box-collateral box-up-sell">
+    <h2 class="subtitle"><span class="inline-title"><?php echo $this->__('Up Sells') ?></span><?php if (count($_items) > 2) echo '<div class="line"></div>'; ?></h2>
+    <p class="desc"><?php echo $this->__('You may also be interested in the following product(s).') ?></p>
+    <div id="upsell-products-list" class="upsell-products products-grid flexslider large-icons"><ul class="slides">
+    <?php $this->resetItemsIterator() ?>
+    <?php for($_i=0;$_i<$this->getRowCount();$_i++): ?>
+        <?php for($_j=0;$_j<$this->getColumnCount();$_j++): ?>
+            <?php if($_link=$this->getIterableItem()): ?>
+            <li class="item<?php if (!$b['category']['grid_effect']) echo ' hover-disable' ?><?php if (!$b['category']['grid_addliks_inline']) echo ' addlinks-block' ?>"><div class="item-inner">
+                <div class="product-image">
+                    <?php 
+                    if ($b['category']['hover_image'])
+                        $hoverImgHtml = $venedor->getHoverImageHtml($_link, $imgWidth, $imgHeight); 
+                    ?>
+                    <a href="<?php echo $_link->getProductUrl() ?>" title="<?php echo $this->htmlEscape($this->getImageLabel($_link, 'small_image')) ?>">
+                        <img<?php if ($hoverImgHtml) echo ' class="primary-image"'; ?> src="<?php echo $venedor->getImage($_link, $imgWidth, $imgHeight, 'small_image'); ?>" alt="<?php echo $this->htmlEscape($_link->getName()) ?>" />
+                        <?php echo $hoverImgHtml; ?>
+                        <?php 
+                        $labels_tl = ''; $labels_tr = ''; $labels_bl = ''; $labels_br = '';
+                        if ($b['product']['new_label']) {
+                            // New Product 
+                            $newsFromDate = $_link->getNewsFromDate();
+                            $newsToDate = $_link->getNewsToDate();
+                            $new_html = '';
+                            if ($newsFromDate && $newsToDate && Mage::app()->getLocale()->IsStoreDateInInterval(Mage::app()->getStore(), $newsFromDate, $newsToDate))
+                                $new_html = '<div class="new ' . $b['product']['new_label_type'] . '">'. $this->__('New') .'</div>';
+                            switch ($b['product']['new_label_pos']) {
+                                case 'top-right': $labels_tr .= $new_html; break;
+                                case 'bottom-left': $labels_bl .= $new_html; break;
+                                case 'bottom-right': $labels_br .= $new_html; break;
+                                default: $labels_tl .= $new_html; break;
+                            }
+                        }
+                        if ($b['product']['sale_label']) {
+                            // Special Product
+                            $specialPriceFromDate = $_link->getSpecialFromDate();
+                            $specialPriceToDate = $_link->getSpecialToDate();
+                            $sales_html = '';
+                            if ($specialPriceFromDate && $specialPriceToDate && Mage::app()->getLocale()->isStoreDateInInterval(Mage::app()->getStore(), $specialPriceFromDate, $specialPriceToDate)) {
+                                $_finalPrice = $this->helper('tax')->getPrice($_link, $_link->getFinalPrice());
+                                $_regularPrice = $this->helper('tax')->getPrice($_link, $_link->getPrice());
+                                if ($_regularPrice != $_finalPrice) {
+                                    $getpercentage = number_format($_finalPrice / $_regularPrice * 100, 2);
+                                    $finalpercentage = 100 - $getpercentage;
+                                    $sales_html = '<div class="sales ' . $b['product']['sale_label_type'] . '">' . - number_format($finalpercentage, 0) . '%</div>';
+                                }
+                            }
+                            switch ($b['product']['sale_label_pos']) {
+                                case 'top-right': $labels_tr .= $sales_html; break;
+                                case 'bottom-left': $labels_bl .= $sales_html; break;
+                                case 'bottom-right': $labels_br .= $sales_html; break;
+                                default: $labels_tl .= $sales_html; break;
+                            }
+                        }
+                        if ($labels_tl) echo '<div class="labels top-left">' . $labels_tl . '</div>';
+                        if ($labels_tr) echo '<div class="labels top-right">' . $labels_tr . '</div>';
+                        if ($labels_bl) echo '<div class="labels bottom-left">' . $labels_bl . '</div>';
+                        if ($labels_br) echo '<div class="labels bottom-right">' . $labels_br . '</div>';
+                        ?>
+                    </a>
+                    <?php if ($b['product']['price_on_image']) : ?>
+                        <?php echo $this->getPriceHtml($_link, true, '-upsell') ?>
+                    <?php endif; ?>
+                </div>
+                <?php // Product description ?>
+                <div class="product-shop">
+                    <?php if (!$b['product']['price_on_image']) : ?>
+                    <div class="price-review">
+                        <?php echo $this->getPriceHtml($_link, true, '-upsell') ?>
+                    <?php endif; ?>
+                    
+                    <div class="reviews-wrap">
+                        <?php echo $this->getReviewsSummaryHtml($_link, 'short') ?>
+                    </div>
+                    <h3 class="product-name"><a href="<?php echo $_link->getProductUrl() ?>" title="<?php echo $this->htmlEscape($_link->getName()) ?>"><?php echo $this->htmlEscape($_link->getName()) ?></a></h3>
+                    <div class="actions clearfix">
+                        <?php if($_link->isSaleable()): ?>
+                            <button type="button" title="<?php echo $this->__('Add to Cart') ?>" class="button btn-cart" onclick="setLocation('<?php echo $this->getAddToCartUrl($_link) ?>')"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button>
+                        <?php else: ?>
+                            <span class="availability out-of-stock"><span><?php echo $this->__('Out of Stock') ?></span></span>
+                        <?php endif; ?>
+                        <?php if (($b['product']['addlinks_wishlist'] && $this->helper('wishlist')->isAllow()) || ($b['product']['addlinks_compare'] && $this->getAddToCompareUrl($_link))) : ?>
+                        <span class="add-to-links">
+                            <?php if ($b['product']['addlinks_wishlist'] && $this->helper('wishlist')->isAllow()) : ?>
+                                <a href="<?php echo $this->helper('wishlist')->getAddUrl($_link) ?>" class="button link-wishlist" title="<?php echo $this->__('Add to Wishlist') ?>"><?php echo $this->__('Add to Wishlist') ?></a>
+                            <?php endif; ?>
+                            <?php if($b['product']['addlinks_compare'] && $_compareUrl=$this->getAddToCompareUrl($_link)): ?>
+                                <a href="<?php echo $_compareUrl ?>" class="button link-compare" title="<?php echo $this->__('Add to Compare') ?>"><?php echo $this->__('Add to Compare') ?></a>
+                            <?php endif; ?>
+                        </span>
+                        <?php endif; ?>
+                    </div>
+                    
+                    <?php if (!$b['product']['price_on_image']) : ?></div><?php endif; ?>
+                </div>
+            </div></li>
+            <?php endif; ?>
+        <?php endfor; ?>
+    <?php endfor; ?>
+    </ul></div>
+    <script type="text/javascript">decorateList('upsell-products-list', 'none-recursive')</script>
+    <script type="text/javascript">
+    //<![CDATA[
+    jQuery(function($) {
+        var bp = 963;
+        if ($('body').hasClass('bv3'))
+            bp = 975;
+        $('#upsell-products-list').flexslider({
+            controlNav: false,
+            animation: 'slide',
+            animationLoop: false,
+            minItems: 4,
+            maxItems: 4,
+            itemWidth: 228
+        })
+        .data("break_default", [4, 228])
+        .data("break_points", [ [bp, 3, 190], [750, 2, 190], [530, 1, 228] ] );
+    });
+    //]]>
+    </script>
+</div>
+<?php endif; ?>

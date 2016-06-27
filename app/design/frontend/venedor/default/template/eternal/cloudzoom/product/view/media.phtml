@@ -1,0 +1,307 @@
+<?php
+/**
+ * Product media data template
+ *
+ * @see Mage_Catalog_Block_Product_View_Media
+ */
+?>
+<?php
+$venedor = $this->helper('venedor');
+$b = $venedor->getConfigGroup();
+$_product = $this->getProduct();
+$_helper = $this->helper('catalog/output');
+$cloudZoom = $this->helper('eternal_cloudzoom');
+
+//Get image sizes.
+$imgWidth       = 560;
+$imgHeight      = 560;
+
+$bigImageWidth  = intval($cloudZoom->getConfig('general/big_image_width'));
+$bigImageHeight = intval($cloudZoom->getConfig('general/big_image_height'));
+
+if ($bigImageWidth <= 0)
+{
+    $bigImageWidth = 800;
+    $bigImageHeight= 800;
+}
+
+//Thumbnail images size
+$thumbImgWidth = 122;
+$thumbImgHeight = 122;
+$thumbTotalPadd = 14;
+$thumbTotalWidth = $thumbImgWidth + $thumbTotalPadd;
+
+$lightboxGroup = '';
+if ($cloudZoom->useLightbox()) {
+    $lightboxGroup = ' data-lightbox="lightboxgroup-'.$_product->getId().'"';
+}
+
+// Aspect Ratio
+if ($b['product']['aspect_ratio']) {
+    $imgHeight = $imgWidth * $b['product']['image_ratio'];
+    $bigImageHeight= $bigImageWidth * $b['product']['image_ratio'];
+    $thumbImgHeight = $thumbImgWidth * $b['product']['image_ratio'];
+}
+
+$imageCount = count($this->getGalleryImages());
+foreach ($this->getGalleryImages() as $_image)
+    if ($_image->getFile() == NULL)
+        $imageCount--;
+?>
+
+<div class="clearfix">
+
+<?php //Thumbnails ?>
+        
+    <?php if ($imageCount > 0): ?>
+    <div class="more-images">
+        <ul id="moreimages-slider-<?php echo $_product->getId() ?>"<?php if ($imageCount > 4) echo ' class="elastislide-list"'; else echo 'class="normal-list"'; ?>>
+        <?php if ($cloudZoom->isCloudZoomEnabled()): ?>
+        
+            <?php foreach ($this->getGalleryImages() as $_image): ?>
+                <?php
+                    if ($_image->getFile() == NULL)
+                        continue; ?>
+                <li>
+                
+                    <a href="<?php echo $venedor->getImage($_product, $bigImageWidth, $bigImageHeight, 'image', $_image->getFile()); ?>"
+                    <?php echo $lightboxGroup ?> 
+                    class="cloud-zoom-gallery" 
+                    title="<?php echo $this->htmlEscape($_image->getLabel()); ?>" 
+                    rel="useZoom:'product-zoom-<?php echo $_product->getId() ?>', smallImage: '<?php echo $venedor->getImage($_product, $imgWidth, $imgHeight, 'image', $_image->getFile()); ?>'"
+                    >
+                        <img src="<?php echo $venedor->getImage($_product, $thumbImgWidth, $thumbImgHeight, 'thumbnail', $_image->getFile()); ?>" alt="<?php echo $this->htmlEscape($_image->getLabel()); ?>"/>
+                    </a>
+                    
+                </li>
+            <?php endforeach; ?>
+        
+        <?php else: // show thumbnails in Magento default style ?>
+        
+            <?php foreach ($this->getGalleryImages() as $_image): ?>
+                <?php
+                if ($_image->getFile() == NULL)
+                    continue; 
+                ?>
+                <li>
+                
+                    <a href="<?php echo $venedor->getImage($_product, $bigImageWidth, $bigImageHeight, 'image', $_image->getFile()); ?>" 
+                    <?php echo $lightboxGroup ?>                    
+                    <?php if (!$cloudZoom->useLightbox()) : ?> onclick="popWin('<?php echo $this->getGalleryUrl($_image) ?>', 'gallery', 'width=300,height=300,left=0,top=0,location=no,status=yes,scrollbars=yes,resizable=yes'); return false;"<?php endif; ?> 
+                    title="<?php echo $this->htmlEscape($_image->getLabel()) ?>"
+                    >
+                        <img src="<?php echo $venedor->getImage($_product, $thumbImgWidth, $thumbImgHeight, 'thumbnail', $_image->getFile()); ?>" alt="<?php echo $this->htmlEscape($_image->getLabel()) ?>"/>
+                    </a>
+                    
+                </li>
+            <?php endforeach; ?>
+        
+        <?php endif; ?>
+        </ul>
+    </div> <!-- end: more-images -->
+    <?php endif; ?>
+
+<?php // End Thumbnails ?>
+
+<?php //Main image ?>
+    
+<?php 
+    if ($_product->getImage() != 'no_selection' && $_product->getImage()): 
+        
+        if($cloudZoom->isCloudZoomEnabled()): //If module enabled ?>
+    
+        <div class="product-image">
+            
+            <a href="<?php echo $venedor->getImage($_product, $bigImageWidth, $bigImageHeight, 'image'); ?>" class="cloud-zoom" id="product-zoom-<?php echo $_product->getId() ?>" rel="<?php echo $cloudZoom->getCloudZoomOptions(); ?>">
+                <img src="<?php echo $venedor->getImage($_product, $imgWidth, $imgHeight, 'image'); ?>" alt="<?php echo $this->htmlEscape($this->getImageLabel());?>" title="<?php echo $this->htmlEscape($this->getImageLabel());?>" />
+            </a>
+            
+            <?php 
+            $labels_tl = ''; $labels_tr = ''; $labels_bl = ''; $labels_br = '';
+            if ($b['product']['new_label']) {
+                // New Product 
+                $newsFromDate = $_product->getNewsFromDate();
+                $newsToDate = $_product->getNewsToDate();
+                $new_html = '';
+                if ($newsFromDate && $newsToDate && Mage::app()->getLocale()->IsStoreDateInInterval(Mage::app()->getStore(), $newsFromDate, $newsToDate))
+                    $new_html = '<div class="new ' . $b['product']['new_label_type'] . '">'. $this->__('New') .'</div>';
+                switch ($b['product']['new_label_pos']) {
+                    case 'top-right': $labels_tr .= $new_html; break;
+                    case 'bottom-left': $labels_bl .= $new_html; break;
+                    case 'bottom-right': $labels_br .= $new_html; break;
+                    default: $labels_tl .= $new_html; break;
+                }
+            }
+            if ($b['product']['sale_label']) {
+                // Special Product
+                $specialPriceFromDate = $_product->getSpecialFromDate();
+                $specialPriceToDate = $_product->getSpecialToDate();
+                $sales_html = '';
+                if ($specialPriceFromDate && $specialPriceToDate && Mage::app()->getLocale()->isStoreDateInInterval(Mage::app()->getStore(), $specialPriceFromDate, $specialPriceToDate)) {
+                    $_finalPrice = $this->helper('tax')->getPrice($_product, $_product->getFinalPrice());
+                    $_regularPrice = $this->helper('tax')->getPrice($_product, $_product->getPrice());
+                    if ($_regularPrice != $_finalPrice) {
+                        $getpercentage = number_format($_finalPrice / $_regularPrice * 100, 2);
+                        $finalpercentage = 100 - $getpercentage;
+                        $sales_html = '<div class="sales ' . $b['product']['sale_label_type'] . '">' . - number_format($finalpercentage, 0) . '%</div>';
+                    }
+                }
+                switch ($b['product']['sale_label_pos']) {
+                    case 'top-right': $labels_tr .= $sales_html; break;
+                    case 'bottom-left': $labels_bl .= $sales_html; break;
+                    case 'bottom-right': $labels_br .= $sales_html; break;
+                    default: $labels_tl .= $sales_html; break;
+                }
+            }
+            if ($labels_tl) echo '<div class="labels top-left">' . $labels_tl . '</div>';
+            if ($labels_tr) echo '<div class="labels top-right">' . $labels_tr . '</div>';
+            if ($labels_bl) echo '<div class="labels bottom-left">' . $labels_bl . '</div>';
+            if ($labels_br) echo '<div class="labels bottom-right">' . $labels_br . '</div>';
+            ?>
+            
+            <?php // show price ?>
+            <?php if ($b['product']['price_on_image']) : ?><?php echo $this->getPriceHtml($_product, true) ?><?php endif; ?>
+        </div>
+    
+    <?php else: //Module disabled. Show images in Magento default style ?>
+    
+        <div class="product-image no-gallery">
+            <img src="<?php echo $venedor->getImage($_product, $imgWidth, $imgHeight, 'image'); ?>" alt="<?php echo $this->htmlEscape($this->getImageLabel());?>" title="<?php echo $this->htmlEscape($this->getImageLabel());?>" />
+            
+            <?php 
+            $labels_tl = ''; $labels_tr = ''; $labels_bl = ''; $labels_br = '';
+            if ($b['product']['new_label']) {
+                // New Product 
+                $newsFromDate = $_product->getNewsFromDate();
+                $newsToDate = $_product->getNewsToDate();
+                $new_html = '';
+                if ($newsFromDate && $newsToDate && Mage::app()->getLocale()->IsStoreDateInInterval(Mage::app()->getStore(), $newsFromDate, $newsToDate))
+                    $new_html = '<div class="new ' . $b['product']['new_label_type'] . '">'. $this->__('New') .'</div>';
+                switch ($b['product']['new_label_pos']) {
+                    case 'top-right': $labels_tr .= $new_html; break;
+                    case 'bottom-left': $labels_bl .= $new_html; break;
+                    case 'bottom-right': $labels_br .= $new_html; break;
+                    default: $labels_tl .= $new_html; break;
+                }
+            }
+            if ($b['product']['sale_label']) {
+                // Special Product
+                $specialPriceFromDate = $_product->getSpecialFromDate();
+                $specialPriceToDate = $_product->getSpecialToDate();
+                $sales_html = '';
+                if ($specialPriceFromDate && $specialPriceToDate && Mage::app()->getLocale()->isStoreDateInInterval(Mage::app()->getStore(), $specialPriceFromDate, $specialPriceToDate)) {
+                    $_finalPrice = $this->helper('tax')->getPrice($_product, $_product->getFinalPrice());
+                    $_regularPrice = $this->helper('tax')->getPrice($_product, $_product->getPrice());
+                    if ($_regularPrice != $_finalPrice) {
+                        $getpercentage = number_format($_finalPrice / $_regularPrice * 100, 2);
+                        $finalpercentage = 100 - $getpercentage;
+                        $sales_html = '<div class="sales ' . $b['product']['sale_label_type'] . '">' . - number_format($finalpercentage, 0) . '%</div>';
+                    }
+                }
+                switch ($b['product']['sale_label_pos']) {
+                    case 'top-right': $labels_tr .= $sales_html; break;
+                    case 'bottom-left': $labels_bl .= $sales_html; break;
+                    case 'bottom-right': $labels_br .= $sales_html; break;
+                    default: $labels_tl .= $sales_html; break;
+                }
+            }
+            if ($labels_tl) echo '<div class="labels top-left">' . $labels_tl . '</div>';
+            if ($labels_tr) echo '<div class="labels top-right">' . $labels_tr . '</div>';
+            if ($labels_bl) echo '<div class="labels bottom-left">' . $labels_bl . '</div>';
+            if ($labels_br) echo '<div class="labels bottom-right">' . $labels_br . '</div>';
+            ?>
+            
+            <?php // show price ?>
+            <?php if ($b['product']['price_on_image']) : ?><?php echo $this->getPriceHtml($_product, true) ?><?php endif; ?>
+        </div>
+    
+    <?php endif; ?>
+    
+<?php else: //No image ?>
+
+    <div class="product-image">
+        <?php
+            $_img = '<img src="'.$venedor->getImage($_product, $imgWidth, $imgHeight, 'image').'" alt="'.$this->htmlEscape($this->getImageLabel()).'" title="'.$this->htmlEscape($this->getImageLabel()).'" />';
+            echo $_helper->productAttribute($_product, $_img, 'image');
+        ?>
+        
+        <?php 
+        $labels_tl = ''; $labels_tr = ''; $labels_bl = ''; $labels_br = '';
+        if ($b['product']['new_label']) {
+            // New Product 
+            $newsFromDate = $_product->getNewsFromDate();
+            $newsToDate = $_product->getNewsToDate();
+            $new_html = '';
+            if ($newsFromDate && $newsToDate && Mage::app()->getLocale()->IsStoreDateInInterval(Mage::app()->getStore(), $newsFromDate, $newsToDate))
+                $new_html = '<div class="new ' . $b['product']['new_label_type'] . '">'. $this->__('New') .'</div>';
+            switch ($b['product']['new_label_pos']) {
+                case 'top-right': $labels_tr .= $new_html; break;
+                case 'bottom-left': $labels_bl .= $new_html; break;
+                case 'bottom-right': $labels_br .= $new_html; break;
+                default: $labels_tl .= $new_html; break;
+            }
+        }
+        if ($b['product']['sale_label']) {
+            // Special Product
+            $specialPriceFromDate = $_product->getSpecialFromDate();
+            $specialPriceToDate = $_product->getSpecialToDate();
+            $sales_html = '';
+            if ($specialPriceFromDate && $specialPriceToDate && Mage::app()->getLocale()->isStoreDateInInterval(Mage::app()->getStore(), $specialPriceFromDate, $specialPriceToDate)) {
+                $_finalPrice = $this->helper('tax')->getPrice($_product, $_product->getFinalPrice());
+                $_regularPrice = $this->helper('tax')->getPrice($_product, $_product->getPrice());
+                if ($_regularPrice != $_finalPrice) {
+                    $getpercentage = number_format($_finalPrice / $_regularPrice * 100, 2);
+                    $finalpercentage = 100 - $getpercentage;
+                    $sales_html = '<div class="sales ' . $b['product']['sale_label_type'] . '">' . - number_format($finalpercentage, 0) . '%</div>';
+                }
+            }
+            switch ($b['product']['sale_label_pos']) {
+                case 'top-right': $labels_tr .= $sales_html; break;
+                case 'bottom-left': $labels_bl .= $sales_html; break;
+                case 'bottom-right': $labels_br .= $sales_html; break;
+                default: $labels_tl .= $sales_html; break;
+            }
+        }
+        if ($labels_tl) echo '<div class="labels top-left">' . $labels_tl . '</div>';
+        if ($labels_tr) echo '<div class="labels top-right">' . $labels_tr . '</div>';
+        if ($labels_bl) echo '<div class="labels bottom-left">' . $labels_bl . '</div>';
+        if ($labels_br) echo '<div class="labels bottom-right">' . $labels_br . '</div>';
+        ?>
+        
+        <?php // show price ?>
+        <?php if ($b['product']['price_on_image']) : ?><?php echo $this->getPriceHtml($_product, true) ?><?php endif; ?>
+    </div>
+
+<?php endif; ?>
+<?php // End Main image ?>
+
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+jQuery(function($) {
+    var image_es;
+    var zoom_timer;
+        
+    function resize_cloudzoom() {
+        jQuery('.product-image .cloud-zoom').CloudZoom();
+        <?php if ($imageCount > 4) : ?>
+        if (image_es) 
+            image_es.destroy();
+        image_es = $('#moreimages-slider-<?php echo $_product->getId() ?>').elastislide({
+            orientation : 'vertical',
+            minItems: 4
+        });
+        <?php endif; ?>
+        if (zoom_timer) clearTimeout(zoom_timer);
+    }
+    $(window).load(resize_cloudzoom);
+    $(window).resize(function() {
+        clearTimeout(zoom_timer);
+        zoom_timer = setTimeout(resize_cloudzoom, 200); 
+    });
+});
+//]]>
+</script>
+
+<?php echo $this->getChildHtml('after'); ?>

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Catalogueur_Export>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Catalogueur_Export>
+    </modules>
+   <modules>
+        <Catalogueur_Updatemeta>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Catalogueur_Updatemeta>
+    </modules>
+    <modules>
+        <Catalogueur_Updateproduct>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Catalogueur_Updateproduct>
+    </modules>
+</config>

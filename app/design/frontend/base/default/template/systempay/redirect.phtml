@@ -1,0 +1,49 @@
+<?php
+#####################################################################################################
+#
+#					Module pour la plateforme de paiement Systempay
+#						Version : 1.2 (révision 46959)
+#									########################
+#					Développé pour Magento
+#						Version : 1.5.1.0
+#						Compatibilité plateforme : V2
+#									########################
+#					Développé par Lyra Network
+#						http://www.lyra-network.com/
+#						13/05/2013
+#						Contact : supportvad@lyra-network.com
+#
+#####################################################################################################
+?>
+
+<form name="systempay"  id="systempay_payment_form" method="POST" action="<?php echo $this->getFormAction();?>"  method="POST">
+	<?php foreach ($this->getFormFields() as $key=>$value) :?>
+		<input type="hidden" name="<?php echo $key;?>" value="<?php echo $value;?>">
+	<?php endforeach;?>
+	
+	<?php 
+	// Get payment action mode from module configuration
+	$cardInfoMode = $this->getConfigData('card_info_mode') ? $this->getConfigData('card_info_mode') : 1;
+	
+	if($cardInfoMode == 1 /* all actions on platform */ || $cardInfoMode == 2 /* local card selection */) : ?>
+		<p><strong><?php echo Mage::helper('systempay')->__('Please wait a moment. This page will transfer your data to Systempay payment gateway in a few seconds.'); ?></strong></p>
+	<?php else :?>
+		<p><strong><?php echo Mage::helper('systempay')->__('Please wait a moment. Your order payment is now processing.'); ?></strong></p>
+	<?php endif;?>
+	
+	<p><?php echo Mage::helper('systempay')->__('If nothing happens in 10 seconds, click the button below.');?></p>
+	<div class="buttons-set">
+		<button class="button" title="OK" type="submit">
+	    	<span><?php echo Mage::helper('systempay')->__('Send');?></span>
+	    </button>
+	</div>
+</form>
+
+<script type="text/javascript">
+//<![CDATA[
+    var review = new VarienForm('systempay_payment_form', '');
+    Event.observe(window, 'load', function() {
+       review.submit();
+    });
+//]]>
+</script>

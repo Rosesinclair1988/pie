@@ -1,0 +1,100 @@
+<?php
+/**
+ * Product list toolbar
+ *
+ * @see Mage_Catalog_Block_Product_List_Toolbar
+ */
+$_helper = $this->helper('catalog/product_compare');
+?>
+<?php if($this->getCollection()->getSize()): ?>
+<div class="toolbar clearfix">
+    <?php if( $this->isExpanded() ): ?>
+    <div class="sorter">
+        <div class="actions">
+            <?php if ($_helper->getItemCount() > 0) : ?>
+                <button type="button" title="<?php echo $this->__('Compare') ?>" class="button button-dark" onclick="setLocation('<?php echo $_helper->getListUrl() ?>','compare','top:0,left:0,width=820,height=600,resizable=yes,scrollbars=yes')"><span><span><?php echo $this->__('Compare') ?></span></span></button>
+            <?php endif; ?>
+        </div>
+        <div class="sort-by clearfix">
+            <label class="left"><?php echo $this->__('Sort By: ') ?></label>
+            <div class="dropdown left dropdown-select">
+                <a href="#" class="dropdown-toggle button" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="false" title="<?php echo $this->__('Sort By') ?>">
+                    <?php foreach($this->getAvailableOrders() as $_key=>$_order): ?>
+                        <?php if ($this->isOrderCurrent($_key)): ?>
+                            <?php echo $this->__($_order) ?>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                    <span class="arrow"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <?php foreach($this->getAvailableOrders() as $_key=>$_order): ?>
+                        <?php if (!$this->isOrderCurrent($_key)): ?>
+                            <li><a tabindex="-1" href="<?php echo $this->getOrderUrl($_key, 'asc') ?>"><?php echo $this->__($_order) ?></a></li>
+                        <?php endif; ?>
+                    <?php endforeach; ?>            
+                </ul>
+            </div>
+            
+            <?php if($this->getCurrentDirection() == 'desc'): ?>
+                <a class="button-arrow button-desc left" href="<?php echo $this->getOrderUrl(null, 'asc') ?>" title="<?php echo $this->__('Set Ascending Direction') ?>"></a>
+            <?php else: ?>
+                <a class="button-arrow button-asc left" href="<?php echo $this->getOrderUrl(null, 'desc') ?>" title="<?php echo $this->__('Set Descending Direction') ?>"></a>
+            <?php endif; ?>
+        </div>
+        
+        <?php if( $this->isEnabledViewSwitcher() ): ?>
+        <div class="view-mode">
+            <?php $_modes = $this->getModes(); $i = 0; $count = count($_modes); ?>
+            <?php if($_modes && $count>1): ?>
+            <?php foreach ($this->getModes() as $_code=>$_label): ?><?php if($this->isModeActive($_code)): ?><span title="<?php echo $_label ?>" class="button button-active button-<?php echo strtolower($_code); if ($i == 0) echo ' first'; if ($i == $count-1) echo ' last'; $i++; ?>"></span><?php else: ?><a href="<?php echo $this->getModeUrl($_code) ?>" title="<?php echo $_label ?>" class="button button-<?php echo strtolower($_code); if ($i == 0) echo ' first'; if ($i == $count-1) echo ' last'; $i++; ?>"></a><?php endif; ?><?php endforeach; ?>
+            <?php endif; ?>
+        </div>
+        <?php endif; ?>
+    </div>
+    <?php else: ?>
+    <div class="sorter">    
+        <div class="actions">
+            <?php if ($_helper->getItemCount() > 0) : ?>
+                <button type="button" title="<?php echo $this->__('Compare') ?>" class="button button-dark" onclick="setLocation('<?php echo $_helper->getListUrl() ?>','compare','top:0,left:0,width=820,height=600,resizable=yes,scrollbars=yes')"><span><span><?php echo $this->__('Compare') ?></span></span></button>
+            <?php endif; ?>
+        </div>
+    </div>
+    <?php endif; ?>
+    
+    <div class="pager">
+        <?php /*<p class="amount">
+            <?php if($this->getLastPageNum()>1): ?>
+                <?php echo $this->__('Items %s to %s of %s total', $this->getFirstNum(), $this->getLastNum(), $this->getTotalNum()) ?>
+            <?php else: ?>
+                <strong><?php echo $this->__('%s Item(s)', $this->getTotalNum()) ?></strong>
+            <?php endif; ?>
+        </p>*/ ?>
+        
+        <?php echo $this->getPagerHtml() ?>
+
+        <div class="limiter">
+            <label><?php echo $this->__('View: ') ?></label>
+            <div class="dropdown left dropdown-select">
+                <a href="#" class="dropdown-toggle button" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="false" title="<?php echo $this->__('Sort By') ?>">
+                    <?php foreach ($this->getAvailableLimit() as  $_key=>$_limit): ?>
+                        <?php if($this->isLimitCurrent($_key)): ?>
+                            <?php echo $_limit ?>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                    <span class="arrow"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <?php foreach ($this->getAvailableLimit() as  $_key=>$_limit): ?>
+                        <?php if(!$this->isLimitCurrent($_key)): ?>
+                            <li><a tabindex="-1" href="<?php echo $this->getLimitUrl($_key) ?>"><?php echo $_limit ?></a></li>
+                        <?php endif; ?>
+                    <?php endforeach; ?>            
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+    
+</div>
+<?php endif ?>

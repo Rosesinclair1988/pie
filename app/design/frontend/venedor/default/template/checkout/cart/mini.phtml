@@ -1,0 +1,88 @@
+<?php
+/**
+ * Shoping cart sidebar
+ *
+ * @see Mage_Checkout_Block_Cart_Sidebar
+ */
+?>
+<?php
+$venedor = $this->helper('venedor');
+$b = $venedor->getConfigGroup();
+if ($b['header']['show_minicart']): ?>
+<?php
+    $_cartQty = $this->getSummaryCount();
+    if ($_cartQty > 0)
+        $cartTitle = $this->__('View Cart');
+    else
+        $cartTitle = $this->__('You have no items in your shopping cart.');
+?>
+<div id="mini-cart" class="block-content dropdown">
+    <div class="button dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="false" title="<?php echo $cartTitle ?>">
+        <i class="icon-cart"></i>
+        <span class="cart-items"><?php echo ($_cartQty > 0) ? $_cartQty : '0' ?> <?php echo $this->__('item(s)') ?></span>
+        <span class="mobile-hide"> - 
+        <?php if ($_cartQty > 0): ?>
+            <span class="subtotal">
+                <?php if ($this->canApplyMsrp()): ?>
+                    <span class="price"><?php echo $this->__('MSRP') ?></span>
+                <?php else: ?>
+                    <?php echo Mage::helper('checkout')->formatPrice($this->getSubtotal()); ?>
+                <?php endif; ?>
+            </span>
+        <?php else: //no products ?>
+            <span class="empty"><?php echo Mage::helper('checkout')->formatPrice(0); ?></span>
+        <?php endif; ?>
+        </span>
+    </div>
+    <?php $_items = $this->getRecentItems(); ?>
+    <?php if (count($_items)): ?>
+        <div class="dropdown-menu">
+            <div class="block-content">
+                <div class="block-subtitle"><?php echo $this->__('Recently added item(s)') ?></div>
+                <ol class="mini-products-list clearer">
+                <?php foreach($_items as $_item): ?>
+                    <?php echo $this->getItemHtml($_item) ?>
+                <?php endforeach; ?>
+                </ol>
+                <script type="text/javascript">decorateList('cart-sidebar', 'none-recursive')</script>
+                
+                <div class="actions-wrap clearfix">
+                    <div class="actions clearfix">
+                        <button type="button" title="<?php echo $this->__('View all items in your shopping cart') ?>" class="button button-inverse btn-inline" onclick="setLocation('<?php echo $this->getUrl('checkout/cart') ?>')"><span><span><?php echo $this->__('Cart') ?></span></span></button>
+                        <?php if($_cartQty && $this->isPossibleOnepageCheckout()): ?>
+                            <button type="button" title="<?php echo $this->__('Proceed to Checkout') ?>" class="button btn-checkout btn-inline " onclick="setLocation('<?php echo $this->getCheckoutUrl(); ?>')"><span><span><?php echo $this->__('Checkout') ?></span></span></button>
+                            <?php echo $this->getChildHtml('extra_actions') ?>
+                        <?php endif; ?>
+                    </div>
+                    <div class="prices-wrap">
+                        <?php if ($_subtotalInclTax = $this->getSubtotalInclTax()): ?>
+                            <div class="prices">
+                                <span class="price-label"><?php echo $this->__('Tax') ?>: </span><span class="price incl-tax">(<?php echo Mage::helper('checkout')->formatPrice($_subtotalInclTax) ?></span>
+                            </div>
+                        <?php endif; ?>
+                        <div class="prices">
+                            <span class="price-label"><?php echo $this->__('Total') ?>: </span>
+                            <?php if ($_cartQty > 0): ?>
+                                <?php if ($this->canApplyMsrp()): ?>
+                                    <span class="price"><?php echo $this->__('MSRP') ?></span>
+                                <?php else: ?>
+                                    <?php echo Mage::helper('checkout')->formatPrice($this->getSubtotal()); ?>
+                                <?php endif; ?>
+                            <?php else: //no products ?>
+                                <?php echo Mage::helper('checkout')->formatPrice(0); ?>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <?php else: ?>
+        <div class="dropdown-menu">
+            <div class="block-content">
+                <div class="empty"><?php echo $this->__('You have no items in your shopping cart.') ?></div>
+            </div>
+        </div>
+    <?php endif ?>
+</div>
+
+<?php endif; ?>

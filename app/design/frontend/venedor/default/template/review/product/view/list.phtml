@@ -1,0 +1,70 @@
+<?php
+/**
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+
+<?php 
+$_items = $this->getReviewsCollection()->getItems(); 
+$_product = $this->getProduct();
+?>
+<div class="box-collateral box-reviews" id="customer-reviews">
+    <h2><?php echo $this->__('Customer Reviews') ?></h2>
+    <h3 class="review-title"><span class="review-label"><?php if (count($_items) != 0) echo count($_items) ?> <?php if (count($_items) <= 1) echo $this->__('Review'); else echo $this->__('Reviews') ?> </span><strong>"<?php echo $_product->getName(); ?>"</strong></h3>
+    <?php if (count($_items)):?>
+        <?php echo $this->getChildHtml('toolbar') ?>
+        
+        <?php
+        $avg = 0;
+        foreach ($_items as $review) {
+            foreach( $review->getRatingVotes() as $vote ) {
+                $ratings[] = $vote->getPercent();
+            }
+        }
+        $avg = array_sum($ratings)/count($ratings);
+        ?>
+        <?php if($avg): ?>
+            <div class="rating-box">
+                <div class="rating" style="width: <?php echo ceil($avg) ; ?>%;"></div>
+            </div>
+        <?php endif; ?>
+        
+        <dl>
+        <?php foreach ($_items as $_review):?>
+            <dt>
+                <?php echo $this->htmlEscape($_review->getTitle()) ?>
+                
+            </dt>
+            <dd>
+                <span class="author"><?php echo $this->htmlEscape($_review->getNickname()) ?></span>
+                <span class="date"><?php echo $this->formatDate($_review->getCreatedAt(), 'long') ?></span>
+                <?php $_votes = $_review->getRatingVotes(); ?>
+                <?php if (count($_votes)): ?>
+                <table class="ratings-table">
+                    <col width="1" />
+                    <col />
+                    <tbody>
+                        <?php foreach ($_votes as $_vote): ?>
+                        <tr>
+                            <th><?php echo $this->escapeHtml($_vote->getRatingCode()) ?></th>
+                            <td>
+                                <div class="rating-box">
+                                    <div class="rating" style="width:<?php echo $_vote->getPercent() ?>%;"></div>
+                                </div>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+                <?php endif; ?>
+                <?php echo nl2br($this->htmlEscape($_review->getDetail())) ?>
+            </dd>
+        <?php endforeach; ?>
+        </dl>
+        <?php echo $this->getChildHtml('toolbar') ?>
+    <?php endif;?>
+    <?php echo $this->getChildHtml('review_form') ?>
+</div>

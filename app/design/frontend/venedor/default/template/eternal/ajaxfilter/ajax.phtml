@@ -1,0 +1,128 @@
+<script type="text/javascript">
+//<![CDATA[
+var data = "";
+var active = false;
+    
+function add_ajaxfilter() {
+    var $ = jQuery;
+    <?php if($this->ajaxLayered): ?>
+    $('.block-layered-nav a').on('click', function(event) {
+        var href = $(this).attr('href');
+        sliderAjax(href);
+        event.preventDefault();
+    });
+    <?php endif; ?>
+    
+    <?php if($this->ajaxToolbar): ?>
+    $('.toolbar a').on('click', function(e) {
+        var url = $(this).attr('href');
+        sliderAjax(url);
+        e.preventDefault();
+    });
+    $('.toolbar select').removeAttr('onchange');
+    $('.toolbar select').on('change', function(e) {
+        var url = $(this).val();
+        sliderAjax(url);
+        e.preventDefault();
+    });
+    <?php endif; ?>
+    if (typeof configurableMediaImage == 'function')
+        configurableMediaImage();
+}
+        
+jQuery(function($){
+    if($('body').find('#ajaxFilterLoading').attr('id') != 'ajaxFilterLoading'){
+        var html = '<div id="ajaxFilterLoading" style="display:none"><div>';
+        <?php if ($this->loadingImage != '') : ?>
+            html += '<img src="<?php echo $this->loadingImage ?>">';
+        <?php endif; ?>
+        html += '<div><?php echo $this->loadingText ?></div></div><div class="bg"></div></div>'
+        $('body').append(html);
+    }
+    var height = $('body').outerHeight();
+    var width = $('body').outerWidth();
+    $('.ui-slider-handle').css('cursor','pointer');
+    
+    $('#ajaxFilterLoading').css({
+        'width':'100%',
+        'height':'100%',
+        'position':'fixed',
+        'z-index':'10000000',
+        'top':'0',
+        'left':'0'
+    });    
+    $('#ajaxFilterLoading .bg').css({
+        'background':'<?php echo $this->overlayColor; ?>',
+        'opacity':'<?php echo $this->overlayOpacity ?>',
+        'width':'100%',
+        'height':'100%',
+        'position':'absolute',
+        'top':'0'
+    });
+    $('#ajaxFilterLoading>div:first').css({
+        'width': '100%',
+        'text-align': 'center',
+        'position': 'absolute',
+        'left': '0',
+        'top': '48%',
+        'font-size':'16px',
+        'z-index':'10',
+        'color':'<?php echo $this->loadingTextColor ?>'
+        
+    });
+    
+    add_ajaxfilter();
+});
+
+<?php if($this->ajaxSlider || $this->ajaxLayered): ?>
+/*DONOT EDIT THIS CODE*/
+function sliderAjax(url) {
+    if (url == '' || url == '#')
+        return;
+    if (!active) {
+        active = true;
+        jQuery(function($) {
+            oldUrl = url;
+            $('#ajaxFilterLoading .bg').height('100%');
+            $('#ajaxFilterLoading').fadeIn(300);
+            try {
+                $('body').css('cursor', 'wait');
+                $.ajax({
+                    url: url,
+                    dataType: 'json',
+                    type: 'post',
+                    data: {ajax:"1"},
+                    success: function(data) {
+                        
+                        if (data.viewpanel) {
+                            if ($('.block-layered-nav')) {
+                                $('.block-layered-nav').empty();
+                                $('.block-layered-nav').append(data.viewpanel)
+                            }
+                        }
+                        if (data.productlist) {
+                            $('.category-products').empty();
+                            $('.category-products').append(data.productlist)
+                        }
+                        var hist = url.split('?');
+                        if(window.history && window.history.pushState){
+                            window.history.pushState('GET', data.title, url);
+                        }
+                        $('body').find('.toolbar select').removeAttr('onchange');
+                        $('#ajaxFilterLoading .bg').height('100%');
+                        $('#ajaxFilterLoading').fadeOut(300);
+                        $('body').css('cursor', 'default');
+                        
+                        add_ajaxfilter();     
+                    }
+                })
+            } catch (e) {}
+        });
+        active = false
+    }
+    return false
+}
+<?php endif; ?>
+//]]>
+</script>
+

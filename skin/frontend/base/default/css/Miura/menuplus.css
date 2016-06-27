@@ -1,0 +1,151 @@
+/**
+ * Miura Menu+ Extension
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ *
+ * @category   Miura
+ * @package    Miura_MenuPlus
+ * @author     Clement Larduinat
+ * @copyright  Copyright (c) 2011 Miura Conseil (http://www.miura-conseil.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+*/
+#mddm {
+    position:relative
+}
+
+#mddm .mddm-clear {
+    clear:both
+}
+
+#mddm .level-1 {
+    float:left
+}
+
+#mddm .mddm-dropdown {
+    left:-9999px;
+    position:absolute;
+    top:19px;
+    width:100%;
+    z-index:100
+}
+
+#mddm.active .level-1.hover .mddm-dropdown, #mddm.active .mddm-dropdown.hover {
+    left:0
+}
+
+#mddm .mddm-dropdown-container {
+    width:100%
+}
+
+#mddm .mddm-col {
+    height:100%
+}
+
+#mddm .mddm-col-right,#mddm .mddm-col-left {
+    width:170px
+}
+
+#mddm .mddm-col-middle-cat {
+    display:table;
+    height:100%;
+    text-align:left
+}
+
+#mddm .mddm-col-middle-cat ul {
+    display:table-cell
+}
+
+#mddm.mddm-skin-default {
+    font-size:13px;
+    margin:0 auto;
+    padding:0 16px;
+    width:918px
+}
+
+#mddm.mddm-skin-default .level-1 > span,#mddm.mddm-skin-default .level-1 > a {
+color: #FFF;
+display: block;
+font-weight: 700;
+line-height: 30px;
+padding: 6px 12px 6px 8px;
+text-decoration: none;
+}
+
+#mddm.mddm-skin-default .level-1 > a:hover,#mddm.mddm-skin-default .level-1.hover > a,#mddm.mddm-skin-default .level-1.active > a {
+    color:#A7C6DD
+}
+
+#mddm.mddm-skin-default .mddm-dropdown {
+    background-color:#ECF3F6;
+    border:1px solid #899BA5;
+    border-top:0 none;
+    top:42px
+}
+
+#mddm.mddm-skin-default .mddm-dropdown-container {
+    border-collapse:separate;
+    border-spacing:10px
+}
+
+#mddm.mddm-skin-default .mddm-dropdown a {
+    color:#2F2F2F;
+    text-decoration:none
+}
+
+#mddm.mddm-skin-default .mddm-dropdown a:hover {
+    text-decoration:underline
+}
+
+#mddm.mddm-skin-default .mddm-col-left {
+    border-right:1px solid #899BA5;
+    padding-right:10px
+}
+
+#mddm.mddm-skin-default .mddm-col-right {
+    border-left:1px solid #899BA5;
+    padding-left:10px
+}
+
+#mddm.mddm-skin-default .mddm-dropdown-block {
+    border-top:1px dotted #899BA5;
+    margin-top:5px;
+    padding-top:5px;
+    text-align:center
+}
+
+#mddm.mddm-skin-default .mddm-dropdown-block.first {
+    border:0 none;
+    margin-top:0;
+    padding-top:0
+}
+
+#mddm.mddm-skin-default .mddm-col-middle-cat td {
+    border-left:1px dotted #899BA5;
+    margin-left:10px;
+    padding-left:10px;
+    width:130px
+}
+
+#mddm.mddm-skin-default .mddm-col-middle-cat td.first-col {
+    border-left:0 none;
+    margin-left:0;
+    padding-left:0
+}
+
+#mddm.mddm-skin-default .mddm-col-middle-cat .level-2 {
+    font-weight:700
+}
+
+#mddm.mddm-skin-default .mddm-col-middle-cat .level-3 {
+    text-indent:10px
+}
+
+#mddm.mddm-skin-default .mddm-col-middle-cat .level-4 {
+    font-style:italic;
+    text-indent:20px
+}

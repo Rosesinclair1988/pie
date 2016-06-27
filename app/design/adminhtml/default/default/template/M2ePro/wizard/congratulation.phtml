@@ -1,0 +1,82 @@
+<div id="block_notice_wizard_congratulation" class="block_notices_module" title="<?php echo Mage::helper('M2ePro')->__(''); ?>" subtitle="" collapseable="no" hideblock="no" always_show="yes">
+    <?php
+
+    $listingTemplatesUrl = $this->getUrl('*/adminhtml_template_general/index');
+    $synchronizationTemplatesUrl = $this->getUrl('*/adminhtml_template_synchronization/index');
+    $descriptionTemplatesUrl = $this->getUrl('*/adminhtml_template_description/index');
+    $sellingFormatTemplatesUrl = $this->getUrl('*/adminhtml_template_sellingFormat/index');
+
+    $listingsUrl = $this->getUrl('*/adminhtml_listing/index');
+    $docsLink = Mage::helper('M2ePro/Module')->getConfig()->getGroupValue('/documentation/', 'baseurl');
+
+    $menuLabel = Mage::helper('M2ePro/Module')->getMenuRootNodeLabel();
+
+    $components = array();
+
+    if (Mage::helper('M2ePro/Component_Ebay')->isAllowed()) {
+        $components[Ess_M2ePro_Helper_Component_Ebay::NICK] = Ess_M2ePro_Helper_Component_Ebay::TITLE;
+    }
+    if (Mage::helper('M2ePro/Component_Amazon')->isAllowed()) {
+        $components[Ess_M2ePro_Helper_Component_Amazon::NICK] = Ess_M2ePro_Helper_Component_Amazon::TITLE;
+    }
+
+    $components = implode(' / ',$components);
+
+    $tempString = Mage::helper('M2ePro')->__('<strong>The main settings were successfully set.</strong> <br/>
+    Now you can continue working with extension. You can see below the short instructions, you may follow to start
+    listing on %components% quickly.<br/> The more detailed information can be found in the <a href="%docs_link%" target="_blank">Documentation</a>.<br/><br/>
+
+    <strong>The next steps you should perform are:</strong><br/><br/>
+
+    <span style="text-decoration: underline;"><strong>1)</strong> Selling Format Template creation:</span><br/>
+    Navigate to %menu_label% > Templates > <a href="%sel%" target="_blank">Selling Format Templates</a>,
+    Press on the Add Selling Format Template button;
+    Fill in all necessary data;
+    Save the template.<br/><br/>
+
+    <span style="text-decoration: underline;"><strong>2)</strong> Description Template creation:</span><br/>
+    Navigate to %menu_label% > Templates > <a href="%descr%" target="_blank">Description Templates</a>;
+    Press on the Add Description Template button;
+    Fill in all necessary data;
+    Save the template.<br/><br/>
+
+    <span style="text-decoration: underline;"><strong>3)</strong> General Template creation (only for eBay channel):</span><br/>
+    Navigate to %menu_label% > Templates > <a href="%list_temp%" target="_blank">General Templates</a>;
+    Press on the Add General Template button;
+    Fill in all necessary data;
+    Save the template.<br/><br/>
+
+    <span style="text-decoration: underline;"><strong>4)</strong> Synchronization Template creation:</span><br/>
+    Navigate to %menu_label% > Templates > <a href="%synch%" target="_blank">Synchronization Templates</a>;
+    Press on the Add Synchronization Template button;
+    Fill in all necessary data;
+    Save the template.<br/><br/>
+
+    After completing these four necessary steps, you can start to create Listings (%menu_label% > Manage
+
+    Listings > <a href="%list%" target="_blank">Listings</a>), add Magento products to them and list on %components%.<br/><br/>
+    <em>Thank you for choosing M2E Pro.</em>');
+    echo str_replace(
+        array('%sel%',
+            '%descr%',
+            '%list_temp%',
+            '%synch%',
+            '%list%',
+            '%menu_label%',
+            '%docs_link%',
+            '%components%'),
+        array(
+            $sellingFormatTemplatesUrl,
+            $descriptionTemplatesUrl,
+            $listingTemplatesUrl,
+            $synchronizationTemplatesUrl,
+            $listingsUrl,
+            $menuLabel,
+            $docsLink,
+            $components
+        ),
+        $tempString
+    );
+
+    ?>
+</div>

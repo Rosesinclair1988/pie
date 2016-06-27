@@ -1,0 +1,128 @@
+<?xml version="1.0"?>
+<!-- 
+/**
+ * @category   Miura
+ * @package    Miura_Coupsdecoeur
+ * @author     ModuleCreator
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+ -->
+<config>
+    <modules>
+        <Miura_Coupsdecoeur>
+            <version>0.1.0</version>
+        </Miura_Coupsdecoeur>
+    </modules>
+    <frontend>
+        <routers>
+            <coupsdecoeur>
+                <use>standard</use>
+                <args>
+                    <module>Miura_Coupsdecoeur</module>
+                    <frontName>coupsdecoeur</frontName>
+                </args>
+            </coupsdecoeur>
+        </routers>
+        <layout>
+            <updates>
+                <coupsdecoeur>
+                    <file>coupsdecoeur.xml</file>
+                </coupsdecoeur>
+            </updates>
+        </layout>
+    </frontend>
+    <admin>
+        <routers>
+			<coupsdecoeur>
+				<use>admin</use>
+				<args>
+					<module>Miura_Coupsdecoeur</module>
+					<frontName>coupsdecoeur</frontName>
+				</args>
+			</coupsdecoeur>
+        </routers>
+    </admin>
+    <adminhtml>
+		<menu>
+			<coupsdecoeur module="coupsdecoeur">
+				<title>Coupsdecoeur</title>
+				<sort_order>71</sort_order>               
+				<children>
+					<items module="coupsdecoeur">
+						<title>Manage Items</title>
+						<sort_order>0</sort_order>
+						<action>coupsdecoeur/adminhtml_coupsdecoeur</action>
+					</items>
+				</children>
+			</coupsdecoeur>
+		</menu>
+		<acl>
+			<resources>
+				<all>
+					<title>Allow Everything</title>
+				</all>
+				<admin>
+					<children>
+						<Miura_Coupsdecoeur>
+							<title>Coupsdecoeur Module</title>
+							<sort_order>10</sort_order>
+						</Miura_Coupsdecoeur>
+					</children>
+				</admin>
+			</resources>
+		</acl>
+		<layout>
+			<updates>
+				<coupsdecoeur>
+					<file>coupsdecoeur.xml</file>
+				</coupsdecoeur>
+			</updates>
+		</layout>
+    </adminhtml>   
+    <global>
+        <models>
+            <coupsdecoeur>
+                <class>Miura_Coupsdecoeur_Model</class>
+                <resourceModel>coupsdecoeur_mysql4</resourceModel>
+            </coupsdecoeur>
+            <coupsdecoeur_mysql4>
+                <class>Miura_Coupsdecoeur_Model_Mysql4</class>
+                <entities>
+                    <coupsdecoeur>
+                        <table>coupsdecoeur</table>
+                    </coupsdecoeur>
+                </entities>
+            </coupsdecoeur_mysql4>
+        </models>
+        <resources>
+            <coupsdecoeur_setup>
+                <setup>
+                    <module>Miura_Coupsdecoeur</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </coupsdecoeur_setup>
+            <coupsdecoeur_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </coupsdecoeur_write>
+            <coupsdecoeur_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </coupsdecoeur_read>
+        </resources>
+        <blocks>
+            <coupsdecoeur>
+                <class>Miura_Coupsdecoeur_Block</class>
+            </coupsdecoeur>
+        </blocks>
+        <helpers>
+            <coupsdecoeur>
+                <class>Miura_Coupsdecoeur_Helper</class>
+            </coupsdecoeur>
+        </helpers>
+    </global>
+</config>

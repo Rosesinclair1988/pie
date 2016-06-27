@@ -1,0 +1,69 @@
+<div class="page-head">
+    <h3><?php echo Mage::helper('contacts')->__('Astuces Pour les Pros') ?></h3>
+</div>
+
+<div id="astuces-menu">
+    <ul>
+        <li id="astuce-a-menu"><?php echo $this->__('Comment changer un inverseur sur un mélangeur bain/douche ?') ?></li>
+        <li id="astuce-b-menu"><?php echo $this->__('Comment changer une cartouche céramique sur un mitigeur bain/douche ?') ?></li>
+        <li id="astuce-c-menu"><?php echo $this->__('Comment changer une cartouche céramique sur un mitigeur encastré ?') ?></li>
+        <li id="astuce-d-menu"><?php echo $this->__('Comment changer un élément (cartouche) thermostatique sur un mitigeur thermostatique ?') ?></li>
+        <li id="astuce-e-menu"><?php echo $this->__('Comment changer une cartouche céramique sur un mitigeur évier ?') ?></li>
+        <li id="astuce-f-menu"><?php echo $this->__('Comment remplacer votre ancien réservoir WC par un réservoir réglable (L\'arrivée d\'eau + Fixation) ?') ?></li>
+        <li id="astuce-g-menu"><?php echo $this->__('Comment changer le mécanisme WC + robinet ?') ?></li>
+        <li id="astuce-h-menu"><?php echo $this->__('Comment changer la résistance de votre chauffe-eau ?') ?></li>
+        <li id="astuce-i-menu"><?php echo $this->__('Comment changer le thermostat de votre chauffe-eau ?') ?></li>
+        <li id="astuce-j-menu"><?php echo $this->__('Comment changer le détartreur de votre chauffe-eau ?') ?></li>
+    </ul>
+</div>
+
+<div id="astuces-content">
+    <div id="astuce-a">Astuce 1</div>
+    <div id="astuce-b">Astuce 2</div>
+    <div id="astuce-c">Astuce 3</div>
+    <div id="astuce-d">Astuce 4</div>
+    <div id="astuce-e">Astuce 5</div>
+    <div id="astuce-f">Astuce 6</div>
+    <div id="astuce-g">Astuce 7</div>
+    <div id="astuce-h">Astuce 8</div>
+    <div id="astuce-i">Astuce 9</div>
+    <div id="astuce-j">Astuce 10</div>
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+    var tabAstucesMenu = $$('#astuces-menu li');
+    var tabAstucesContent = $$('#astuces-content div');
+
+    tabAstucesContent.each(function(item, index) {
+        item.hide();
+    });
+
+    tabAstucesMenu.each(function(item, index) {
+        item.observe('click',tabAstucesMenuClick);
+        item.observe('mouseover',tabAstucesMenuMouseOver);
+        item.observe('mouseout',tabAstucesMenuMouseOut);
+    });
+
+    function tabAstucesMenuClick(event){
+        var contentID = $(this).id.truncate(8,'');
+        tabAstucesContent.each(function(item, index) {
+            if(item.id == contentID){
+                item.show();
+            }
+            else{
+                item.hide();
+            }
+        });
+    }
+
+    function tabAstucesMenuMouseOver(event){
+        $(this).addClassName('hover');
+    }
+    
+    function tabAstucesMenuMouseOut(event){
+        $(this).removeClassName('hover');
+    }
+
+//]]>
+</script>

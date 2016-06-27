@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Catalogueur_Updatemeta>
+			<version>1.0.0</version>
+            <depends>
+            <!-- no dependencies -->
+            </depends>
+        </Catalogueur_Updatemeta>
+    </modules>
+
+    <frontend>
+        <routers>
+            <updatemeta>
+                <use>standard</use>
+                <args>
+                    <module>Catalogueur_Updatemeta</module>
+                    <frontName>catalogueur_update_meta</frontName>
+                </args>
+            </updatemeta>
+        </routers>
+    </frontend>
+</config>

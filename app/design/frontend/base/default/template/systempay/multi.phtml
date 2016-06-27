@@ -1,0 +1,48 @@
+<?php
+#####################################################################################################
+#
+#					Module pour la plateforme de paiement Systempay
+#						Version : 1.2 (révision 46959)
+#									########################
+#					Développé pour Magento
+#						Version : 1.5.1.0
+#						Compatibilité plateforme : V2
+#									########################
+#					Développé par Lyra Network
+#						http://www.lyra-network.com/
+#						13/05/2013
+#						Contact : supportvad@lyra-network.com
+#
+#####################################################################################################
+?>
+
+<ul class="form-list" id="payment_form_<?php echo $this->getMethodCode() ?>" style="display:none;">
+<?php 
+	
+$options = $this->getAvailableOptions();
+
+if(count($options) == 1) {
+	$keys = array_keys($options);
+	
+	$key = $keys[0]; // the option key in options array
+	$option = $options[$key]; // the option
+	echo '<li>
+			<input type="hidden" id="option_' . $key . '" value="' . $key . '" name="payment[systempay_multi_option]"/>
+			<label style="float: none;">' . $option['label'] . '</label>
+		  </li>';
+	
+} elseif (count($options) > 1) {
+	$first = true;
+	foreach ($options as $key => $option) {
+		echo '<li>
+				<input class="radio" type="radio"'. ($first == true ? ' checked="checked"' : '') . ' id="option_' . $key . '" value="' . $key . '" name="payment[systempay_multi_option]" />
+				<label style="float: none;" for="option_' . $key . '">' . $option['label'] . '</label>
+			  </li>';
+		$first = false;
+	}
+}
+
+?>
+
+	<li><?php echo Mage::helper('systempay')->__('You will be redirected to the payment page after the order confirmation.') ?></li>
+</ul>

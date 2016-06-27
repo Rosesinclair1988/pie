@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+
+    <default>
+    
+        <reference name="head">
+            <!-- js -->
+            <action method="addJs"><script>eternal/jquery/jquery-1.10.2.min.js</script></action>
+
+            <action method="addJs"><script>eternal/jquery/jquery.easing.min.js</script></action>
+            <action method="addJs"><script>eternal/jquery/jquery.flexslider.min.js</script></action>
+            
+            <!-- css -->
+            <action method="addItem"><type>skin_css</type><name>css/eternal/brands.css</name></action>
+        </reference>
+        
+    </default>
+    
+    <!-- Insert slideshow at the top of the homepage -->
+    <cms_index_index>
+    
+        <reference name="footer-banner">
+            <block type="eternal_brands/brands" name="eternal.brandslider" as="eternal_brandslider" template="eternal/brands/brand_slider.phtml" before="-"/>
+        </reference>
+        <reference name="footer">
+            <block type="eternal_brands/brands" name="eternal.brandslider" as="eternal_brandslider" template="eternal/brands/brand_slider.phtml" before="-"/>
+        </reference>
+        
+    </cms_index_index>
+    
+</layout>

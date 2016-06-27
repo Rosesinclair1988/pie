@@ -1,0 +1,37 @@
+<?php
+/**
+ * @see Mage_Page_Block_Template_Links
+ */
+?>    
+<?php $_links = $this->getLinks(); ?>
+<?php if(count($_links)>0): ?>
+<ul class="toplinks links"<?php if($this->getName()): ?> id="<?php echo $this->getName() ?>"<?php endif;?>>
+    <?php foreach($_links as $_link): ?>
+        <?php if ($_link instanceof Mage_Core_Block_Abstract):?>
+            <?php echo $_link->toHtml() ?>
+        <?php else: ?>
+
+			<?php
+            $classes = '';
+            
+            if ($_link->getIsFirst())
+            {
+                $classes .= 'first';
+            }
+            
+            if ($_link->getIsLast())
+            {
+                $classes .= ' last';
+            }
+            $label = $_link->getLabel();
+            $icon_class = strtolower(current(explode("(", preg_replace('/\s+/', '', strip_tags($label)), 2)));
+            $icon_class = preg_replace('/[0-9]/', '', $icon_class);
+            $title = current(explode("(", $label, 2));
+            $count = (int)str_replace($title.'(', '', $label);
+            $count = $count > 0 ? '<span class="count">(' . $count . ')</span>' : '';
+            ?>
+            <li <?php if($classes): ?>class="<?php echo $classes; ?>"<?php endif;?> <?php echo $_link->getLiParams() ?>><?php echo $_link->getBeforeText() ?><a href="<?php echo $_link->getUrl() ?>" title="<?php echo $_link->getTitle() ?>" <?php echo $_link->getAParams() ?>><i class="icon-<?php echo $icon_class ?>"></i><span><?php echo $title . $count; ?></span></a><?php echo $_link->getAfterText() ?></li>
+        <?php endif;?>
+    <?php endforeach; ?>
+</ul>
+<?php endif; ?>

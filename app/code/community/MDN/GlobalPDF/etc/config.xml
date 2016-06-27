@@ -1,0 +1,200 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <MDN_GlobalPDF>
+            <version>1.8</version>
+        </MDN_GlobalPDF>
+    </modules>
+
+
+    <global>
+	
+        <rewrite>
+            <MDN_GlobalPDF_Sales_Order_Print>
+                <from><![CDATA[#^/sales/order/print/#]]>
+                </from>
+                <to>/GlobalPDF/Order/Print/</to>
+            </MDN_GlobalPDF_Sales_Order_Print>
+            <MDN_GlobalPDF_Sales_Order_Print_Invoice>
+                <from><![CDATA[#^/sales/order/printInvoice/#]]>
+                </from>
+                <to>/GlobalPDF/Invoice/Print/</to>
+            </MDN_GlobalPDF_Sales_Order_Print_Invoice>
+        </rewrite>
+
+	
+        <models>
+            <GlobalPDF>
+                <class>MDN_GlobalPDF_Model</class>
+            </GlobalPDF>
+
+            <sales>
+                <rewrite>
+                    <order_pdf_invoice>MDN_GlobalPDF_Model_Pdf_Order_Invoice</order_pdf_invoice>
+                    <order_pdf_shipment>MDN_GlobalPDF_Model_Pdf_Order_Shipment</order_pdf_shipment>
+                    <order_pdf_creditmemo>MDN_GlobalPDF_Model_Pdf_Order_Creditmemo</order_pdf_creditmemo>
+                </rewrite>
+            </sales>
+            
+            <!-- MDN_Quotation_Model_QuotationPdf -->
+            <Quotation>
+                <rewrite>
+                    <quotationpdf>MDN_GlobalPDF_Model_Pdf_Quotation</quotationpdf>
+                </rewrite>
+            </Quotation> 
+            
+            <!-- MDN_ProductReturn_Model_Pdf_Rma -->
+            <ProductReturn>
+                <rewrite>
+                    <Pdf_Rma>MDN_GlobalPDF_Model_Pdf_ProductReturn</Pdf_Rma>
+                </rewrite>
+            </ProductReturn>
+            
+            <!-- MDN_Purchase_Model_Pdf_Order -->
+            <Purchase>
+                <rewrite>
+                    <Pdf_Order>MDN_GlobalPDF_Model_Pdf_Purchase</Pdf_Order>
+                </rewrite>
+            </Purchase> 
+            
+        </models>
+        
+        <helpers>
+            <GlobalPDF>
+                <class>MDN_GlobalPDF_Helper</class>
+            </GlobalPDF>
+        </helpers>
+		
+        <blocks>
+            <GlobalPDF>
+                <class>MDN_GlobalPDF_Block</class>
+            </GlobalPDF>
+            <adminhtml>
+                <rewrite>
+                    <sales_order_view>MDN_GlobalPDF_Block_Adminhtml_Sales_Order_View</sales_order_view>
+                </rewrite>
+            </adminhtml>
+        </blocks>
+		
+    </global>
+    
+    <admin>
+        <routers>
+            <GlobalPDF>
+                <use>admin</use>
+                <args>
+                    <module>MDN_GlobalPDF</module>
+                    <frontName>GlobalPDF</frontName>
+                </args>
+            </GlobalPDF>
+        </routers>
+    </admin>
+
+    <frontend>
+        <routers>
+            <GlobalPDF>
+                <use>standard</use>
+                <args>
+                    <module>MDN_GlobalPDF</module>
+                    <frontName>GlobalPDF</frontName>
+                </args>
+            </GlobalPDF>
+        </routers>
+        <translate>
+            <modules>
+                <MDN_GlobalPDF>
+                    <files>
+                        <default>MDN_GlobalPDF.csv</default>
+                    </files>
+                </MDN_GlobalPDF>
+            </modules>
+        </translate>
+        <layout>
+            <updates>
+                <GlobalPDF>
+                    <file>GlobalPDF.xml</file>
+                </GlobalPDF>
+            </updates>
+        </layout>
+    </frontend>
+    
+    
+    <adminhtml>
+        <acl>
+            <resources>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <globalpdf module="GlobalPDF">
+                                            <title>GlobalPDF</title>
+                                        </globalpdf>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                        <catalog>
+                            <children>
+                                <build_pdf_catalog module="GlobalPDF">
+                                    <title>Build PDF Catalog</title>
+                                </build_pdf_catalog>
+                            </children>
+                        </catalog>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+        <translate>
+            <modules>
+                <MDN_GlobalPDF>
+                    <files>
+                        <default>MDN_GlobalPDF.csv</default>
+                    </files>
+                </MDN_GlobalPDF>
+            </modules>
+        </translate>
+        <layout>
+            <updates>
+                <GlobalPDF>
+                    <file>GlobalPDF.xml</file>
+                </GlobalPDF>
+            </updates>
+        </layout>
+        <menu>
+            <catalog>
+                <children>
+                    <build_pdf_catalog translate="title" module="GlobalPDF">
+                        <title>Build PDF Catalog</title>
+                        <action>GlobalPDF/Catalog/Form</action>
+                        <sort_order>90</sort_order>
+                    </build_pdf_catalog>
+                </children>
+            </catalog>
+        </menu>
+        <routers>
+            <GlobalPDF>
+                <use>standard</use>
+                <args>
+                    <module>MDN_GlobalPDF</module>
+                    <frontName>GlobalPDF</frontName>
+                </args>
+            </GlobalPDF>
+        </routers>
+    </adminhtml>
+    
+    
+    <default>
+        <globalpdf>
+            <general>
+                <theme>default</theme>
+            </general>
+            <date>
+                <short>m-d-Y</short>
+                <medium>d M Y</medium>
+                <long>l j F Y</long>
+            </date>
+        </globalpdf>
+    </default>
+</config>

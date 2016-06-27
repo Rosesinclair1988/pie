@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Bigento_Tva20>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Bigento_Tva20>
+    </modules>
+</config>

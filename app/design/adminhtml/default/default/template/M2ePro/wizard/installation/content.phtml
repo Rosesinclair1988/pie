@@ -1,0 +1,37 @@
+<!-- GENERAL -->
+<?php echo $this->getChildHtml('step_general'); ?>
+<!-- END GENERAL -->
+
+<!-- CRON -->
+<?php echo $this->getChildHtml('step_cron'); ?>
+<!-- END CRON -->
+
+<!-- SETTINGS -->
+<?php echo $this->getChildHtml('step_settings'); ?>
+<!-- END SETTINGS -->
+
+<!-- LICENSE -->
+<?php echo $this->getChildHtml('step_license'); ?>
+<!-- END LICENSE -->
+
+<!-- MARKETPLACES -->
+<?php echo $this->getChildHtml('step_marketplace'); ?>
+<!-- END MARKETPLACES -->
+
+<!-- EBAY ACCOUNTS -->
+<?php echo $this->getChildHtml('step_ebay_account'); ?>
+<!-- END EBAY ACCOUNTS -->
+
+<!-- AMAZON ACCOUNTS -->
+<?php echo $this->getChildHtml('step_amazon_account'); ?>
+<!-- END AMAZON ACCOUNTS -->
+
+<!-- SYNCHRONIZATION -->
+<?php echo $this->getChildHtml('step_synchronization'); ?>
+<!-- END SYNCHRONIZATION -->
+
+<!-- COMPLETE -->
+<div id="wizard_installation_complete" style="display:none;">
+   <?php echo $this->getChildHtml('end_installation_button'); ?>
+</div>
+<!-- END COMPLETE -->

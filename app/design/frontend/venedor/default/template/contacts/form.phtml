@@ -1,0 +1,199 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php
+$venedor = $this->helper('venedor');
+$rowClass = $venedor->getRowClass();
+$spanClass = $venedor->getSpanClass();
+?>
+<div id="messages_product_view"><?php echo $this->getMessagesBlock()->toHtml() ?></div>
+<div class="page-title">
+    <h1><?php echo Mage::helper('contacts')->__('Contact Us') ?></h1>
+</div>
+<?php
+$venedor = Mage::helper('venedor');
+$gmap_enable = $venedor->getConfig('contactus/gmap_enable');
+if ($gmap_enable) :
+    $gmap_address = urlencode($venedor->getConfig('contactus/gmap_address'));
+    $gmap_maker = $venedor->getGmapMaker();
+    if (!$gmap_maker) {
+        $icon_set = $venedor->getConfigDesign('general/icon_set');
+        $gmap_maker = $this->getSkinUrl('/images/gmap_icons/' . $icon_set . '.png');
+    }
+    $gmap_url = "http://maps.googleapis.com/maps/api/geocode/json?address=$gmap_address&sensor=false";
+    
+    $ch = curl_init($gmap_url);
+        
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+    
+    $raw = curl_exec($ch);
+    curl_close($ch);
+    
+    $gmap_data = json_decode($raw);
+    if ($gmap_data->results) :
+        $lat = $gmap_data->results[0]->geometry->location->lat;
+        $lng = $gmap_data->results[0]->geometry->location->lng;
+?>
+    <style>
+        .gm-style img { max-width:none; }
+    </style>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+    //<![CDATA[
+    var store = new google.maps.LatLng(<?php echo $lat ?>, <?php echo $lng ?>);
+    var marker;
+    var map;
+
+    function initialize() {
+        var mapOptions = {
+            zoom: 15,
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+            center: store
+        };
+
+        map = new google.maps.Map(document.getElementById('contact-gmap'), mapOptions);
+
+        marker = new google.maps.Marker({
+            map: map,
+            draggable: false,
+            animation: google.maps.Animation.DROP,
+            position: store,
+            icon: '<?php echo $gmap_maker ?>'
+        });
+    }
+
+    google.maps.event.addDomListener(window, 'load', initialize);
+    google.maps.event.addDomListener(window, 'resize', initialize);
+    //]]>
+    </script>
+    <div id="contact-gmap">
+    </div>
+<?php endif;
+endif; ?>
+<form action="<?php echo $this->getFormAction(); ?>" id="contactForm" method="post">
+    <?php
+        $contact_details = $this->getChildHtml('block_contact_details');
+        $form_class = $contact_details ? $spanClass.'9' : $spanClass.'12';
+    ?>
+    <div class="<?php echo $rowClass ?>">
+        <div class="<?php echo $form_class ?> contact-content">
+            <div class="fieldset">
+                <h2 class="legend"><?php echo Mage::helper('contacts')->__('Leave Comment') ?></h2>
+                <div class="<?php echo $rowClass ?>">
+                    <div class="<?php echo $spanClass ?>5 contact-info">
+                        <ul class="form-list">
+                            <li class="fields">
+                                <div class="field">
+                                    <label for="name" class="required"><i class="icon-people"></i><?php echo Mage::helper('contacts')->__('Name') ?><em>*</em></label>
+                                    <div class="input-box">
+                                        <input name="name" id="name" title="<?php echo Mage::helper('contacts')->__('Name') ?>" value="<?php echo $this->htmlEscape($this->helper('contacts')->getUserName()) ?>" class="input-text required-entry" type="text" />
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <label for="email" class="required"><i class="icon-email"></i><?php echo Mage::helper('contacts')->__('Email') ?><em>*</em></label>
+                                    <div class="input-box">
+                                        <input name="email" id="email" title="<?php echo Mage::helper('contacts')->__('Email') ?>" value="<?php echo $this->htmlEscape($this->helper('contacts')->getUserEmail()) ?>" class="input-text required-entry validate-email" type="text" />
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <label for="telephone"><i class="icon-phone"></i><?php echo Mage::helper('contacts')->__('Telephone') ?></label>
+                                <div class="input-box">
+                                    <input name="telephone" id="telephone" title="<?php echo Mage::helper('contacts')->__('Telephone') ?>" value="" class="input-text" type="text" />
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="<?php echo $spanClass ?>7 contact-comment">
+                        <ul class="form-list">
+                            <li class="wide">
+                                <label for="comment" class="required label-wide"><i class="icon-comment"></i><?php echo Mage::helper('contacts')->__('Comment') ?><em>*</em></label>
+                                <div class="input-box">
+                                    <textarea name="comment" id="comment" title="<?php echo Mage::helper('contacts')->__('Comment') ?>" class="required-entry input-text" cols="5" rows="3"></textarea>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="buttons-set">
+                            <p class="required"><?php echo Mage::helper('contacts')->__('* Required Fields') ?></p>
+                            <input type="text" name="hideit" id="hideit" value="" style="display:none !important;" />
+                            <button type="submit" title="<?php echo Mage::helper('contacts')->__('Submit') ?>" class="button"><span><span><?php echo Mage::helper('contacts')->__('Submit') ?></span></span></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <?php if ($contact_details) : ?>
+        <div class="<?php echo $spanClass ?>3 contact-sidebar">
+            <?php 
+            $title = Mage::getModel('cms/block')->setStoreId(Mage::app()->getStore()->getId())->load('block_contact_details')->getTitle();
+            if ($title)
+                echo '<h2 class="title">'.$title.'</h2>';
+            ?>        
+            <?php echo $contact_details ?>
+        </div>
+        <?php endif; ?>
+    </div>
+</form>
+<script type="text/javascript">
+//<![CDATA[
+var contactForm = new VarienForm('contactForm', true);
+jQuery(function($) {
+    var venedor_contact_timer;
+    
+    function venedor_contact_resize() {
+        if (VENEDOR_RESPONSIVE) {
+            var winWidth = $(window).innerWidth();
+
+            if (winWidth > 750 && ((!$('body').hasClass('bv3') && winWidth < 963) || ($('body').hasClass('bv3') && winWidth < 975))) {
+                if ($('.contact-sidebar').hasClass('<?php echo $spanClass ?>3')) {
+                    $('.contact-sidebar').removeClass('<?php echo $spanClass ?>3');
+                    $('.contact-sidebar').addClass('<?php echo $spanClass ?>4');
+                    $('.contact-content').removeClass('<?php echo $spanClass ?>9');
+                    $('.contact-content').addClass('<?php echo $spanClass ?>8');
+                }
+            } else {
+                if ($('.contact-sidebar').hasClass('<?php echo $spanClass ?>4')) {
+                    $('.contact-sidebar').removeClass('<?php echo $spanClass ?>4');
+                    $('.contact-sidebar').addClass('<?php echo $spanClass ?>3');
+                    $('.contact-content').removeClass('<?php echo $spanClass ?>8');
+                    $('.contact-content').addClass('<?php echo $spanClass ?>9');
+                }
+            }
+        }
+        if (venedor_contact_timer) clearTimeout(venedor_contact_timer); 
+    }
+
+    $(window).load(venedor_contact_resize);
+    
+    $(window).resize(function() { 
+        clearTimeout(venedor_contact_timer); 
+        venedor_contact_timer = setTimeout(venedor_contact_resize, 200); 
+    });
+});
+//]]>
+</script>

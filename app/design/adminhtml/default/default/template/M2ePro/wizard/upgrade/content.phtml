@@ -1,0 +1,21 @@
+<!-- GENERAL -->
+<?php echo $this->getChildHtml('step_general'); ?>
+<!-- END GENERAL -->
+
+<!-- MARKETPLACES -->
+<?php echo $this->getChildHtml('step_marketplace'); ?>
+<!-- END MARKETPLACES -->
+
+<!-- AMAZON ACCOUNTS -->
+<?php echo $this->getChildHtml('step_amazon_account'); ?>
+<!-- END AMAZON ACCOUNTS -->
+
+<!-- SYNCHRONIZATION -->
+<?php echo $this->getChildHtml('step_synchronization'); ?>
+<!-- END SYNCHRONIZATION -->
+
+<!-- COMPLETE -->
+<div id="wizard_installation_complete" style="display:none;">
+   <?php echo $this->getChildHtml('end_installation_button'); ?>
+</div>
+<!-- END COMPLETE -->

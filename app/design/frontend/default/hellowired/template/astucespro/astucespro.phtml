@@ -1,0 +1,82 @@
+<?php  $collection = Mage::getModel('astucespro/astucespro')->getCollection();
+
+$nombres = range(1,count($collection));
+srand((float)microtime()*1000000);
+shuffle($nombres);
+?>
+
+<div class="page-head astuces">
+    <h3><?php echo $this->__('Astuces de Pros') ?></h3>
+</div>
+
+<div id="astuces-menu">
+    <ul>
+        <?php
+            $i = 0;
+            $line = "pair";
+            foreach ($nombres as $nombre) {
+                $item = Mage::getModel('astucespro/astucespro')->load($nombre);
+                $i = $i + 1;
+                if($i%2 == 1)$line = "impair";
+                else $line = "pair"
+        ?>
+                <li id="astuce-menu-<?php echo $i ?>" class="<?php echo $line ?>"><?php echo $item->getTitle() ?></li>
+        <?php } ?>
+    </ul>
+</div>
+
+<div id="astuces-content">
+    <?php
+        $i = 0;
+        foreach ($nombres as $nombre) {
+            $item = Mage::getModel('astucespro/astucespro')->load($nombre);
+            $i = $i + 1;
+    ?>
+        <div id="astuce-<?php echo $i ?>">
+            <h2><?php echo $item->getTitle() ?></h2>
+            <?php echo $item->getContent() ?>
+        </div>
+    <?php } ?>
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+
+    var tabAstucesMenu = $$('#astuces-menu li');
+    var tabAstucesContent = $$('#astuces-content div');
+
+    tabAstucesContent.each(function(item, index) {
+        if(index != 0)
+            item.hide();
+    });
+
+    tabAstucesMenu.each(function(item, index) {
+        item.observe('click',tabAstucesMenuClick);
+        item.observe('mouseover',tabAstucesMenuMouseOver);
+        item.observe('mouseout',tabAstucesMenuMouseOut);
+    });
+
+    function tabAstucesMenuClick(event){
+        var contentID = $(this).id.gsub('-menu', '');
+        tabAstucesContent.each(function(item, index) {
+            if(item.id == contentID){
+                item.addClassName('selected');
+                item.show();
+            }
+            else{
+                item.removeClassName('selected');
+                item.hide();
+            }
+        });
+    }
+
+    function tabAstucesMenuMouseOver(event){
+        $(this).addClassName('hover');
+    }
+
+    function tabAstucesMenuMouseOut(event){
+        $(this).removeClassName('hover');
+    }
+
+//]]>
+</script>

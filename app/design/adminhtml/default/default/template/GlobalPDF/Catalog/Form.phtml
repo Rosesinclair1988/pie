@@ -1,0 +1,64 @@
+<div class="entry-edit">
+
+<div class="content-header">
+    <table cellspacing="0" class="grid-header">
+        <tr>
+            <td><h3><?php echo $this->__('Build PDF Catalog')?></h3></td>
+            <td align="right">
+                <button onclick="formCatalog.submit();" class="scalable save" type="button"><span><?php echo $this->__('Build Catalog')?></span></button>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div class="entry-edit">
+	<form id="form_catalog" name="form_catalog" method="post" action="<?php echo $this->getUrl('*/*/Create')?>" enctype="multipart/form-data">
+		<input id="form_key" name="form_key" type="hidden" value="<?php echo Mage::getSingleton('core/session')->getFormKey() ?>" />
+		<input id="product_ids" name="product_ids" type="hidden" value="" />
+
+        <fieldset id="my-fieldset">
+            <table cellspacing="0" class="form-list">
+                <tr>
+                    <td class="label"><?php echo $this->__('Catalog name'); ?><span class="required">*</span</td>
+                    <td class="input-ele"><input type="text" name="catalog_name" id="catalog_name" class="required-entry"></td>
+                </tr>
+				<tr>
+                    <td class="label"><?php echo $this->__('Category'); ?></td>
+                    <td class="input-ele"><?php echo $this->getCategoryCombo(); ?></td>				
+				</tr>
+                <tr>
+                    <td class="label"><?php echo $this->__('Products'); ?></td>
+                    <td class="input-ele">
+						<div name="div_products" id="div_products">
+						
+						</div>
+					</td>
+                </tr>
+                <tr>
+                    <td class="label"><?php echo $this->__('Comments'); ?></td>
+                    <td class="input-ele">
+						<textarea name="catalog_comments" id="catalog_comments" cols="150" rows="10"></textarea>
+					</td>
+                </tr>
+			</table>
+		</fieldset>
+		
+	</form>
+</div>
+
+<script type="text/javascript"> 
+    formCatalog = new varienForm('form_catalog', '');
+</script> 
+
+<div class="content-header">
+    <table cellspacing="0" class="grid-header">
+        <tr>
+            <td><h3><?php echo $this->__('Select products')?></h3></td>
+        </tr>
+    </table>
+</div>
+
+
+<fieldset>
+	<?php echo $this->getChildHtml('product_grid'); ?>
+</fieldset>

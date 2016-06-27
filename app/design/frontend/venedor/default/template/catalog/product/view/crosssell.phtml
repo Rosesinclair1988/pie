@@ -1,0 +1,136 @@
+<?php 
+$venedor = $this->helper('venedor');
+$b = $venedor->getConfigGroup();
+$_helper = $this->helper('catalog/output');
+$_product = $this->getProduct(); 
+$_crossSellProducts = $_product->getCrossSellProducts();
+//Default image size
+$imgWidth = 228;
+$imgHeight = 228;
+
+//Aspect Ratio
+if ($b['product']['aspect_ratio'])
+    $imgHeight = $imgWidth * $b['product']['image_ratio'];
+?>
+<?php if($_crossSellProducts && count($_crossSellProducts) > 0): ?>
+<div class="crosssell">
+    <h2><?php echo $this->__('Based on your selection, you may be interested in the following items:') ?></h2>
+
+    <div id="crosssell-products-list" class="crosssell-products products-grid flexslider large-icons">
+    <ul class="slides">
+    <?php foreach ($_crossSellProducts as $_item): ?>
+
+        <?php $_item = Mage::getModel('catalog/product')->load($_item->getId()); ?>
+        <li class="item<?php if (!$b['category']['grid_effect']) echo ' hover-disable' ?><?php if (!$b['category']['grid_addliks_inline']) echo ' addlinks-block' ?>"><div class="item-inner">
+            <div class="product-image">
+                <?php 
+                if ($b['category']['hover_image'])
+                    $hoverImgHtml = $venedor->getHoverImageHtml($_item, $imgWidth, $imgHeight); 
+                ?>
+                <a href="<?php echo $_item->getProductUrl() ?>" title="<?php echo $this->htmlEscape($this->getImageLabel($_item, 'small_image')) ?>">
+                    <img<?php if ($hoverImgHtml) echo ' class="primary-image"'; ?> src="<?php echo $venedor->getImage($_item, $imgWidth, $imgHeight, 'small_image'); ?>" alt="<?php echo $this->htmlEscape($_item->getName()) ?>" />
+                    <?php echo $hoverImgHtml; ?>
+                    <?php 
+                    $labels_tl = ''; $labels_tr = ''; $labels_bl = ''; $labels_br = '';
+                    if ($b['product']['new_label']) {
+                        // New Product 
+                        $newsFromDate = $_item->getNewsFromDate();
+                        $newsToDate = $_item->getNewsToDate();
+                        $new_html = '';
+                        if ($newsFromDate && $newsToDate && Mage::app()->getLocale()->IsStoreDateInInterval(Mage::app()->getStore(), $newsFromDate, $newsToDate))
+                            $new_html = '<div class="new ' . $b['product']['new_label_type'] . '">'. $this->__('New') .'</div>';
+                        switch ($b['product']['new_label_pos']) {
+                            case 'top-right': $labels_tr .= $new_html; break;
+                            case 'bottom-left': $labels_bl .= $new_html; break;
+                            case 'bottom-right': $labels_br .= $new_html; break;
+                            default: $labels_tl .= $new_html; break;
+                        }
+                    }
+                    if ($b['product']['sale_label']) {
+                        // Special Product
+                        $specialPriceFromDate = $_item->getSpecialFromDate();
+                        $specialPriceToDate = $_item->getSpecialToDate();
+                        $sales_html = '';
+                        if ($specialPriceFromDate&& $specialPriceToDate && Mage::app()->getLocale()->isStoreDateInInterval(Mage::app()->getStore(), $specialPriceFromDate, $specialPriceToDate)) {
+                            $_finalPrice = $this->helper('tax')->getPrice($_item, $_item->getFinalPrice());
+                            $_regularPrice = $this->helper('tax')->getPrice($_item, $_item->getPrice());
+                            if ($_regularPrice != $_finalPrice) {
+                                $getpercentage = number_format($_finalPrice / $_regularPrice * 100, 2);
+                                $finalpercentage = 100 - $getpercentage;
+                                $sales_html = '<div class="sales ' . $b['product']['sale_label_type'] . '">' . - number_format($finalpercentage, 0) . '%</div>';
+                            }
+                        }
+                        switch ($b['product']['sale_label_pos']) {
+                            case 'top-right': $labels_tr .= $sales_html; break;
+                            case 'bottom-left': $labels_bl .= $sales_html; break;
+                            case 'bottom-right': $labels_br .= $sales_html; break;
+                            default: $labels_tl .= $sales_html; break;
+                        }
+                    }
+                    if ($labels_tl) echo '<div class="labels top-left">' . $labels_tl . '</div>';
+                    if ($labels_tr) echo '<div class="labels top-right">' . $labels_tr . '</div>';
+                    if ($labels_bl) echo '<div class="labels bottom-left">' . $labels_bl . '</div>';
+                    if ($labels_br) echo '<div class="labels bottom-right">' . $labels_br . '</div>';
+                    ?>
+                </a>
+                <?php if ($b['product']['price_on_image']) : ?>
+                    <?php echo $this->getPriceHtml($_item, true, '-crosssell') ?>
+                <?php endif; ?>
+            </div>
+            <?php // Product description ?>
+            <div class="product-shop">
+                <?php if (!$b['product']['price_on_image']) : ?>
+                <div class="price-review">
+                    <?php echo $this->getPriceHtml($_item, true, '-crosssell') ?>
+                <?php endif; ?>
+                
+                <div class="reviews-wrap">
+                    <?php echo $this->getReviewsSummaryHtml($_item, 'short') ?>
+                </div>
+                <h2 class="product-name"><a href="<?php echo $_item->getProductUrl() ?>" title="<?php echo $this->htmlEscape($_item->getName()) ?>"><?php echo $_helper->productAttribute($_item, $_item->getName(), 'name') ?></a></h2>
+                <div class="actions clearfix">
+                    <?php if($_item->isSaleable()): ?>
+                        <button type="button" title="<?php echo $this->__('Add to Cart') ?>" class="button btn-cart" onclick="setLocation('<?php echo $this->getAddToCartUrl($_item) ?>')"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button>
+                    <?php else: ?>
+                        <span class="availability out-of-stock"><span><?php echo $this->__('Out of Stock') ?></span></span>
+                    <?php endif; ?>
+                    <?php if (($b['product']['addlinks_wishlist'] && $this->helper('wishlist')->isAllow()) || ($b['product']['addlinks_compare'] && $this->getAddToCompareUrl($_item))) : ?>
+                    <span class="add-to-links">
+                        <?php if ($b['product']['addlinks_wishlist'] && $this->helper('wishlist')->isAllow()) : ?>
+                            <a href="<?php echo $this->helper('wishlist')->getAddUrl($_item) ?>" class="button link-wishlist" title="<?php echo $this->__('Add to Wishlist') ?>"><?php echo $this->__('Add to Wishlist') ?></a>
+                        <?php endif; ?>
+                        <?php if($b['product']['addlinks_compare'] && $_compareUrl=$this->getAddToCompareUrl($_item)): ?>
+                            <a href="<?php echo $_compareUrl ?>" class="button link-compare" title="<?php echo $this->__('Add to Compare') ?>"><?php echo $this->__('Add to Compare') ?></a>
+                        <?php endif; ?>
+                    </span>
+                    <?php endif; ?>
+                </div>
+                
+                <?php if (!$b['product']['price_on_image']) : ?></div><?php endif; ?>
+            </div>
+        </div></li>
+    <?php endforeach; ?>
+    </ul></div>
+
+    <script type="text/javascript">decorateList('crosssell-products-list', 'none-recursive')</script>
+    <script type="text/javascript">
+    //<![CDATA[
+    jQuery(function($) {
+        var bp = 963;
+        if ($('body').hasClass('bv3'))
+            bp = 975;
+        $('#crosssell-products-list').flexslider({
+            controlNav: false,
+            animation: 'slide',
+            animationLoop: false,
+            minItems: 2,
+            maxItems: 2,
+            itemWidth: 228
+        })
+        .data("break_default", [2, 228])
+        .data("break_points", [ [975, 2, 260], [530, 1, 260] ] );
+    });
+    //]]>
+    </script>
+</div>
+<?php endif; ?>

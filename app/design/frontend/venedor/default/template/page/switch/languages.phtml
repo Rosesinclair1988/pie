@@ -1,0 +1,59 @@
+<?php
+/**
+ * Language switcher template
+ *
+ * @see Mage_Page_Block_Switch
+ */
+?>
+<?php if(count($this->getStores())>1): ?>
+<?php
+// store name
+$store_name = Mage::app()->getStore()->getName();
+
+// store code
+$store_code = Mage::app()->getStore()->getCode();
+?>
+<div class="block block-language">
+    <div class="block-title">
+        <span><?php echo $this->__('Select Your Language') ?></span>
+    </div>
+    <div class="block-content dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="false" title="<?php echo $this->__('Select Your Language') ?>">
+            <span class="icon-flag" style="background-image:url(<?php echo $this->getSkinUrl('images/flags/'. $store_code .'.png'); ?>)"></span><span class="name"><?php echo $store_name ?></span>
+        </a>
+        <ul class="dropdown-menu">
+            <?php foreach ($this->getStores() as $_lang): ?>
+                <?php if ($_lang->getId() != $this->getCurrentStoreId()): ?>
+                    <li><a tabindex="-1" href="<?php echo $_lang->getCurrentUrl() ?>"><span class="icon-flag" style="background-image:url(<?php echo $this->getSkinUrl('images/flags/'. $_lang->getCode() .'.png'); ?>)"></span><span class="name"><?php echo $this->htmlEscape($_lang->getName()) ?></span></a></li>
+                <?php endif; ?>
+            <?php endforeach; ?>            
+        </ul>
+    </div>
+</div>
+<script type="text/javascript">
+//<![CDATA[
+jQuery(function($) {
+    var venedor_lang_timer;
+    
+    function venedor_resize_lang() {
+        var w1 = $('.block-language .dropdown-toggle').css('width','auto').innerWidth() + 1;
+        var w2 = $('.block-language .dropdown-menu').css('width','auto').innerWidth() + 1;
+        if (w1 > w2) {
+            $('.block-language .dropdown-toggle').css('width', w1 + 'px');
+            $('.block-language .dropdown-menu').css('width', w1 + 'px');
+        } else {
+            $('.block-language .dropdown-toggle').css('width', w2 + 'px');
+            $('.block-language .dropdown-menu').css('width', w2 + 'px');
+        }
+        if (venedor_lang_timer) clearTimeout(venedor_lang_timer); 
+    }
+    
+    $(window).resize(function() {
+        clearTimeout(venedor_lang_timer); 
+        venedor_lang_timer = setTimeout(venedor_resize_lang, 100); 
+    });
+    venedor_resize_lang();
+});
+//]]>
+</script>
+<?php endif; ?>

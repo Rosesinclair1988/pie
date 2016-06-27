@@ -1,0 +1,280 @@
+<?php
+/**
+ * @var $this Eternal_HomeSlider_Block_Slideshow
+ */
+?>
+<?php 
+$venedor = $this->helper('venedor');
+$b = $venedor->getConfigGroup();
+$containerClass = $venedor->getContainerClass();
+$helper = $this->helper('eternal_homeslider'); 
+$responsive = $helper->getConfig('general/active_responsive') == 1 ? 'true' : 'false';
+$controls = $helper->getConfig('general/show_controls') == 1 ? 'true' : 'false';
+$pager = $helper->getConfig('general/show_pager') == 1 ? 'true' : 'false';
+$transaction = $helper->getConfig('general/transaction');
+$speed = $helper->getConfig('general/speed');
+$auto_play = $helper->getConfig('general/auto_play') == 1 ? 'true' : 'false';
+$timeout = $helper->getConfig('general/timeout');
+$pause_hover = $helper->getConfig('general/pause_hover') == 1 ? 'true' : 'false';
+if ($helper->getConfig('general/enabled')): ?>
+<?php if ($helper->getConfig('general/type') == 'block') : ?>
+    <?php 
+    $block_ids = $this->getBlockIds(); 
+    $plugin = $helper->getConfig('general/block_plugin');
+    ?>
+    <?php if ($plugin == 'revolution') : // Sequence Modern Slide In ?>
+        <div id="homeslider-revolution">
+            <div class="revolution-slider">
+                <ul>
+                <?php $i = 0; foreach ($block_ids as $block_id): ?>
+                    <?php if (!empty($block_id)): ?>
+                        <?php $html = $this->getLayout()->createBlock('cms/block')->setBlockId($block_id)->toHtml();
+                        $html = str_replace('<ul>', '', $html);
+                        $html = str_replace('</ul>', '', $html);
+                        echo $html; 
+                        ?>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+                </ul>
+            </div>
+        </div>
+        <script type="text/javascript">
+        //<![CDATA[
+        jQuery(document).ready(function($){
+            if ($.fn.cssOriginal!=undefined)
+                $.fn.css = $.fn.cssOriginal;
+                
+            $('.revolution-slider').revolution({
+                delay:<?php echo $timeout ?>,
+                startwidth:1920,
+                startheight:600,
+                hideThumbs:200,
+                navigationType:"bullet",
+                navigationArrows:"<?php if ($controls) echo 'solo'; else 'none'; ?>",
+                navigationStyle:"round",
+                navigationHAlign:"center",                // Vertical Align top,center,bottom
+                navigationVAlign:"bottom",                    // Horizontal Align left,center,right
+                navigationHOffset:0,
+                navigationVOffset:6,
+                soloArrowLeftHalign:"left",
+                soloArrowLeftValign:"center",
+                soloArrowLeftHOffset:0,
+                soloArrowLeftVOffset:0,
+                soloArrowRightHalign:"right",
+                soloArrowRightValign:"center",
+                soloArrowRightHOffset:0,
+                soloArrowRightVOffset:0,
+                touchenabled:"on",
+                onHoverStop:"<?php if ($pause_hover) echo 'on'; else echo 'off'; ?>",
+                stopAtSlide:-1,
+                stopAfterLoops:-1,
+                shadow:1, 
+                fullWidth:"off" 
+            });
+        });
+        //]]>
+        </script>
+    <?php elseif ($plugin == 'sequence') : // Sequence Modern Slide In ?>
+        <div id="homeslider-sequence">
+            <ul class="sequence-canvas">
+            <?php $i = 0; foreach ($block_ids as $block_id): ?>
+                <?php if (!empty($block_id)): ?>
+                    <li class="<?php echo $block_id; ?>">
+                        <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId($block_id)->toHtml(); ?>
+                    </li>
+                <?php endif; ?>
+            <?php endforeach; ?>
+            </ul>
+
+            <ul class="sequence-pagination">
+                <?php $i = 0; foreach ($block_ids as $block_id): ?>
+                <?php if (!empty($block_id)): ?>
+                    <li>
+                        <a><?php echo ++$i; ?></a>
+                    </li>
+                <?php endif; ?>
+            <?php endforeach; ?>
+            </ul>
+            <span href="#" class="sequence-prev slider-arrow prev"></span> 
+            <span href="#" class="sequence-next slider-arrow next"></span>
+        </div>
+        <script type="text/javascript">
+        //<![CDATA[
+        jQuery(document).ready(function($){
+            jQuery('#homeslider-sequence .slider-wrap').addClass('<?php echo $containerClass; ?>');
+            var options = {
+                nextButton: <?php echo $controls ?>,
+                prevButton: <?php echo $controls ?>,
+                pagination: <?php echo $pager ?>,
+                theme: '<?php echo $transaction ?>',
+                speed: <?php echo $speed ?>,
+                autoPlay: <?php echo $auto_play ?>,
+                autoPlayDelay: <?php echo $timeout ?>,
+                pauseOnHover: <?php echo $pause_hover ?>,
+                preloader: true,
+                animateStartingFrameIn: true
+            };
+            
+            var homeSequence = $("#homeslider-sequence").sequence(options).data("sequence");
+        });
+        //]]>
+        </script>
+    <?php elseif ($plugin == 'fraction') : // Fraction Slider ?>
+        <div class="<?php echo $containerClass ?>">
+            <div id="homeslider-fraction">
+                <?php foreach ($block_ids as $block_id): ?>
+                    <?php if (!empty($block_id)): ?>
+                        <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId($block_id)->toHtml(); ?>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+                <?php if (count($block_ids)) : ?>
+                <div class="fs_loader"></div>
+                <?php endif; ?>
+            </div>
+        </div>
+        <script type="text/javascript">
+        //<![CDATA[
+        jQuery(document).ready(function($){
+            $('#homeslider-fraction').fractionSlider({
+                fullWidth: true,
+                controls: <?php echo $controls ?>, 
+                pager: <?php echo $pager ?>,
+                responsive: <?php echo $responsive ?>,
+                slideTransition: '<?php echo $transaction == 'fade' ? 'fade' : 'none' ?>',
+                slideTransitionSpeed: <?php echo $speed ?>,
+                autoChange: <?php echo $auto_play ?>,
+                timeout: <?php echo $timeout ?>,
+                pauseOnHover: <?php echo $pause_hover ?>,
+                dimensions: "1170,600",
+                increase: false
+            });
+            
+            // calculate position
+            var venedor_fraction_timer;
+            function venedor_fraction_resize() {
+                w = $('.main-slider').width();
+                f_w = $('#homeslider-fraction').width();
+                $('#homeslider-fraction .fraction-slider .prev').css('left', (f_w - w) / 2 + 'px');
+                $('#homeslider-fraction .fraction-slider .next').css('right', (f_w - w) / 2 + 'px');
+                if (venedor_fraction_timer) clearTimeout(venedor_fraction_timer);
+            }
+
+            $(window).load(venedor_fraction_resize);
+            
+            $(window).resize(function() { 
+                clearTimeout(venedor_fraction_timer); 
+                venedor_fraction_timer = setTimeout(venedor_fraction_resize, 200); 
+            });
+        });
+        //]]>
+        </script>
+    <?php endif; ?>
+<?php else : ?><?php // Products Slider ?>
+    <div class="<?php echo $containerClass ?> homeslider-products">
+        <ul id="homeslider-bxslider">
+        <?php 
+        $product_skus = $this->getProductSkus(); 
+        foreach ($product_skus as $_sku) {
+            $_product = Mage::getModel('catalog/product')->loadByAttribute('sku', $_sku);
+            if (!$_product)
+                continue;  
+            $product_name = $_product->getName();
+            $product_desc = $_product->getDescription();
+            if (strlen($product_desc) > 200)
+                $product_desc = substr($product_desc, 0, 200) . '...';
+            $product_price = $this->helper('tax')->getPrice($_product, $_product->getFinalPrice());
+            $product_url = $_product->getProductUrl();
+            
+            //Default image size
+            $imgWidth = 585;
+            $imgHeight = 585;
+
+            //Aspect Ratio
+            if ($b['product']['aspect_ratio'])
+                $imgHeight = $imgWidth * $b['product']['image_ratio'];
+            ?>
+            <li>
+                <div class="product-image">
+                    <a href="<?php echo $product_url ?>" title="<?php echo $product_name ?>">
+                        <img src="<?php echo $venedor->getImage($_product, $imgWidth, $imgHeight, 'thumbnail'); ?>" alt="<?php echo $this->htmlEscape($product_name) ?>" />
+                    </a>
+                </div>
+                <div class="product-details">
+                    <h3 class="product-name"><a href="<?php echo $product_url ?>" title="<?php echo $product_name ?>"><?php echo $product_name ?></a></h3>
+                    <div class="price-box"><?php echo Mage::helper('checkout')->formatPrice($product_price) ?></div>
+                    <p class="product-desc"><?php echo $product_desc ?></p>
+                    <?php if($_product->isSaleable()): ?>
+                        <?php $buttonTitle = $this->__('Add to Cart'); ?>
+                        <?php if($_product->isSaleable()): ?>
+                            <div class="add-to-cart">
+                                <button onclick="setLocation('<?php echo $this->helper('checkout/cart')->getAddUrl($_product); ?>');" class="button btn-lg btn-large btn-cart" title="<?php echo $buttonTitle ?>"><span><span><?php echo $buttonTitle ?></span></span></button>
+                            </div>
+                        <?php endif; ?>
+                    <?php endif; ?>
+                </div>
+            </li>
+            <?php  
+        } ?>
+        </ul>
+    </div>
+    <div class="shadow-left"></div>
+    <div class="shadow-right"></div>
+    <script type="text/javascript">
+    //<![CDATA[
+    jQuery(document).ready(function($){
+        $('#homeslider-bxslider').bxSlider({
+            controls: <?php echo $controls ?>,
+            pager: <?php echo $pager ?>,
+            responsive: <?php echo $responsive ?>,
+            speed: <?php echo $speed ?>,
+            auto: <?php echo $auto_play ?>,
+            pause: <?php echo $timeout ?>,
+            autoHover: <?php echo $pause_hover ?>,
+            minSlides: 2,
+            maxSlides: 2,
+            slideWidth: 1170 / 2,
+            slideMargin: 0,
+            onSliderLoad: function() {
+                $('#homeslider-bxslider > li').hover(function() {
+                    $(this).addClass('hover');
+                    $(this).find('.product-details').css({
+                        top: '3%'
+                    });
+                }, function() {
+                    $(this).removeClass('hover');
+                    $(this).find('.product-details').css({
+                        top: '97%'
+                    });
+                })
+            }
+        });
+        
+        // calculate shadow's width
+        var venedor_homeslider_timer;
+        function venedor_homeslider_resize() {
+            w = $('.main-slider').width();
+            c_w = $('.main-slider .<?php echo $containerClass ?>').width();
+            s_w = (w - c_w) / 2;
+            $('.main-slider .shadow-left').css('width', s_w + 'px');
+            $('.main-slider .shadow-right').css('width', s_w + 'px');
+            $('.homeslider-products .product-details').css('bottom', 'auto');
+            h = $('.homeslider-products').height();
+            d_h = $('.homeslider-products .product-details').height();
+            $('.homeslider-products .product-details').css('bottom', '3%');
+            $('.homeslider-products .product-name').css({
+                'margin-top': ((h - d_h) / 2) + 'px'
+            });
+            if (venedor_homeslider_timer) clearTimeout(venedor_homeslider_timer);
+        }
+
+        $(window).load(venedor_homeslider_timer);
+        
+        $(window).resize(function() { 
+            clearTimeout(venedor_homeslider_timer); 
+            venedor_homeslider_timer = setTimeout(venedor_homeslider_resize, 200); 
+        });
+    });
+    //]]>
+    </script>
+<?php endif; ?>
+<?php endif; ?>

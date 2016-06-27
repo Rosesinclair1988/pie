@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+
+<layout version="0.1.0">
+
+	<!-- add print button in addto block -->
+    <catalog_product_view>
+        <reference name="product.info.extrahint">
+            <block type="GlobalPDF/Product" name="product.info.addto.print" template="GlobalPDF/Product.phtml" />
+        </reference>
+    </catalog_product_view>
+
+	<!-- add print button in cart -->
+    <checkout_cart_index>
+        <reference name="checkout.cart.top_methods">
+            <block type="GlobalPDF/Cart" name="checkout_print" template="GlobalPDF/Cart.phtml" before="-"/>
+        </reference>
+    </checkout_cart_index>
+	
+</layout>

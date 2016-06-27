@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!-- 
+/**
+ * @category    Eternal
+ * @package     Eternal_Venedor
+ * @copyright   Copyright (c) 2013 EternalFriend.
+ * @author 	    Eternal
+ */
+ -->
+<config>
+    <modules>
+        <Eternal_CloudZoom>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Eternal_CloudZoom>
+    </modules>
+</config> 

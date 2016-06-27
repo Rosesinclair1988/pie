@@ -1,0 +1,51 @@
+
+.price-slider {
+    
+}
+.price-slider .slider-wrap {
+    margin: 15px 0;
+}
+.price-slider .text-box {
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+.price-slider label {
+    margin-right: 8px;
+    font-size: 14px;
+    display: inline;
+    line-height: 25px;
+}
+.price-slider .priceTextBox {
+    margin-bottom: 0;
+    font-size: 14px;
+    padding: 2px;
+}
+.price-slider #minPrice {
+    margin-right: 8px;
+}
+.price-slider .actions {
+    padding: 10px 0 0;
+}
+.price-slider .actions .go {
+    margin-right: 8px;
+}
+.price-slider .jslider .jslider-value {
+    font-size: 12px;
+}
+.price-slider .jslider .jslider-label {
+    font-size: 10px;
+}
+.price-slider .jslider .jslider-pointer {
+    cursor: pointer;
+    width: 10px;
+    height: 22px;
+    -webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.15);
+       -moz-box-shadow: 0 1px 1px rgba(0,0,0,0.15);
+            box-shadow: 0 1px 1px rgba(0,0,0,0.15);
+}
+.price-slider .jslider .jslider-bg i {
+    margin-top: 2px;
+    background-color: #e0dbdb;
+    background-image: none;
+    height: 10px;
+}

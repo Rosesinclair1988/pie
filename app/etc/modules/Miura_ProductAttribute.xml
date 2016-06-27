@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Miura_ProductAttribute>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Miura_ProductAttribute>
+    </modules>
+</config> 

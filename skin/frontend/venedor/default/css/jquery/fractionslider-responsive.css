@@ -1,0 +1,28 @@
+
+
+@media (min-width: 1200px) {
+    
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    
+}
+
+@media (max-width: 767px) {
+    .fraction-slider .slide-desc {
+        display: none !important;
+    }
+    .fraction-slider .slide-link {
+        font-size: 9px !important;
+    }
+}
+
+@media (max-width: 650px) {
+    
+}
+
+@media (max-width: 480px) {
+    .fs-pager-wrapper { 
+        display: none; 
+    }
+}

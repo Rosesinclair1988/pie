@@ -1,0 +1,686 @@
+<?xml version="1.0"?>
+<config>
+	<sections>
+		<payment>
+			<groups>
+				<systempay translate="label">
+					<label>Systempay</label>
+					<sort_order>300</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<frontend_class>complex</frontend_class>
+
+					<fields>
+						<!--=============== Module information (version, contact...) ================= -->
+						<module_informations translate="label">
+							<label><![CDATA[<p class='note'><b>MODULE INFORMATIONS</b></p>]]></label>
+							<frontend_type>label</frontend_type>
+							<sort_order>10</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</module_informations>
+
+						<!-- author -->
+						<developed_by translate="label">
+							<label>Developed by</label>
+							<comment><![CDATA[<a href="http://www.lyra-network.com" target="_blank">www.lyra-network.com</a>]]></comment>
+							<frontend_type>label</frontend_type>
+							<config_path>payment/systempay/developed_by</config_path>
+							<sort_order>11</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</developed_by>
+
+						<!-- email -->
+						<contact_email translate="label">
+							<label>Contact email</label>
+							<frontend_type>label</frontend_type>
+							<config_path>payment/systempay/contact_email</config_path>
+							<sort_order>12</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</contact_email>
+
+						<!-- module version -->
+						<module_version translate="label">
+							<label>Module version</label>
+							<frontend_type>label</frontend_type>
+							<config_path>payment/systempay/module_version</config_path>
+							<sort_order>13</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</module_version>
+
+						<!-- gateway version -->
+						<gateway_version translate="label">
+							<label>Gateway version</label>
+							<frontend_type>label</frontend_type>
+							<config_path>payment/systempay/gateway_version</config_path>
+							<sort_order>14</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</gateway_version>
+
+						<!-- magento version -->
+						<cms_version translate="label">
+							<label>Tested with Magento</label>
+							<frontend_type>label</frontend_type>
+							<config_path>payment/systempay/cms_version</config_path>
+							<sort_order>15</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</cms_version>
+						
+						<init_module translate="label button_label comment">
+                            <label>Reset the module</label>
+                            <comment>Click this button to remove all previous module installations or to reinitialize the current installation.</comment>
+                            <button_label>Reset</button_label>
+                            <button_url><![CDATA[adminhtml/systempay_config/reset]]></button_url>
+                            <frontend_model>systempay/field_initButton</frontend_model>
+                            <sort_order>16</sort_order>
+                            <show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+                        </init_module>
+
+						<!--================================== Module Settings ================================== -->
+						<base_settings translate="label">
+							<label><![CDATA[<p class='note'><b>BASE SETTINGS</b></p>]]></label>
+							<frontend_type>label</frontend_type>
+							<sort_order>20</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</base_settings>
+
+						<!-- Enabled -->
+						<active translate="label">
+							<label>Enabled</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<config_path>payment/systempay/active</config_path>
+							<sort_order>21</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</active>
+
+						<sort_order translate="label,comment">
+							<label>Sort order</label>
+							<comment>In the payment methods list</comment>
+							<frontend_type>text</frontend_type>
+							<config_path>payment/systempay/sort_order</config_path>
+							<sort_order>22</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</sort_order>
+
+						<!-- Display name -->
+						<title translate="label">
+							<label>Title</label>
+							<frontend_type>text</frontend_type>
+							<config_path>payment/systempay/title</config_path>
+							<sort_order>23</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</title>
+
+						<!-- Country restrictions -->
+						<allowspecific translate="label">
+							<label>Restrict to some countries</label>
+							<frontend_type>allowspecific</frontend_type>
+							<config_path>payment/systempay/allowspecific</config_path>
+							<sort_order>25</sort_order>
+							<source_model>adminhtml/system_config_source_payment_allspecificcountries</source_model>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</allowspecific>
+
+						<specificcountry translate="label">
+							<label>Authorized countries</label>
+							<frontend_type>multiselect</frontend_type>
+							<config_path>payment/systempay/specificcountry</config_path>
+							<sort_order>26</sort_order>
+							<source_model>adminhtml/system_config_source_country</source_model>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</specificcountry>
+
+						<!--================================== Gateway access ================================== -->
+						<gateway_access translate="label">
+							<label><![CDATA[<p class='note'><b>PAYMENT GATEWAY ACCESS</b></p>]]></label>
+							<frontend_type>label</frontend_type>
+							<sort_order>30</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</gateway_access>
+
+						<!-- Site id -->
+						<site_id translate="label">
+							<label>Site ID</label>
+							<frontend_type>text</frontend_type>
+							<config_path>payment/systempay/site_id</config_path>
+							<sort_order>31</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</site_id>
+
+						<!-- Certificates -->
+						<key_test translate="label,comment">
+							<label>Test key</label>
+							<comment>Available in your Systempay backoffice</comment>
+							<frontend_type>text</frontend_type>
+							<config_path>payment/systempay/key_test</config_path>
+							<sort_order>32</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</key_test>
+
+						<key_prod translate="label">
+							<label>Production key</label>
+							<comment>Available in your Systempay backoffice after test validation</comment>
+							<frontend_type>text</frontend_type>
+							<config_path>payment/systempay/key_prod</config_path>
+							<sort_order>33</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</key_prod>
+
+						<!-- Mode -->
+						<ctx_mode translate="label,comment">
+							<label>Mode</label>
+							<comment>The context mode of the module</comment>
+							<frontend_type>select</frontend_type>
+							<source_model>systempay/source_ctxModes</source_model>
+							<config_path>payment/systempay/ctx_mode</config_path>
+							<sort_order>34</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</ctx_mode>
+
+						<!-- gateway URL -->
+						<platform_url translate="label">
+							<label>Platform URL</label>
+							<frontend_type>text</frontend_type>
+							<config_path>payment/systempay/platform_url</config_path>
+							<sort_order>35</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</platform_url>
+
+						<!--================================== Payment page ================================== -->
+						<payment_page translate="label">
+							<label><![CDATA[<p class='note'><b>PAYMENT PAGE</b></p>]]></label>
+							<frontend_type>label</frontend_type>
+							<sort_order>40</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</payment_page>
+
+						<language translate="label,comment">
+							<label>Language</label>
+							<comment>Default language for payment page</comment>
+							<frontend_type>select</frontend_type>
+							<source_model>systempay/source_languages</source_model>
+							<config_path>payment/systempay/language</config_path>
+							<sort_order>41</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</language>
+
+						<available_languages translate="label,comment">
+							<label>Available languages</label>
+							<comment>Select none to use gateway config</comment>
+							<frontend_type>multiselect</frontend_type>
+							<source_model>systempay/source_languages</source_model>
+							<backend_model>systempay/field_availableLanguages</backend_model>
+							<config_path>payment/systempay/available_languages</config_path>
+							<sort_order>42</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</available_languages>
+
+						<capture_delay translate="label">
+							<label>Delay</label>
+							<frontend_type>text</frontend_type>
+							<config_path>payment/systempay/capture_delay</config_path>
+							<sort_order>43</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</capture_delay>
+
+						<validation_mode translate="label,comment">
+							<label>Validation mode</label>
+							<comment>If manual is selected, you will have to confirm payments manually in your bank backoffice</comment>
+							<frontend_type>select</frontend_type>
+							<source_model>systempay/source_validationModes</source_model>
+							<config_path>payment/systempay/validation_mode</config_path>
+							<sort_order>44</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</validation_mode>
+
+						<payment_cards translate="label,comment">
+							<label>Credit Card Types</label>
+							<comment>Select the card type(s) that can be used for the payment</comment>
+							<frontend_type>multiselect</frontend_type>
+							<source_model>systempay/source_paymentCards</source_model>
+							<config_path>payment/systempay/payment_cards</config_path>
+							<sort_order>45</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</payment_cards>
+
+						<!--================================ Payment page customize ================================== -->
+						<payment_page_customize translate="label">
+							<label><![CDATA[<p class='note'><b>PAYMENT PAGE CUSTOMIZE</b></p>]]></label>
+							<frontend_type>label</frontend_type>
+							<sort_order>50</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</payment_page_customize>
+
+						<theme_config translate="label,comment">
+							<label>Theme configuration</label>
+							<comment>The theme configuration to customize the payment page (logo, css)</comment>
+							<frontend_type>text</frontend_type>
+							<config_path>payment/systempay/theme_config</config_path>
+							<sort_order>51</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</theme_config>
+
+						<shop_name translate="label,comment">
+							<label>Shop name</label>
+							<comment>The shop name to display on payment page</comment>
+							<frontend_type>text</frontend_type>
+							<config_path>payment/systempay/shop_name</config_path>
+							<sort_order>52</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</shop_name>
+
+						<shop_url translate="label,comment">
+							<label>Shop URL</label>
+							<comment>The site URL to display on payment page</comment>
+							<frontend_type>text</frontend_type>
+							<backend_model>systempay/field_shopUrl</backend_model>
+							<config_path>payment/systempay/shop_url</config_path>
+							<sort_order>53</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</shop_url>
+
+						<!--================================== 3DS enabling ================================== -->
+						<selective_3ds translate="label">
+							<label><![CDATA[<p class='note'><b>SELECTIVE 3DS</b></p>]]></label>
+							<frontend_type>label</frontend_type>
+							<sort_order>54</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</selective_3ds>
+
+						<threeds_min_amount translate="label,comment">
+							<label>Minimum amount for which activate 3DS</label>
+							<comment>Needs subscription to Selective 3-D Secure option.</comment>
+							<frontend_type>text</frontend_type>
+							<config_path>payment/systempay/threeds_min_amount</config_path>
+							<sort_order>55</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</threeds_min_amount>
+
+
+						<!--================================== Card data entry ================================== -->
+						<card_data_entry translate="label">
+							<label><![CDATA[<p class='note'><b>CARD DATA ENTRY</b></p>]]></label>
+							<frontend_type>label</frontend_type>
+							<sort_order>60</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</card_data_entry>
+
+						<card_info_mode translate="label,comment">
+							<label>Card data entry mode</label>
+							<comment>Select how the credit card infos will be entered. Attention, to use data acquisition on the merchant site, you must ensure that you have subscribed to this option with Systempay.</comment>
+							<frontend_type>select</frontend_type>
+							<source_model>systempay/source_cardInfoModes</source_model>
+							<config_path>payment/systempay/card_info_mode</config_path>
+							<sort_order>61</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</card_info_mode>
+
+						<!--========================== amount restrictions parameters =========================== -->
+						<amount_restrictions translate="label">
+							<label><![CDATA[<p class='note'><b>AMOUNT RESTRICTIONS</b></p>]]></label>
+							<frontend_type>label</frontend_type>
+							<sort_order>70</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</amount_restrictions>
+
+						<!-- Amount restrictions -->
+						<min_order_total translate="label">
+							<label>Minimum Order Total</label>
+							<frontend_type>text</frontend_type>
+							<config_path>payment/systempay/min_order_total</config_path>
+							<sort_order>71</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</min_order_total>
+
+						<max_order_total translate="label">
+							<label>Maximum Order Total</label>
+							<frontend_type>text</frontend_type>
+							<config_path>payment/systempay/max_order_total</config_path>
+							<sort_order>72</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</max_order_total>
+
+						<!--================================== Return options ================================== -->
+						<return_options translate="label">
+							<label><![CDATA[<p class='note'><b>RETURN OPTIONS</b></p>]]></label>
+							<frontend_type>label</frontend_type>
+							<sort_order>80</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</return_options>
+
+						<redirect_enabled translate="label,comment">
+							<label>Automatic redirection</label>
+							<comment>Automatically redirect client to the shop at the end of the payment process</comment>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<config_path>payment/systempay/redirect_enabled</config_path>
+							<sort_order>81</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</redirect_enabled>
+
+						<redirect_success_timeout translate="label,comment">
+							<label>Success redirection timeout</label>
+							<comment>If automatic redirection is enabled</comment>
+							<frontend_type>text</frontend_type>
+							<config_path>payment/systempay/redirect_success_timeout</config_path>
+							<sort_order>82</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</redirect_success_timeout>
+
+						<redirect_success_message translate="label,comment">
+							<label>Success redirection message</label>
+							<comment>If automatic redirection is enabled</comment>
+							<frontend_type>text</frontend_type>
+							<config_path>payment/systempay/redirect_success_message</config_path>
+							<sort_order>83</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</redirect_success_message>
+
+						<redirect_error_timeout translate="label,comment">
+							<label>Error redirection timeout</label>
+							<comment>If automatic redirection is enabled</comment>
+							<frontend_type>text</frontend_type>
+							<config_path>payment/systempay/redirect_error_timeout</config_path>
+							<sort_order>84</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</redirect_error_timeout>
+
+						<redirect_error_message translate="label,comment">
+							<label>Error redirection message</label>
+							<comment>If automatic redirection is enabled</comment>
+							<frontend_type>text</frontend_type>
+							<config_path>payment/systempay/redirect_error_message</config_path>
+							<sort_order>85</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</redirect_error_message>
+
+						<return_mode translate="label,comment">
+							<label>Return mode</label>
+							<comment>How the client transmit payment process result</comment>
+							<frontend_type>select</frontend_type>
+							<source_model>systempay/source_returnModes</source_model>
+							<config_path>payment/systempay/return_mode</config_path>
+							<sort_order>86</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</return_mode>
+
+						<check_url translate="label,comment">
+							<label>Check URL</label>
+							<comment>URL to paste in Systempay backoffice</comment>
+							<frontend_type>label</frontend_type>
+							<config_path>payment/systempay/check_url</config_path>
+							<backend_model>systempay/field_checkUrl</backend_model>
+							<sort_order>87</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</check_url>
+
+						<refill_cart translate="label,comment">
+							<label>Refill cart on failure</label>
+							<comment>Re-create the cart after a payment failure (fix magento behaviour)</comment>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<config_path>payment/systempay/refill_cart</config_path>
+							<sort_order>88</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</refill_cart>
+
+						<registered_order_status translate="label,comment">
+							<label>Registered orders status</label>
+							<comment>Status of orders when payment is successfull.</comment>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_order_status_newprocessing</source_model>
+							<config_path>payment/systempay/registered_order_status</config_path>
+							<sort_order>89</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</registered_order_status>
+
+						<capture_auto translate="label,comment">
+							<label>Invoice creation</label>
+							<comment>Automatically create invoice when payment is successfull.</comment>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<config_path>payment/systempay/capture_auto</config_path>
+							<sort_order>90</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends>
+								<registered_order_status>processing</registered_order_status>
+							</depends>
+						</capture_auto>
+					</fields>
+				</systempay>
+				
+				
+
+				<systempay_multi translate="label">
+					<label>Systempay - Paiement en plusieurs fois</label>
+					<sort_order>301</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<frontend_class>complex</frontend_class>
+
+					<fields>
+						<!--================================== Module Settings ================================== -->
+						<base_settings translate="label">
+							<label><![CDATA[<p class='note'><b>BASE SETTINGS</b></p>]]></label>
+							<frontend_type>label</frontend_type>
+							<sort_order>10</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</base_settings>
+
+						<!-- Enabled -->
+						<active translate="label">
+							<label>Enabled</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<config_path>payment/systempay_multi/active</config_path>
+							<sort_order>11</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</active>
+
+						<sort_order translate="label,comment">
+							<label>Sort order</label>
+							<comment>In the payment methods list</comment>
+							<frontend_type>text</frontend_type>
+							<config_path>payment/systempay_multi/sort_order</config_path>
+							<sort_order>12</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</sort_order>
+
+						<!-- Display name -->
+						<title translate="label">
+							<label>Title</label>
+							<frontend_type>text</frontend_type>
+							<config_path>payment/systempay_multi/title</config_path>
+							<sort_order>13</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</title>
+
+						<!-- Country restrictions -->
+						<allowspecific translate="label">
+							<label>Restrict to some countries</label>
+							<frontend_type>allowspecific</frontend_type>
+							<config_path>payment/systempay_multi/allowspecific</config_path>
+							<sort_order>15</sort_order>
+							<source_model>adminhtml/system_config_source_payment_allspecificcountries</source_model>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</allowspecific>
+
+						<specificcountry translate="label">
+							<label>Authorized countries</label>
+							<frontend_type>multiselect</frontend_type>
+							<config_path>payment/systempay_multi/specificcountry</config_path>
+							<sort_order>16</sort_order>
+							<source_model>adminhtml/system_config_source_country</source_model>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</specificcountry>
+
+						<!--============================ amount restrictions parameters ======================== -->
+						<amount_restrictions translate="label">
+							<label><![CDATA[<p class='note'><b>AMOUNT RESTRICTIONS</b></p>]]></label>
+							<frontend_type>label</frontend_type>
+							<sort_order>20</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</amount_restrictions>
+
+						<!-- Amount restrictions -->
+						<min_order_total translate="label">
+							<label>Minimum Order Total</label>
+							<frontend_type>text</frontend_type>
+							<config_path>payment/systempay_multi/min_order_total</config_path>
+							<sort_order>21</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</min_order_total>
+
+						<max_order_total translate="label">
+							<label>Maximum Order Total</label>
+							<frontend_type>text</frontend_type>
+							<config_path>payment/systempay_multi/max_order_total</config_path>
+							<sort_order>22</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</max_order_total>
+
+						<!--================================== multi payment options ================================== -->
+						<multi_payment_options translate="label">
+							<label><![CDATA[<p class='note'><b>MULTI PAYMENT OPTIONS</b></p>]]></label>
+							<frontend_type>label</frontend_type>
+							<sort_order>30</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</multi_payment_options>
+
+						<!-- multi payment option -->
+						<payment_options translate="label,comment">
+							<label>Payment options</label>
+							<frontend_model>systempay/field_multi_paymentOptions</frontend_model>
+							<backend_model>systempay/field_multi_paymentOptions</backend_model>
+							<config_path>payment/systempay_multi/payment_options</config_path>
+							<sort_order>31</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[Click on Add button to configure one or more payment options. <br /><b>Label : </b>The option label to display on the frontend. <br /><b>Minimum amount : </b>Minimum amount to enable the payment option. <br /><b>Maximum amount : </b>Maximum amount to enable the payment option. <br /><b>Contract : </b>ID of the contract to use with the option. <br /><b>Count : </b>Total number of payments. <br /><b>Period : </b>Delay (in days) between payments. <br /><b>1st payment : </b>Amount of first payment, in percentage of total amount. If empty, all payments will have the same amount.]]></comment>
+						</payment_options>
+					</fields>
+				</systempay_multi>
+				
+				
+				
+			</groups>
+		</payment>
+	</sections>
+</config>

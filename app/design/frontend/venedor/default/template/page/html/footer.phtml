@@ -1,0 +1,206 @@
+<?php 
+$venedor = $this->helper('venedor');
+$b = $venedor->getConfigGroup();
+$containerClass = $venedor->getContainerClass();
+$rowClass = $venedor->getRowClass();
+$spanClass = $venedor->getSpanClass();
+?>
+<div class="footer">
+    <?php if ($b['footer']['show_subscribe']) : ?>
+        <?php $ns_html = $this->getChildHtml('footer.newsletter'); ?>
+        <?php if ($ns_html): ?>
+        <div class="footer-subscribe">
+            <div class="<?php echo $containerClass ?>"><?php echo $ns_html; ?></div>
+        </div>
+        <?php endif; ?>
+    <?php endif; ?>
+    <?php if ($b['footer']['show_tweets']) : ?>
+        <?php $tt_html = $this->getChildHtml('social_twitter_tweets'); ?>
+        <?php if ($tt_html): ?>
+        <div class="footer-tweets">
+            <?php echo $tt_html; ?>
+        </div>
+        <?php endif; ?>
+    <?php endif; ?>
+    <div class="footer-top">
+        <?php
+        if ($b['footer']['footer_col_1'] == 'facebook' || $b['footer']['footer_col_2'] == 'facebook' || $b['footer']['footer_col_3'] == 'facebook' || $b['footer']['footer_col_4'] == 'facebook')
+            $fb_html = $this->getChildHtml('social_facebook_fans');
+        if ($b['footer']['footer_col_1'] == 'twitter' || $b['footer']['footer_col_2'] == 'twitter' || $b['footer']['footer_col_3'] == 'twitter' || $b['footer']['footer_col_4'] == 'twitter')
+            $tt_html = $this->getChildHtml('social_twitter_tweets_footer');
+        if ($b['footer']['footer_col_1'] == 'default' || $b['footer']['footer_col_2'] == 'default' || $b['footer']['footer_col_3'] == 'default' || $b['footer']['footer_col_4'] == 'default')   
+            $links_html = $this->getChildHtml('footer_links');
+        
+        $cols = array();
+        $column_count = 0;
+        for ($i = 1; $i <= 4; $i++) {
+            $col = array();
+            switch ($b['footer']['footer_col_'.$i]) {
+                case 'default': 
+                    if ($links_html) {
+                        $col['title'] = $this->__('Links');          
+                        $col['content'] = $links_html; 
+                    }
+                    break;
+                case 'twitter': 
+                    if ($tt_html) {
+                        $col['title'] = $this->__('From Twitter');   
+                        $col['content'] = $tt_html; 
+                    }
+                    break;
+                case 'facebook': 
+                    if ($fb_html) {
+                        $col['title'] = '';
+                        $col['content'] = $fb_html; 
+                    }
+                    break;
+                default: 
+                    $block_id = $b['footer']['footer_col_'.$i.'_block'];
+                    if ($block_id) {
+                        $block = Mage::getModel('cms/block')->setStoreId(Mage::app()->getStore()->getId())->load($block_id);
+                        if ($block) {
+                            $col['title'] = $block->getTitle();
+                            $col['content'] = $this->getLayout()->createBlock('cms/block')->setBlockId($block_id)->toHtml();
+                        }
+                    }
+            }
+            if (!empty($col)) {
+                $cols[] = $col;
+                $column_count++;
+            }   
+        }
+        $col_class = $spanClass.(12/$column_count);
+        $i = 1;
+        ?>
+        <div class="<?php echo $containerClass ?>">
+            <div class="<?php echo $rowClass ?>">
+                <?php foreach ($cols as $col) : ?>
+                <div class="<?php echo $col_class ?> footer_column footer-column-<?php echo $i; $i++; ?>">
+                    <?php if ($col['title']) : ?><h3 class="title"><?php echo $col['title'] ?></h3><?php endif; ?>
+                    <?php echo $col['content'] ?>
+                </div>
+                <?php endforeach; ?>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <div class="<?php echo $containerClass ?>">
+            <div class="<?php echo $rowClass ?>">
+                <div class="<?php echo $spanClass ?>7 social-links">
+                    <?php echo $this->getChildHtml('block_footer_social_links') ?>
+                </div>
+                <div class="<?php echo $spanClass ?>5 copyright">
+                    <address><?php echo $this->getCopyright() ?></address>
+                    <?php echo $this->getChildHtml('store_switcher') ?>                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+jQuery(function($) {
+    
+    var venedor_sidebar_timer;
+    
+    function venedor_sidebar_resize() {
+        if (VENEDOR_RESPONSIVE) {
+            var winWidth = $(window).innerWidth();
+
+            if (winWidth > 750 && ((!$('body').hasClass('bv3') && winWidth < 963) || ($('body').hasClass('bv3') && winWidth < 975))) {
+                <?php if ($i == 5) : ?>
+                    $('.footer-top .footer_column').removeClass('<?php echo $spanClass ?>3');
+                    $('.footer-top .footer_column').addClass('<?php echo $spanClass ?>4');
+                <?php endif; ?>
+                if ($('.sidebar').hasClass('<?php echo $spanClass ?>3')) {
+                    $('.sidebar').removeClass('<?php echo $spanClass ?>3');
+                    $('.sidebar').addClass('<?php echo $spanClass ?>4');
+                    $('.main-content').removeClass('<?php echo $spanClass ?>9');
+                    $('.main-content').addClass('<?php echo $spanClass ?>8');
+                    venedor_resize();
+                }                
+            } else {
+                <?php if ($i == 5) : ?>
+                    $('.footer-top .footer_column').removeClass('<?php echo $spanClass ?>4');
+                    $('.footer-top .footer_column').addClass('<?php echo $spanClass ?>3');
+                <?php endif; ?>
+                if ($('.sidebar').hasClass('<?php echo $spanClass ?>4')) {
+                    $('.sidebar').removeClass('<?php echo $spanClass ?>4');
+                    $('.sidebar').addClass('<?php echo $spanClass ?>3');
+                    $('.main-content').removeClass('<?php echo $spanClass ?>8');
+                    $('.main-content').addClass('<?php echo $spanClass ?>9');
+                    venedor_resize();
+                }
+            }
+        }
+        if (venedor_sidebar_timer) clearTimeout(venedor_sidebar_timer);
+    }
+
+    $(window).load(venedor_sidebar_resize);
+    
+    $(window).resize(function() { 
+        clearTimeout(venedor_sidebar_timer); 
+        venedor_sidebar_timer = setTimeout(venedor_sidebar_resize, 200); 
+    });
+    
+    var venedor_timer;
+    
+    function venedor_resize() {
+        $('.subtitle .line').each(function() {
+            w = $(this).prev().width();
+            $(this).css('left', (w + 30) + 'px');
+        });
+        if (VENEDOR_RESPONSIVE) {
+            var winWidth = $(window).innerWidth();
+            if ($('.flexslider').length) {
+                $('.flexslider').each(function() {
+                    var $slider = $(this).data('flexslider');
+                    if ($slider) {
+                        break_default = $slider.data('break_default');
+                        var resized = false;
+                        if (break_default) {
+                            minItems = break_default[0];
+                            maxItems = break_default[0];
+                            itemWidth = break_default[1];
+                            break_points = $slider.data('break_points');
+                            if (break_points) {
+                                for (i = 0; i < break_points.length; i++) {
+                                    if (winWidth < break_points[i][0]) {
+                                        minItems = break_points[i][1];
+                                        maxItems = break_points[i][1];
+                                        itemWidth = break_points[i][2];
+                                    }
+                                }
+                                if ($slider.move != minItems) {
+                                    $slider.setOptions({
+                                        minItems: minItems,
+                                        maxItems: maxItems,
+                                        itemWidth: itemWidth,
+                                        move: minItems
+                                    });
+                                    resized = true;
+                                    setTimeout(function() {
+                                        if ($slider.w > 0 && $slider.h > 0)
+                                            $slider.resize();
+                                    }, 400);
+                                }
+                            }
+                        }
+                        if (!resized)
+                            $slider.resize();
+                    }
+                });
+            }
+        }
+        if (venedor_timer) clearTimeout(venedor_timer); 
+    }
+
+    $(window).load(venedor_resize);
+    $(window).resize(function() {
+        clearTimeout(venedor_timer); 
+        venedor_timer = setTimeout(venedor_resize, 400); 
+    });
+});
+//]]>
+</script>

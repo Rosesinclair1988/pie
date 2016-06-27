@@ -1,0 +1,21 @@
+<?php
+$venedor = $this->helper('venedor');
+$containerClass = $venedor->getContainerClass();
+$rowClass = $venedor->getRowClass();
+$spanClass = $venedor->getSpanClass();
+$fb_result = $this->getFans();
+
+if ($fb_result) : ?>
+<?php 
+    $fb_fans = $fb_result['fans'];
+    $fb_like = $fb_result['like'];
+    $fb_link = $fb_result['link'];
+?>
+<div class="fblike-box">
+    <h3 class="title"><?php echo $this->__('Facebook') ?><a target="_blank" href="<?php echo $fb_link ?>" class="button btn-mini btn-xs"><i class="icon-fblike"></i><?php echo $this->__('Like!') ?></a></h3>
+    <div class="facebook-like-wrap">
+        <p><?php echo $fb_like ?></p>
+        <div class="clearfix fb-persons"><?php echo $fb_fans ?></div>
+    </div>
+</div>
+<?php endif; ?>

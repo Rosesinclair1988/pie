@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Catalogueur_Export>
+			<version>1.0.0</version>
+            <depends>
+            <!-- no dependencies -->
+            </depends>
+        </Catalogueur_Export>
+    </modules>
+
+    <frontend>
+        <routers>
+            <export>
+                <use>standard</use>
+                <args>
+                    <module>Catalogueur_Export</module>
+                    <frontName>catalogueur_export</frontName>
+                </args>
+            </export>
+        </routers>
+    </frontend>
+</config>

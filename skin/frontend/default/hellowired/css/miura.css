@@ -1,0 +1,135 @@
+.titre1{
+    -moz-border-radius-topleft:2px;
+    -moz-border-radius-topright:2px;
+    line-height:21px;
+    font-size:1.2em;
+    margin-bottom:0;
+    text-align:center;
+    padding : 0px;
+}
+
+.accueil-box img { width:100%}
+
+.accueil-box{
+    float:left;
+    width:300px;
+    border-right:1px solid #CCCCCC;
+    padding-right:10px;
+}
+
+.col-main .accueil-box{
+    float:left;
+    width:100%;
+    border-right:0px;
+    padding-right:10px;
+}
+
+.accueil-box.right{
+    margin-left:6px;
+    margin-right: 30px;
+}
+.col-main .accueil-box.right{
+    margin-left:6px;
+    margin-right: 0px;
+}
+
+.list-icon-marque li{
+    display:block;
+    float:left;
+    text-align:center;
+    width:118px;
+}
+
+.list-icon-marque li a{
+    display:block;
+    height : 70px;
+    line-height:70px;
+}
+
+.list-icon-marque a.accueil-icon-title{
+    font-weight:bold;
+    color:#000;
+    text-decoration:none;
+    height:auto;
+    margin-bottom : 10px;
+    line-height:normal;
+}
+
+.list-icon-marque a.icon-title-hover{
+    text-decoration:underline;
+}
+
+.liste-text-marque{
+    text-align:center;
+}
+
+.list-icon-marque li img{
+    vertical-align:middle;
+}
+
+
+
+.listing-categorie{
+    float : left;
+    margin : 0 5px 5px 5px;
+    display:block;
+}
+
+.listing-categorie:hover .image-categorie,.listing-categorie:hover .titre-categorie{border-color: #C3C3C3;background-color: #C3C3C3;color: #555;text-decoration: underline;}
+
+.image-categorie{
+    display : block;
+    width: 210px;
+    height : 210px;
+    border-top : 8px solid #d3d3d3;
+    border-left : 8px solid #d3d3d3;
+    border-right : 8px solid #d3d3d3;
+    -moz-border-radius-topleft:4px;
+    -moz-border-radius-topright:4px;
+}
+
+.titre-categorie{
+    display: block;
+    width: 210px;
+    text-align: center;
+    padding-top: 8px;
+    border-bottom: 8px solid lightGrey;
+    border-left: 8px solid lightGrey;
+    border-right: 8px solid lightGrey;
+    background-color: lightGrey;
+    color: #555;
+    -moz-border-radius-bottomleft: 4px;
+    -moz-border-radius-bottomright: 4px;
+    font-weight: bold;
+    font-size: 1.3em;
+    text-decoration: none;
+    height: 50px;
+}
+
+.liste-text-marque a{
+    font-weight:normal;
+    color : #000;
+    text-decoration:none;
+    font-size : 1.3em;
+}
+
+.liste-text-marque a:hover{
+    color : #000;
+    text-decoration:underline;
+}
+
+.products-grid li.item:hover {background : #EEE}                                  
+.products-grid li.item:hover a {text-decoration: none}
+.products-grid li.item{width: 170px;text-align: center;border: 2px solid #DDD;margin: 4px;}
+.products-grid .product-name {text-transform : uppercase}
+.products-grid .product-name a {color: blue;text-decoration: underline;font-weight: bold;}
+
+#product-slider-container .container {
+    left: 0;
+    width: 696px;
+}
+.featured-products .products-grid li.item {
+    margin: 0 10px 0 0;
+    padding: 5px 0;
+    width: 160px !important;
+}

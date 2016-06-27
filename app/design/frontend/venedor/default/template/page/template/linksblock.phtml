@@ -1,0 +1,25 @@
+<?php
+/**
+ * @see Mage_Page_Block_Template_Links_Block
+ */
+?>
+<?php
+    $classes = '';
+            
+    if ($this->getIsFirst())
+    {
+        $classes .= 'first';
+    }
+    
+    if ($this->getIsLast())
+    {
+        $classes .= ' last';
+    }
+    $label = $this->getLabel();
+    $icon_class = strtolower(current(explode("(", preg_replace('/\s+/', '', strip_tags($label)), 2)));
+    $icon_class = preg_replace('/[0-9]/', '', $icon_class);
+    $title = current(explode("(", $label, 2));
+    $count = (int)str_replace($title.'(', '', $label);
+    $count = $count > 0 ? '<span class="count">(' . $count . ')</span>' : '';
+?>
+<li <?php if($classes): ?>class="<?php echo $classes; ?>"<?php endif;?> <?php echo $this->getLiParams() ?>><?php echo $this->getBeforeText() ?><a href="<?php echo $this->getLinkUrl() ?>" title="<?php echo $this->getTitle() ?>" <?php echo $this->getAParams() ?>><i class="icon-<?php echo $icon_class ?>"></i><span><?php echo $title . $count; ?></span></a><?php echo $this->getAfterText() ?></li>

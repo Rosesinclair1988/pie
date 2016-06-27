@@ -1,0 +1,92 @@
+<?php
+$helper = $this->helper('eternal_custommenu');
+$_categories    = $this->getStoreCategories();
+if (is_object($_categories)) $_categories = $this->getStoreCategories()->getNodes();    
+?>
+<div class="nav-container">
+    <div id="custommenu">
+    <?php if ($helper->getConfig('general/type') == 'wide') : ?>
+        <?php if ($this->showHomeLink()) : ?>
+        <div class="menu">
+            <div class="parentMenu menu0">
+                <a href="<?php echo $this->getUrl('') ?>">
+                    <?php if ($this->showHomeIcon()) : ?>
+                        <span class="home-icon"><img src="<?php echo $this->getHomeIcon() ?>"></span>
+                    <?php else : ?>
+                        <span><?php echo $this->__('Home'); ?></span>
+                    <?php endif; ?>
+                </a>
+            </div>
+        </div>
+        <?php endif ?>
+        <?php foreach ($_categories as $_category): ?>
+            <?php echo $this->drawCustomMenuItem($_category) ?>
+        <?php endforeach ?>
+    <?php else: ?>
+        <ul id="nav">
+            <?php if ($this->showHomeLink()) : ?>
+            <li>
+                <a href="<?php echo $this->getUrl('') ?>">
+                    <?php if ($this->showHomeIcon()) : ?>
+                        <span class="home-icon"><img src="<?php echo $this->getHomeIcon() ?>"></span>
+                    <?php else : ?>
+                        <span><?php echo $this->__('Home'); ?></span>
+                    <?php endif; ?>
+                </a>
+            </li>
+            <?php endif ?>
+            <?php foreach ($_categories as $_category): ?>
+                <?php echo $this->drawCustomNarrowMenuItem($_category) ?>
+            <?php endforeach ?>
+        </ul>
+    <?php endif; ?>
+        <?php if ($helper->getConfig('custom/order')) : 
+        // Show Custom blocks before Custom Links => Yes ?>
+            <?php echo $this->drawCustomMenuBlock() ?>
+            <?php echo $this->drawCustomMenuLinks() ?>            
+        <?php else : ?>
+            <?php echo $this->drawCustomMenuLinks() ?>
+            <?php echo $this->drawCustomMenuBlock() ?>
+        <?php endif; ?>
+        <div class="menu menu-last"><span></span></div>
+        <div class="clearBoth"></div>
+    </div>
+    <div id="custommenu-mobile" style="display:none;">
+        <div id="menu-button" onclick="eternalMenuButtonToggle()">
+            <a href="javascript:void(0);">
+                <span><?php echo $this->__('Menu') ?></span>
+                <span type="button" class="btn btn-navbar navbar-btn" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </span>
+            </a>
+        </div>
+        <div id="menu-content" style="display:none;">
+            <?php if ($this->showHomeLink()) : ?>
+            <div id="menu-mobile-0" class="menu-mobile level0">
+                <div class="parentMenu">
+                    <a href="<?php echo $this->getUrl('') ?>">
+                        <span><?php echo $this->__('Home'); ?></span>
+                    </a>
+                </div>
+            </div>
+            <?php endif ?>
+            <?php foreach ($_categories as $_category): ?>
+                <?php echo $this->drawCustomMenuMobileItem($_category) ?>
+            <?php endforeach ?>
+            <?php echo $this->drawCustomMobileMenuLinks() ?>
+            <div class="clearBoth"></div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+//<![CDATA[
+var CUSTOMMENU_POPUP_TOP_OFFSET = <?php echo Mage::getStoreConfig('eternal_custommenu/popup/top_offset') + 0; ?>;
+var eternalCustommenuTimerShow = {};
+var eternalCustommenuTimerHide = {};
+var eternalActiveMenu = null;
+eternalCustomMenuMobileToggle();
+//]]>
+</script>

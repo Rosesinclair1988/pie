@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <default>
+        <block type="menuplus/navigation" name="menuplus.topnav" template="Miura/MenuPlus/menu.phtml"  ifconfig="menuplus/global/active" />
+        <reference name="head">
+            <action method="addCss" ifconfig="menuplus/global/active">
+                <stylesheet>css/Miura/menuplus.css</stylesheet>
+            </action>
+            <action method="addJs" ifconfig="menuplus/global/active">
+                <script>Miura/menuplus.js</script>
+            </action>
+        </reference>
+        <reference name="top.menu">
+            <action method="unsetChild" ifconfig="menuplus/global/active"><name>catalog.topnav</name></action>
+            <action method="insert"  ifconfig="menuplus/global/active"><block>menuplus.topnav</block></action>
+        </reference>
+    </default>
+</layout>

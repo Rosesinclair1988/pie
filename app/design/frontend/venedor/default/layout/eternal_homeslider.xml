@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    
+    <default>
+
+        <reference name="head">
+            <!-- js -->
+            <action method="addJs"><script>eternal/jquery/jquery-1.10.2.min.js</script></action>
+            <action method="addJs"><script>eternal/jquery/jquery.easing.min.js</script></action>
+            <action method="addJs"><script>eternal/modernizr.js</script></action>
+            <action method="addJs"><file helper="eternal_homeslider/data/getJsPluginFile" /></action>
+            
+            <!-- css -->
+            <action method="addCss"><stylesheet helper="eternal_homeslider/data/getCssPluginFile" /></action>
+            <action method="addCss"><stylesheet helper="eternal_homeslider/data/getResponsiveCssPluginFile" /></action>
+        </reference>
+
+    </default>
+    
+    <!-- Insert slideshow at the top of the homepage -->
+    <cms_index_index>
+    
+        <reference name="main-slider">
+            <block type="eternal_homeslider/slideshow" name="eternal.hoomeslider" as="eternal_homeslider" template="eternal/homeslider/slideshow.phtml" before="-"/>
+        </reference>
+        <reference name="main-banner">
+            <block type="eternal_homeslider/banner" name="eternal.homebanner" as="eternal_homebanner" template="eternal/homeslider/banner.phtml" before="-"/>
+        </reference>
+        
+    </cms_index_index>
+    
+</layout>

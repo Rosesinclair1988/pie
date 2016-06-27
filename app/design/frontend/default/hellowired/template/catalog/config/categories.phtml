@@ -1,0 +1,25 @@
+<?php $_categories=$this->getCurrentChildCategories(); ?>
+<?php $modulo_nb_cat = count($_categories)%2; ?>
+<?php $cursor = 0; ?>
+<?php foreach ($_categories as $_category): ?>
+        <?php if($_category->getIsActive()): ?>
+			<?php $cursor++; ?>
+			<?php if(count($_categories)%5 == 0 && $cursor > 3)$modulo_nb_cat = 5; ?>
+                <span class="listing-categorie mod-<?php echo $modulo_nb_cat; ?>">
+                    
+                    <?php
+                        $cur_category=Mage::getModel('catalog/category')->load($_category->getId());
+                        $layer = Mage::getSingleton('catalog/layer');
+                        $layer->setCurrentCategory($cur_category);
+
+                        if(false /*$_imageUrl=$this->getCurrentCategory()->getImageUrl()*/):
+                     ?>
+                        <a class="image-categorie" href="<?php echo $_category->getURL() ?>" title="<?php echo $this->htmlEscape($_category->getName()) ?>">
+                            <img src="<?php echo $_imageUrl; ?>" alt="<?php echo $this->htmlEscape($_category->getName()) ?>" />
+                        </a>
+                        <?php endif; ?>
+                        <a class="titre-categorie" href="<?php echo $_category->getURL() ?>" title="<?php echo $this->htmlEscape($_category->getName()) ?>"><?php echo $this->htmlEscape($_category->getName()) ?></a>
+                    
+                </span>
+        <?php endif; ?>
+<?php endforeach; ?>

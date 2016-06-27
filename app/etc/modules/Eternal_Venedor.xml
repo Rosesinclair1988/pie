@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!-- 
+/**
+ * @category    Eternal
+ * @package     Eternal_Venedor
+ * @copyright   Copyright (c) 2013 EternalFriend.
+ * @author 	    Eternal
+ */
+ -->
+<config>
+    <modules>
+        <Eternal_Venedor>
+            <active>true</active>
+            <codePool>local</codePool>
+            <depends>
+                <Eternal_CloudZoom/>
+                <Eternal_CustomMenu/>
+                <Eternal_HomeSlider/>
+                <Eternal_Brands/>
+                <Eternal_AjaxFilter/>
+                <Eternal_AjaxCart/>
+            </depends>
+        </Eternal_Venedor>
+    </modules>
+</config> 

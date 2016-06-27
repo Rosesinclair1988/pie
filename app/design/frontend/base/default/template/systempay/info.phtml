@@ -1,0 +1,50 @@
+<?php
+#####################################################################################################
+#
+#					Module pour la plateforme de paiement Systempay
+#						Version : 1.2 (révision 46959)
+#									########################
+#					Développé pour Magento
+#						Version : 1.5.1.0
+#						Compatibilité plateforme : V2
+#									########################
+#					Développé par Lyra Network
+#						http://www.lyra-network.com/
+#						13/05/2013
+#						Contact : supportvad@lyra-network.com
+#
+#####################################################################################################
+?>
+
+<p><b><?php echo $this->getMethod()->getTitle();?></b></p>
+
+<?php 
+$info = $this->getInfo();
+
+$option = $info->getAdditionalInformation('systempay_multi_option');
+if(isset($option) && is_array($option)) {
+	echo $option['label'] . ' (' . $option['count'] . 'X)';
+	echo '<br />';
+}
+
+if($info->getData('cc_trans_id')) {
+	echo $info->getData('cc_status_description') . ($info->getData('cc_status') ? ' (' . $info->getData('cc_status') . ')' : '');
+	echo '<br />';
+	echo $this->__('Transaction ID') . ' : ' . $info->getData('cc_trans_id');
+	echo '<br />';
+	
+	if($info->getData('cc_type') == 'MULTI') {
+		echo $this->getTrsInfosHtml();
+	} else {
+		echo $this->__('Credit Card Number') . ' : ' . $this->getInfo()->getData('cc_number_enc');
+		echo '<br />';
+	
+		$month = $info->getData('cc_exp_month') ? str_pad($info->getData('cc_exp_month'), 2, '0', STR_PAD_LEFT) : '';
+		$year = $info->getData('cc_exp_year') ? ' / ' . $info->getData('cc_exp_year') : '';
+		echo $this->__('Expiration Date') . ' : ' . $month . $year;
+		echo '<br />';
+		echo $this->__('Payment Mean') . ' : ' . $info->getData('cc_type');
+	}
+	
+	echo '<br />';
+}

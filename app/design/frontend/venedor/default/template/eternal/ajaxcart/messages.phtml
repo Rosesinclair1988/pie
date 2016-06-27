@@ -1,0 +1,19 @@
+
+<?php 
+$venedor = $this->helper('venedor');
+$c = $venedor->getConfigGroupDesign();
+?>
+<script type="text/javascript">
+//<![CDATA[
+var ETERNAL_AJAXCART_PROCESSING = "<?php echo $this->__("Please wait...") ?>";
+var ETERNAL_AJAXCART_SOMETHING_BAD = "<?php echo $this->__("Something bad happened.") ?>";
+var ETERNAL_AJAXCART_SELECT_OPTIONS = "<?php echo $this->__("Please Select Options") ?>";
+var ETERNAL_AJAXCART_ERROR = { bg_color: '#F66F82', color: '#000'};
+//var ETERNAL_AJAXCART_INFO = { bg_color: '<?php echo $c['general']['btn_hbg_color']; ?>', color: '<?php echo $c['general']['btn_hover_color']; ?>'};
+var ETERNAL_AJAXCART_INFO = { bg_color: '<?php echo $c['general']['btn_bg_color']; ?>', color: '<?php echo $c['general']['btn_color']; ?>'};
+var ETERNAL_AJAXCART_WARN = { bg_color: '<?php echo $c['general']['btn_bg_color']; ?>', color: '<?php echo $c['general']['btn_color']; ?>'};
+var ETERNAL_AJAX_CART = "<?php echo $this->__('Add to Cart') ?>";
+var ETERNAL_AJAX_WISHLIST = "<?php echo $this->__('Add to Wishlist') ?>";
+var ETERNAL_AJAX_COMPARE = "<?php echo $this->__('Add to Compare') ?>";
+//]]>
+</script>

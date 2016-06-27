@@ -1,0 +1,146 @@
+<?php
+#####################################################################################################
+#
+#					Module pour la plateforme de paiement Systempay
+#						Version : 1.2 (révision 46959)
+#									########################
+#					Développé pour Magento
+#						Version : 1.5.1.0
+#						Compatibilité plateforme : V2
+#									########################
+#					Développé par Lyra Network
+#						http://www.lyra-network.com/
+#						13/05/2013
+#						Contact : supportvad@lyra-network.com
+#
+#####################################################################################################
+?>
+
+<script type="text/javascript">
+//<![CDATA[
+
+	Translator.add(
+			'Incorrect credit card number.',
+			"<?php echo Mage::helper('systempay')->__('Incorrect credit card number.') ?>"
+	);
+	Translator.add(
+			'Incorrect credit card CVV.',
+	        "<?php echo Mage::helper('systempay')->__('Incorrect credit card CVV.') ?>"
+	);
+	Translator.add(
+	    	'Incorrect credit card expiration date.',
+	        "<?php echo Mage::helper('systempay')->__('Incorrect credit card expiration date.') ?>"
+	);
+	    
+	Validation.addAllThese([
+	        ['validate-systempay-card-expiry', 'Incorrect credit card expiration date.', function(v, elm) {
+	                var ccExpMonth   = v;
+	                var ccExpYear    = $('systempay_cc_card_expiry_year').value;
+	                var currentTime  = new Date();
+	                var currentMonth = currentTime.getMonth() + 1;
+	                var currentYear  = currentTime.getFullYear();
+	                if (ccExpMonth < currentMonth && ccExpYear == currentYear) {
+	                    return false;
+	                }
+	                return true;
+	        }],
+	        ['validate-systempay-card-number', 'Incorrect credit card number.', function(v) {
+	            return /^\d{13,19}$/.test(v);
+	        }],
+	        ['validate-systempay-card-cvv', 'Incorrect credit card CVV.', function(v) {
+	            return /^\d{3,4}$/.test(v);
+	        }]
+	]);
+	
+//]]>
+</script>
+
+<ul class="form-list" id="payment_form_<?php echo $this->getMethodCode() ?>" style="display:none;">
+<?php 
+// Get payment action mode from module configuration
+$cardInfoMode = $this->getConfigData('card_info_mode') ? $this->getConfigData('card_info_mode') : 1;
+
+if($cardInfoMode == 2 /* local card selection */ || $cardInfoMode == 3 /* local card selection & local info entry */) : 
+	// Get selected values from module configuration
+	$cards = $this->getConfigData('payment_cards'); 
+	if (!empty($cards)) {
+		$cards = explode(',', $cards);					
+	} else {
+		// No value selected : show all card logos
+		$cards = $this->getAvailableCcTypes();
+	}
+	
+	if(count($cards) == 1) {
+		// Show the unique card logo
+		$html = '<input type="hidden" id="systempay_gift_cc_type_'.$cards[0].'" value="'.$cards[0].'" name="payment[systempay_gift_cc_type]"/>' ;
+		$html .= '<label style="float: none !important;" for="systempay_gift_cc_type_'.$cards[0].'">
+					<img style="margin-right:10px; height:20px;" alt="'.$cards[0].'" src="'.$this->getCcTypeImageSrc($cards[0]).'" title="' . $this->getCcTypeLabel($cards[0]) . '" />
+				  </label>';
+		
+		echo '<li>' . $html . '</li>';
+	} else {
+		// Show card logos as radio buttons
+		$amexCards = '';
+		$cbCards = ''; 
+		$otherCards = '';
+		
+		for ($i = 0; $i < count($cards); $i++) {
+			$html = '<input type="radio" class="radio" id="systempay_cc_card_type_'.$cards[$i].'"'.($i == 0 ? ' checked="checked"' : '').' value="'.$cards[$i].'" name="payment[systempay_cc_type]"/>' ;
+			$html .= '<label style="float: none !important;" for="systempay_cc_card_type_'.$cards[$i].'">
+					  	<img style="margin-right:10px; height:20px;" alt="'.$cards[$i].'" src="'.$this->getCcTypeImageSrc($cards[$i]).'" title="' . $this->getCcTypeLabel($cards[$i]) . '" />
+					  </label>';
+			
+			$network = $this->getCcTypeNetwork($cards[$i]);
+			if($network == 'AMEX') {
+				$amexCards .= $html;
+			} elseif ($network == 'CB') {
+				$cbCards .= $html;
+			} else {
+				$otherCards .= $html;
+			}
+		}
+		
+		if($cbCards != '') echo '<li>' . $cbCards . '</li>';
+		if($amexCards != '') echo '<li>' . $amexCards . '</li>';
+		if($otherCards != '') echo '<li>' . $otherCards . '</li>';
+	}
+endif;
+	
+if($cardInfoMode == 3 /* local card selection & local info entry */) : ?>
+	<li>
+		<ul>
+			<li>
+				<label class="required" for="systempay_cc_card_number"><?php echo Mage::helper('systempay')->__('Credit Card Number'); ?><em>*</em></label><br/>
+                <input class="input-text required-entry validate-systempay-card-number" autocomplete="off" maxlength="19" type="text" name="payment[systempay_cc_number]" id="systempay_cc_card_number" style="width: 200px;" />
+            </li>
+            <li>
+                <label class="required" for="systempay_cc_card_cvv"><?php echo Mage::helper('systempay')->__('CVV'); ?><em>*</em></label><br/>
+                <input class="input-text required-entry validate-systempay-card-cvv" autocomplete="off" maxlength="4" type="text" name="payment[systempay_cc_cvv]" id="systempay_cc_card_cvv" style="width: 60px;" />
+            </li>
+            <li>
+                <label class="required" for="systempay_cc_card_expiry_month"><?php echo Mage::helper('systempay')->__('Expiration Date'); ?><em>*</em></label><br/>
+                <div class="input-box">
+                    <div class="v-fix">
+                        <select class="month required-entry validate-systempay-card-expiry" name="payment[systempay_cc_exp_month]" id="systempay_cc_card_expiry_month" style="width: 95px;" >
+                            <?php foreach(range(1, 12) as $month) : ?>
+                                <option value="<?php echo $month; ?>"><?php echo str_pad($month, 2, '0', STR_PAD_LEFT); ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <div class="v-fix">
+                        <select class="year required-entry" name="payment[systempay_cc_exp_year]" id="systempay_cc_card_expiry_year" style="width: 100px;">
+                            <?php foreach(range(date('Y'), date('Y') + 9) as $year) : ?>
+                                <option value="<?php echo $year; ?>"><?php echo $year; ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </li>
+<?php endif; ?>  
+
+<?php if($cardInfoMode == 1 /* all actions on platform */ || $cardInfoMode == 2 /* local card selection */) : ?>
+    <li><?php echo Mage::helper('systempay')->__('You will be redirected to the payment page after the order confirmation.') ?></li>
+<?php endif;?>
+</ul>

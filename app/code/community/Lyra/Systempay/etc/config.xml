@@ -1,0 +1,344 @@
+<?xml version="1.0"?>
+<config>
+	<!--VERSION-->
+	<modules>
+		<Lyra_Systempay>
+			<version>1.2</version>
+		</Lyra_Systempay>
+	</modules>
+	
+	<global>
+		<helpers>
+            <systempay>
+                <class>Lyra_Systempay_Helper</class>
+            </systempay>
+        </helpers>
+		<models>
+			<systempay>
+				<class>Lyra_Systempay_Model</class>
+			</systempay>
+		</models>
+		<blocks>
+			<systempay>
+				<class>Lyra_Systempay_Block</class>
+			</systempay>
+		</blocks>
+		
+		<!--ADMIN PARAMETERS OPTIONS-->
+		<payment>
+			<systempay>
+				<!-- Liste des langages supportés -->
+                <languages>
+                    <fr>
+                        <code>fr</code>
+                        <name >French</name>
+                    </fr>
+                    <en>
+                        <code>en</code>
+                        <name>English</name>
+                    </en>
+                    <es>
+                        <code>es</code>
+                        <name>Spanish</name>
+                    </es>
+                    <de>
+                        <code>de</code>
+                        <name>Allemand</name>
+                    </de>
+                    <it>
+                        <code>it</code>
+                        <name>Italian</name>
+                    </it>
+					<zh>
+                        <code>zh</code>
+                        <name>Chinese</name>
+                    </zh>
+					<ja>
+                        <code>ja</code>
+                        <name>Japanese</name>
+                    </ja>
+                    <pt>
+                        <code>pt</code>
+                        <name>Portuguese</name>
+                    </pt>
+                    <nl>
+                        <code>nl</code>
+                        <name>Dutch</name>
+                    </nl>
+                </languages>
+             	
+				<!--Mode de validation-->
+				<ctx_modes>
+					<TEST>
+                        <code>TEST</code>
+                        <name>TEST</name>
+                    </TEST>
+					<PRODUCTION>
+                        <code>PRODUCTION</code>
+                        <name>PRODUCTION</name>
+                    </PRODUCTION>
+                </ctx_modes>
+				
+				<!--Mode de validation-->
+				<validation_modes>
+					<DEFAUT>
+                        <code></code>
+                        <name>Back office configuration</name>
+                    </DEFAUT>
+					<AUTOMATIQUE>
+                        <code>0</code>
+                        <name>Automatic</name>
+                    </AUTOMATIQUE>
+					<MANUELLE>
+                        <code>1</code>
+                        <name>Manual</name>
+                    </MANUELLE>
+                </validation_modes>
+									
+				<!--Mode de retour -->
+				<return_modes>
+					<GET>
+                        <code>GET</code>
+                        <name>GET (parameters in the URL)</name>
+                    </GET>
+					<POST>
+                        <code>POST</code>
+                        <name>POST (form)</name>
+                    </POST>
+                </return_modes>
+                
+                <!--Types de carte-->
+				<payment_cards>
+					<ALL>
+                        <code></code>
+                        <name>All</name>
+                        <network></network>
+                    </ALL>
+                    <CB>
+                        <code>CB</code>
+                        <name>Carte Bleue</name>
+                        <network>CB</network>
+                    </CB>
+                    <MASTERCARD>
+                        <code>MASTERCARD</code>
+                        <name>MasterCard</name>
+                        <network>CB</network>
+                    </MASTERCARD>
+                    <MAESTRO>
+                        <code>MAESTRO</code>
+                        <name>Maestro</name>
+                        <network>CB</network>
+                    </MAESTRO>
+                    <VISA>
+                        <code>VISA</code>
+                        <name>Visa</name>
+                        <network>CB</network>
+                    </VISA>
+                    <VISA_ELECTRON>
+                        <code>VISA_ELECTRON</code>
+                        <name>Visa Electron</name>
+                        <network>CB</network>
+                    </VISA_ELECTRON>
+                    <AMEX>
+                        <code>AMEX</code>
+                        <name>American Express</name>
+                        <network>AMEX</network>
+                    </AMEX>
+                    <E-CARTEBLEUE>
+                        <code>E-CARTEBLEUE</code>
+                        <name>E-Carte bleue</name>
+                        <network>CB</network>
+                    </E-CARTEBLEUE>
+	            </payment_cards>  
+	              
+	            <gift_cards>
+                    <ILLICADO>
+                        <code>ILLICADO</code>
+                        <name>Carte Illicado</name>
+                    </ILLICADO>
+                    <ILLICADO_SB>
+                        <code>ILLICADO_SB</code>
+                        <name>Carte Illicado (sandbox)</name>
+                    </ILLICADO_SB>
+                    <TRUFFAUT_CDX>
+                        <code>TRUFFAUT_CDX</code>
+                        <name>Carte Cadeau Truffaut</name>
+                    </TRUFFAUT_CDX>
+                    <TRUFFAUT_CDX_SB>
+                        <code>TRUFFAUT_CDX_SB</code>
+                        <name>Carte Cadeau Truffaut (sandbox)</name>
+                    </TRUFFAUT_CDX_SB>
+                    <ALINEA_CDX>
+                        <code>ALINEA_CDX</code>
+                        <name>Carte Cadeau Alinéa</name>
+                    </ALINEA_CDX>
+                    <ALINEA_CDX_SB>
+                        <code>ALINEA_CDX_SB</code>
+                        <name>Carte Cadeau Alinéa (sandbox)</name>
+                    </ALINEA_CDX_SB>
+                </gift_cards>
+                
+                <card_info_modes>
+                	<action1>
+                		<code>1</code>
+                        <name>Card data entry on payment gateway</name>
+                	</action1>
+                	<action2>
+                		<code>2</code>
+                        <name>Card type selection on merchant site</name>
+                	</action2>
+                	<action3>
+                		<code>3</code>
+                        <name>Card data entry on merchant site</name>
+                	</action3>
+                </card_info_modes>
+			</systempay>
+		</payment>
+		
+		<!-- <events>
+			<adminhtml_block_html_before>
+				<observers>
+				    <systempay_payment_method_column>
+				        <type>singleton</type>
+				        <class>systempay/event_grid</class>
+				        <method>showColumn</method>
+				    </systempay_payment_method_column>
+				</observers>
+			</adminhtml_block_html_before>
+		</events> -->
+	</global> 
+	
+	<!--Translation for admin-->
+	<adminhtml>
+		<translate>
+			<modules>
+				<Lyra_Systempay>
+					<files>
+						<default>Lyra_Systempay.csv</default>
+					</files>
+				</Lyra_Systempay>
+			</modules>
+		</translate>
+	</adminhtml>
+	
+	<!--Controllers mapping-->
+	<frontend>
+	 	<layout>
+            <updates>
+                <systempay>
+                    <file>systempay.xml</file>
+                </systempay>
+            </updates>
+        </layout>
+		<routers>
+			<systempay>
+				<use>standard</use>
+				<args>
+					<module>Lyra_Systempay</module>
+					<frontName>systempay</frontName>
+				</args>
+			</systempay>
+		</routers>
+		<translate>
+			<modules>
+				<Lyra_Systempay>
+					<files>
+						<default>Lyra_Systempay.csv</default>
+					</files>
+				</Lyra_Systempay>
+			</modules>
+		</translate>
+	</frontend>
+	
+	<admin>
+		<routers>
+			<adminhtml>
+				<args>
+                    <modules>
+                        <Lyra_Systempay before="Mage_Adminhtml">Lyra_Systempay_Adminhtml</Lyra_Systempay>
+                    </modules>
+                </args>
+             </adminhtml>
+		</routers>
+	</admin>
+	
+	<!--DEFAULT CONF VALUES-->
+	<default>
+		<payment>
+			<systempay>
+				<model>systempay/payment_standard</model>
+			
+				<developed_by>Lyra Network</developed_by>
+				<contact_email>supportvad@lyra-network.com</contact_email>
+				<module_version>1.2</module_version>
+				<gateway_version>V2</gateway_version>
+				<cms_version>1.5.1.0</cms_version>
+				
+				<active>1</active>
+				<allowspecific>0</allowspecific>
+				<title>Paiement par carte bancaire</title>
+				<sort_order>1</sort_order>
+				<order_status>pending_payment</order_status>
+				
+				<site_id>12345678</site_id>
+				<key_test>1111111111111111</key_test>
+				<key_prod>2222222222222222</key_prod>
+				<platform_url>https://paiement.systempay.fr/vads-payment/</platform_url>
+				
+				<card_info_mode>1</card_info_mode>
+				
+				<refill_cart>1</refill_cart>
+				<redirect_success_timeout>5</redirect_success_timeout>
+				<redirect_success_message>Redirection vers la boutique dans quelques instants</redirect_success_message>
+				<redirect_error_timeout>5</redirect_error_timeout>
+				<redirect_error_message>Redirection vers la boutique dans quelques instants</redirect_error_message>
+				<registered_order_status>processing</registered_order_status>
+				<check_url>systempay/payment/check</check_url>
+				<capture_auto>1</capture_auto>
+				<payment_action>authorize</payment_action>
+				
+				<module_informations>***************************************************************************************************</module_informations>
+				<base_settings>****************************************************************************************************</base_settings>
+				<gateway_access>****************************************************************************************************</gateway_access>
+				<payment_page>****************************************************************************************************</payment_page>
+				<payment_page_customize>****************************************************************************************************</payment_page_customize>
+				<selective_3ds>****************************************************************************************************</selective_3ds>
+				<card_data_entry>****************************************************************************************************</card_data_entry>
+				<amount_restrictions>****************************************************************************************************</amount_restrictions>
+				<return_options>****************************************************************************************************</return_options>
+			</systempay>
+			
+			<systempay_multi>
+				<model>systempay/payment_multi</model>
+				
+				<active>0</active>
+				<allowspecific>0</allowspecific>
+				<title>Paiement par carte bancaire en plusieurs fois</title>
+				<sort_order>2</sort_order>
+				<order_status>pending_payment</order_status>
+				
+				<payment_action>authorize</payment_action>
+				
+				<base_settings>****************************************************************************************************</base_settings>
+				<amount_restrictions>****************************************************************************************************</amount_restrictions>
+				<multi_payment_options>****************************************************************************************************</multi_payment_options>
+			</systempay_multi>
+			
+			<systempay_gift>
+				<model>systempay/payment_gift</model>
+				
+				<active>0</active>
+				<allowspecific>0</allowspecific>
+				<title>Paiement par carte cadeau</title>
+				<sort_order>3</sort_order>
+				<order_status>pending_payment</order_status>
+				
+				<payment_action>authorize</payment_action>
+				
+				<base_settings>****************************************************************************************************</base_settings>
+				<amount_restrictions>****************************************************************************************************</amount_restrictions>
+				<gift_payment_options>****************************************************************************************************</gift_payment_options>
+			</systempay_gift>
+		</payment>
+	</default>
+</config>

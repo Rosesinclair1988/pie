@@ -1,0 +1,40 @@
+<?php
+/**
+ * @var $this Eternal_HomeSlider_Block_Slideshow
+ */
+?>
+<?php 
+$venedor = $this->helper('venedor');
+$b = $venedor->getConfigGroup();
+$containerClass = $venedor->getContainerClass();
+$rowClass = $venedor->getRowClass();
+$spanClass = $venedor->getSpanClass();
+$bootstrapClass = $venedor->getBootstrapClass();
+
+$block_ids = $this->getBlockIds(); 
+$helper = $this->helper('eternal_homeslider'); 
+if ($helper->getConfig('banner/enabled')) : ?>
+    <?php
+    $banner_ids = $this->getBannerIds(); 
+    $count = $this->getBannerCount();
+    $n = 12 / $count;
+    $spanClass .= $n;
+    $i = 0;
+    ?>
+    <div class="<?php echo $containerClass ?>">
+        <?php if ($bootstrapClass != 'bv3') : ?>
+        <div class="<?php echo $rowClass ?>">
+        <?php endif; ?>
+            <?php $i = 0; foreach ($banner_ids as $banner_id): $i++;
+            if ($i > $count)
+                break;
+            ?>
+            <div class="<?php echo $spanClass ?>">
+                <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId($banner_id)->toHtml(); ?>
+            </div>
+            <?php endforeach; ?>
+        <?php if ($bootstrapClass != 'bv3') : ?>
+        </div>
+        <?php endif; ?>
+    </div>
+<?php endif; ?>

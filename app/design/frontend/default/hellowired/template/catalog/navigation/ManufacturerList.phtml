@@ -1,0 +1,94 @@
+<?php
+    $Marques_images_gauche = array();
+    $Marques_images_gauche[0] = array('name' => 'Grohe'            , 'image' => 'logo-grohe.gif');
+    $Marques_images_gauche[1] = array('name' => 'Ideal-Standard'   , 'image' => 'logo-ideal-standard.gif');
+    $Marques_images_gauche[2] = array('name' => 'Jacob Delafon'    , 'image' => 'logo-jacob-delafon.gif');
+    $Marques_images_gauche[3] = array('name' => 'Geberit'          , 'image' => 'logo-geberit.gif');
+    $Marques_images_gauche[4] = array('name' => 'Jado'             , 'image' => 'logo-jado.gif');
+    $Marques_images_gauche[5] = array('name' => 'Porcher'          , 'image' => 'logo-porcher.gif');
+    
+    $Marques_texte_gauche = array();
+    $Marques_texte_gauche[0] = array('Hansgrohe','Grohe-dal','Piel');
+    $Marques_texte_gauche[1] = array('Hansa-kwc','Mingory','Franke-benthor');
+    $Marques_texte_gauche[2] = array('Blinox','Clara','Oras','Presto');
+    $Marques_texte_gauche[3] = array('Griffon','Delabie','Chavonnet');
+    $Marques_texte_gauche[4] = array('Allia','Lazer','Wisa','Schwab');
+    $Marques_texte_gauche[5] = array('Mpmp','Siamp','Olfa','Sas','Eram');
+    $Marques_texte_gauche[6] = array('Tda','Cristina','Webert','Wirquin','Valentin');
+    $Marques_texte_gauche[7] = array('Sfa-watermatic','Kinedo','Aldes','Regiplast');
+    $Marques_texte_gauche[8] = array('Robilux','Sferaco','Dubourgel','Emafrance');
+    $Marques_texte_gauche[9] = array('Pellet','Nicoll','Porquet', 'Etc…');
+
+
+    $Marques_images_droite = array();
+    $Marques_images_droite[0] = array('name' => 'Deville'           , 'image' => 'logo-deville.gif');
+    $Marques_images_droite[1] = array('name' => 'Frisquet'          , 'image' => 'logo-frisquet.gif');
+    $Marques_images_droite[2] = array('name' => 'Saunier-Duval'     , 'image' => 'logo-saunier-duval.gif');
+    $Marques_images_droite[3] = array('name' => 'Chaffoteaux Maury' , 'image' => 'logo-chaffoteaux.gif');
+    $Marques_images_droite[4] = array('name' => 'Elm Leblanc'       , 'image' => 'logo-elm.gif');
+    $Marques_images_droite[5] = array('name' => 'Pacific Thermor' , 'image' => 'logo-pacific-thermor.gif');
+
+
+    $Marques_texte_droite = array();
+    $Marques_texte_droite[0] = array('Vaillant','Unical','Chappée');
+    $Marques_texte_droite[1] = array('Idéal Standard','Danfoss','Ariston');
+    $Marques_texte_droite[2] = array('Heimeier','Comap Sar','Roca','Steinen');
+    $Marques_texte_droite[3] = array('Cuenod','Grundfos','Gripp','Salmson');
+    $Marques_texte_droite[4] = array('Sauter','Socla','Toby','Fagor','Baxi');
+    $Marques_texte_droite[5] = array('Elco','Regent','Rheem','Auer','Siemens');
+    $Marques_texte_droite[6] = array('Guillot','Lamborghini','Effel','Watts');
+    $Marques_texte_droite[7] = array('Salva Clair','Oertli','Perge','Zaegel-Held');
+    $Marques_texte_droite[8] = array('Bentone','Hago','Atlantic','Ferroli');
+    $Marques_texte_droite[9] = array('Buderus','Suntec','De Dietrich', 'Etc…');
+
+?>
+
+
+<div class="accueil-box left">
+    <h2 class="titre1"><?php echo $this->__('Plumbing') ?></h2>
+    <p class="liste-text-marque">
+        <?php foreach ($Marques_texte_gauche as $marqueTab): ?>
+            <?php for($i = 0 ; $i<count($marqueTab) ; $i++): ?>
+                <a href="<?php echo($this->manufacturer_link($marqueTab[$i])) ?>" title="<?php echo $marqueTab[$i] ?>"><?php echo $marqueTab[$i] ?></a>
+                <?php if($i != (count($marqueTab)-1)) echo ' - '; ?>
+            <?php endfor; ?>
+            <br />
+        <?php endforeach; ?>
+    </p>
+    <img class="banniere-produits" src="<?php echo $this->getBaseUrl(); ?>media/astuces/banniere-produits-1.jpg" alt="Banniere produits" />
+</div>
+<div class="accueil-box right">
+    <h2 class="titre1"><?php echo $this->__('Heating - Water Heaters') ?></h2>
+    <p class="liste-text-marque">
+        <?php foreach ($Marques_texte_droite as $marqueTab): ?>
+            <?php for($i = 0 ; $i<count($marqueTab) ; $i++): ?>
+                <a href="<?php echo($this->manufacturer_link($marqueTab[$i])) ?>" title="<?php echo $marqueTab[$i] ?>"><?php echo $marqueTab[$i] ?></a>
+                <?php if($i != (count($marqueTab)-1)) echo ' - '; ?>
+            <?php endfor; ?>
+            <br />
+        <?php endforeach; ?>
+    </p>
+        <img class="banniere-produits" src="<?php echo $this->getBaseUrl(); ?>media/astuces/banniere-produits-2.jpg" alt="Banniere produits" />
+</div>
+
+<script type="text/javascript">
+	//<![CDATA[
+	var TabimgMarque =  $$('div.list-icon-marque img');
+
+	for(var i=0; i < TabimgMarque.length; i++){
+		TabimgMarque[i].observe('mouseover', TabimgMarqueHover);
+		TabimgMarque[i].observe('mouseout', TabimgMarqueOut);
+
+	}
+	
+	function TabimgMarqueHover(event) {
+		$(this).ancestors()[0].next().addClassName('icon-title-hover');
+	}
+
+	function TabimgMarqueOut(event) {
+		$(this).ancestors()[0].next().removeClassName('icon-title-hover');
+	}
+
+
+	//]]>
+</script>

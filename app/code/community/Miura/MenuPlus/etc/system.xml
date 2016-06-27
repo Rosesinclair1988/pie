@@ -1,0 +1,717 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Miura Menu+ Extension
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ *
+ * @category   Miura
+ * @package    Miura_MenuPlus
+ * @author     Clement Larduinat
+ * @copyright  Copyright (c) 2011 Miura Conseil (http://www.miura-conseil.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config>
+    <tabs>
+        <miura translate="label">
+            <label>Miura Conseil</label>
+            <sort_order>500</sort_order>
+        </miura>
+    </tabs>
+    <sections>
+        <menuplus translate="label" module="menuplus">
+            <label>Menu+</label>
+            <tab>miura</tab>
+            <sort_order>100</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <global translate="label">
+                    <label>Global Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>1</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <active translate="label">
+                            <label>Active</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </active>
+                        <skin translate="label">
+                            <label>Skin</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>menuplus/adminhtml_system_source_global_skin</source_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </skin>
+                    </fields>
+                </global>
+                <dropdown translate="label">
+                    <label>Drop Down</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>2</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <lca translate="label">
+                            <label>Show Left Column</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </lca>
+                        <mca translate="label">
+                            <label>Show Middle Column</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </mca>
+                        <rca translate="label">
+                            <label>Show Right Column</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </rca>
+                        
+                        <mcc translate="label">
+                            <label>Middle Column Content</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>menuplus/adminhtml_system_source_dropdown_middlecolumncontent</source_model>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </mcc>
+
+                        <mcsbi translate="label">
+                            <label>Middle Column Static Block Identifier</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>menuplus/adminhtml_system_source_staticblock</source_model>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <tooltip><![CDATA[Shown if the 'Middle Column Content' option is Static Block]]>
+                            </tooltip>
+                        </mcsbi>
+                        
+                        <dme translate="label">
+                            <label>Display Effect</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>menuplus/adminhtml_system_source_dropdown_effect</source_model>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </dme>
+                        
+                        <tmd translate="label">
+                            <label>Time delay before display</label>
+                            <sort_order>70</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>In milliseconds.</comment>
+                            <validate>validate-zero-or-greater</validate>
+                        </tmd>
+                    </fields>
+                </dropdown>
+
+                <mainbar translate="label">
+                    <label>Main Bar</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>3</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <hla translate="label">
+                            <label>Show Home Link</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </hla>
+
+                        <cl1i translate="label">
+                            <label>CMS Link 1 Identifier</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>menuplus/adminhtml_system_source_pages</source_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </cl1i>
+                        <cl1p translate="label">
+                            <label>CMS Link 1 Position</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>menuplus/adminhtml_system_source_mainbar_linkposition</source_model>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </cl1p>
+                        <cl1o translate="label">
+                            <label>CMS Link 1 Order</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <validate>validate-zero-or-greater</validate>
+                        </cl1o>
+
+                        <cl2i translate="label">
+                            <label>CMS Link 2 Identifier</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>menuplus/adminhtml_system_source_pages</source_model>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </cl2i>
+                        <cl2p translate="label">
+                            <label>CMS Link 2 Position</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>menuplus/adminhtml_system_source_mainbar_linkposition</source_model>
+                            <sort_order>6</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </cl2p>
+                        <cl2o translate="label">
+                            <label>CMS Link 2 Order</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>7</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <validate>validate-zero-or-greater</validate>
+                        </cl2o>
+
+                        <cl3i translate="label">
+                            <label>CMS Link 3 Identifier</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>menuplus/adminhtml_system_source_pages</source_model>
+                            <sort_order>8</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </cl3i>
+                        <cl3p translate="label">
+                            <label>CMS Link 3 Position</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>menuplus/adminhtml_system_source_mainbar_linkposition</source_model>
+                            <sort_order>9</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </cl3p>
+                        <cl3o translate="label">
+                            <label>CMS Link 3 Order</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <validate>validate-zero-or-greater</validate>
+                        </cl3o>
+                        
+                        <cusl1u translate="label">
+                            <label>Custom Link 1 URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>11</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </cusl1u>
+                        <cusl1t translate="label">
+                            <label>Custom Link 1 Title</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>12</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </cusl1t>
+                        <cusl1p translate="label">
+                            <label>Custom Link 1 Position</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>menuplus/adminhtml_system_source_mainbar_linkposition</source_model>
+                            <sort_order>13</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </cusl1p>
+                        <cusl1o translate="label">
+                            <label>Custom Link 1 Order</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>14</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <validate>validate-zero-or-greater</validate>
+                        </cusl1o>
+                        
+                        <cusl2u translate="label">
+                            <label>Custom Link 2 URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>15</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </cusl2u>
+                        <cusl2t translate="label">
+                            <label>Custom Link 2 Title</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>16</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </cusl2t>
+                        <cusl2p translate="label">
+                            <label>Custom Link 2 Position</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>menuplus/adminhtml_system_source_mainbar_linkposition</source_model>
+                            <sort_order>17</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </cusl2p>
+                        <cusl2o translate="label">
+                            <label>Custom Link 2 Order</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>18</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <validate>validate-zero-or-greater</validate>
+                        </cusl2o>
+                        
+                        <cusl3u translate="label">
+                            <label>Custom Link 3 URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>19</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </cusl3u>
+                        <cusl3t translate="label">
+                            <label>Custom Link 3 Title</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </cusl3t>
+                        <cusl3p translate="label">
+                            <label>Custom Link 3 Position</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>menuplus/adminhtml_system_source_mainbar_linkposition</source_model>
+                            <sort_order>21</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </cusl3p>
+                        <cusl3o translate="label">
+                            <label>Custom Link 3 Order</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>22</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <validate>validate-zero-or-greater</validate>
+                        </cusl3o>
+                    </fields>
+                </mainbar>
+
+                <subcategories translate="label">
+                    <label>Sub Categories</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>4</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <d translate="label comment">
+                            <label>Depth</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>menuplus/adminhtml_system_source_subcategories_depth</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </d>
+                        <s>
+                            <label>Structure</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>menuplus/adminhtml_system_source_subcategories_structure</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </s>
+                        <mp>
+                            <label>Manual Placement</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <tooltip><![CDATA[Replace Nb Categories per Columns with manual placement. Think to configure Change Column attribute in subcategories]]>
+                            </tooltip>
+                        </mp>
+                        <ncpc translate="label">
+                            <label>Nb Categories per Columns</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <validate>validate-zero-or-greater</validate>
+                        </ncpc>
+                        <sm translate="label">
+                            <label>View More Link</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <tooltip><![CDATA[Show a view more link after a fixed number of sub-categories]]>
+                            </tooltip>
+                        </sm>
+                        <sml translate="label">
+                            <label>Number of sub-categories Limit</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <validate>validate-zero-or-greater</validate>
+                            <tooltip><![CDATA[Limit before the View More Link]]>
+                            </tooltip>
+                        </sml>
+                        <smincpc translate="label">
+                            <label>View More in sub-categories Columns</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <tooltip><![CDATA[Put View More Link in Nb Categories per Columns counter]]>
+                            </tooltip>
+                        </smincpc>
+                    </fields>
+                </subcategories>
+
+                <thumbnail translate="label">
+                    <label>Thumbnail</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>6</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <a translate="label">
+                            <label>Show Thumbnail</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <tooltip><![CDATA[Category Thumbnail if Magento version >= 1.5, Category Image for previous version]]>
+                            </tooltip>
+                        </a>
+                        <p translate="label">
+                            <label>Thumbnail Position</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>menuplus/adminhtml_system_source_position</source_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </p>
+                        <w translate="label">
+                            <label>Thumbnail Width</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <validate>validate-zero-or-greater</validate>
+                            <comment><![CDATA[In pixel]]>
+                            </comment>
+                        </w>
+                        <h translate="label">
+                            <label>Thumbnail Height</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <validate>validate-zero-or-greater</validate>
+                            <comment><![CDATA[In pixel. 0 for height auto]]>
+                            </comment>
+                        </h>
+                        <o translate="label">
+                            <label>Thumbnail Order</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <validate>validate-zero-or-greater</validate>
+                        </o>
+                    </fields>
+                </thumbnail>
+
+                <link translate="label">
+                    <label>Category Link</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>7</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <a translate="label">
+                            <label>Show Category Link</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </a>
+                        <l translate="label">
+                            <label>Label Category Link</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <tooltip><![CDATA[You can add the category name with {{category_name}} to your label. Ex: Show {{category_name}} products.]]>
+                            </tooltip>
+                        </l>
+                        <p translate="label">
+                            <label>Category Link Position</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>menuplus/adminhtml_system_source_position</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </p>
+                        <o translate="label">
+                            <label>Category Link Order</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <validate>validate-zero-or-greater</validate>
+                        </o>
+                        <c translate="label">
+                            <label>Clickable Category Link</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </c>
+                    </fields>
+                </link>
+
+                <description translate="label">
+                    <label>Category Description</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>8</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <a translate="label">
+                            <label>Show Description</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </a>
+                        <p translate="label">
+                            <label>Description Position</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>menuplus/adminhtml_system_source_position</source_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </p>
+                        <o translate="label">
+                            <label>Description Order</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <validate>validate-zero-or-greater</validate>
+                        </o>
+                    </fields>
+                </description>
+
+                <staticblocks translate="label">
+                    <label>Static Blocks</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>9</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <sb1a translate="label">
+                            <label>Show Static Block 1</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </sb1a>
+                        <sb1i translate="label">
+                            <label>Static Block 1 Identifier</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>menuplus/adminhtml_system_source_staticblock</source_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </sb1i>
+                        <sb1p translate="label">
+                            <label>Static Block 1 Position</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>menuplus/adminhtml_system_source_position</source_model>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </sb1p>
+                        <sb1o translate="label">
+                            <label>Static Block 1 Order</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <validate>validate-zero-or-greater</validate>
+                        </sb1o>
+                        
+                        <sb2a translate="label">
+                            <label>Show Static Block 2</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </sb2a>
+                        <sb2i translate="label">
+                            <label>Static Block 2 Identifier</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>menuplus/adminhtml_system_source_staticblock</source_model>
+                            <sort_order>6</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </sb2i>
+                        <sb2p translate="label">
+                            <label>Static Block 2 Position</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>menuplus/adminhtml_system_source_position</source_model>
+                            <sort_order>7</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </sb2p>
+                        <sb2o translate="label">
+                            <label>Static Block 2 Order</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>8</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <validate>validate-zero-or-greater</validate>
+                        </sb2o>                        
+
+                        <sb3a translate="label">
+                            <label>Show Static Block 3</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>9</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </sb3a>
+                        <sb3i translate="label">
+                            <label>Static Block 3 Identifier</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>menuplus/adminhtml_system_source_staticblock</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </sb3i>
+                        <sb3p translate="label">
+                            <label>Static Block 3 Position</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>menuplus/adminhtml_system_source_position</source_model>
+                            <sort_order>11</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </sb3p>
+                        <sb3o translate="label">
+                            <label>Static Block 3 Order</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>12</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <validate>validate-zero-or-greater</validate>
+                        </sb3o>
+                        
+                    </fields>
+                </staticblocks>
+
+            </groups>
+        </menuplus>
+    </sections>
+</config>

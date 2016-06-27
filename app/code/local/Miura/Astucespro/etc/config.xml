@@ -1,0 +1,128 @@
+<?xml version="1.0"?>
+<!-- 
+/**
+ * @category   Miura
+ * @package    Miura_Astucespro
+ * @author     ModuleCreator
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+ -->
+<config>
+    <modules>
+        <Miura_Astucespro>
+            <version>0.1.0</version>
+        </Miura_Astucespro>
+    </modules>
+    <frontend>
+        <routers>
+            <astucespro>
+                <use>standard</use>
+                <args>
+                    <module>Miura_Astucespro</module>
+                    <frontName>astucespro</frontName>
+                </args>
+            </astucespro>
+        </routers>
+        <layout>
+            <updates>
+                <astucespro>
+                    <file>astucespro.xml</file>
+                </astucespro>
+            </updates>
+        </layout>
+    </frontend>
+    <admin>
+        <routers>
+			<astucespro>
+				<use>admin</use>
+				<args>
+					<module>Miura_Astucespro</module>
+					<frontName>astucespro</frontName>
+				</args>
+			</astucespro>
+        </routers>
+    </admin>
+    <adminhtml>
+		<menu>
+			<astucespro module="astucespro">
+				<title>Astucespro</title>
+				<sort_order>71</sort_order>               
+				<children>
+					<items module="astucespro">
+						<title>Manage Items</title>
+						<sort_order>0</sort_order>
+						<action>astucespro/adminhtml_astucespro</action>
+					</items>
+				</children>
+			</astucespro>
+		</menu>
+		<acl>
+			<resources>
+				<all>
+					<title>Allow Everything</title>
+				</all>
+				<admin>
+					<children>
+						<Miura_Astucespro>
+							<title>Astucespro Module</title>
+							<sort_order>10</sort_order>
+						</Miura_Astucespro>
+					</children>
+				</admin>
+			</resources>
+		</acl>
+		<layout>
+			<updates>
+				<astucespro>
+					<file>astucespro.xml</file>
+				</astucespro>
+			</updates>
+		</layout>
+    </adminhtml>   
+    <global>
+        <models>
+            <astucespro>
+                <class>Miura_Astucespro_Model</class>
+                <resourceModel>astucespro_mysql4</resourceModel>
+            </astucespro>
+            <astucespro_mysql4>
+                <class>Miura_Astucespro_Model_Mysql4</class>
+                <entities>
+                    <astucespro>
+                        <table>astucespro</table>
+                    </astucespro>
+                </entities>
+            </astucespro_mysql4>
+        </models>
+        <resources>
+            <astucespro_setup>
+                <setup>
+                    <module>Miura_Astucespro</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </astucespro_setup>
+            <astucespro_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </astucespro_write>
+            <astucespro_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </astucespro_read>
+        </resources>
+        <blocks>
+            <astucespro>
+                <class>Miura_Astucespro_Block</class>
+            </astucespro>
+        </blocks>
+        <helpers>
+            <astucespro>
+                <class>Miura_Astucespro_Helper</class>
+            </astucespro>
+        </helpers>
+    </global>
+</config>

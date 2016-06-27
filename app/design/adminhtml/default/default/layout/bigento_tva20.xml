@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layout>
+    <adminhtml_tax_rule_index>
+        <reference name="notifications">
+                <block type="bgtva20/adminhtml_tva20" name="bgtva20" template="bgtva20/notifications.phtml"/>
+        </reference>
+    </adminhtml_tax_rule_index>
+    <adminhtml_tax_rate_index>
+        <reference name="notifications">
+                <block type="bgtva20/adminhtml_tva20" name="bgtva20" template="bgtva20/notifications.phtml"/>
+        </reference>
+    </adminhtml_tax_rate_index>
+    <adminhtml_tax_class_product_index>
+        <reference name="notifications">
+                <block type="bgtva20/adminhtml_tva20" name="bgtva20" template="bgtva20/notifications.phtml"/>
+        </reference>
+    </adminhtml_tax_class_product_index>
+    <adminhtml_tax_class_customer_index>
+        <reference name="notifications">
+                <block type="bgtva20/adminhtml_tva20" name="bgtva20" template="bgtva20/notifications.phtml"/>
+        </reference>
+    </adminhtml_tax_class_customer_index>
+</layout>

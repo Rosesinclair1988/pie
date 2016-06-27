@@ -1,0 +1,62 @@
+<?php 
+$helper = Mage::helper('eternal_brands'); 
+$venedor = $this->helper('venedor');
+$containerClass = $venedor->getContainerClass();
+//var_dump(get_class($this));
+if ($helper->getConfig('slider/enable')): 
+    $brands = $this->getBrands();
+    if (count($brands) > 0) :
+?>
+<div class="<?php echo $containerClass ?>">
+    <div class="brand-slider-wrap">
+        <h2 class="subtitle">
+            <span class="inline-title"><?php echo $this->getBrandTitle(); ?></span>
+            <?php if (count($brands) > 3) echo '<div class="line"></div>'; ?>
+        </h2>
+        <div id="brand-slider" class="flexslider large-icons">
+            <ul class="slides">
+                <?php foreach ($brands as $brand) : ?>
+                <li>
+                    <?php $brand_url = $this->getBrandUrl($brand); ?>
+                    <?php if ($brand_url != '') : ?>
+                        <a href="<?php echo $brand_url ?>" title="<?php echo $brand ?>">
+                            <img src="<?php echo $this->getBrandImageUrl($brand) ?>" alt="<?php echo $brand ?>"/>
+                        </a>
+                    <?php else : ?>
+                        <img src="<?php echo $this->getBrandImageUrl($brand) ?>" alt="<?php echo $brand ?>"/>
+                    <?php endif; ?>
+                </li>
+            <?php endforeach; ?>
+            </ul>
+        </div>
+        <script type="text/javascript">
+        //<![CDATA[
+        jQuery(function($) {
+            var bp = 963;
+            if ($('body').hasClass('bv3'))
+                bp = 975;
+            $('#brand-slider').flexslider({
+                controlNav: false,
+                animation: 'slide',
+                <?php if ($helper->getConfig('slider/easing')): ?>
+                    easing: "<?php echo $helper->getConfig('slider/easing'); ?>",
+                    useCSS: false,
+                <?php endif; ?>
+                animationLoop: "<?php echo $helper->getConfig('slider/loop'); ?>",
+                <?php if ($speed = intval($helper->getConfig('slider/speed'))): ?>
+                    animationSpeed: <?php echo $speed; ?>,
+                <?php endif; ?>
+                pauseOnHover: <?php echo $helper->getConfig('slider/pause'); ?>,
+                minItems: 6,
+                maxItems: 6,
+                itemWidth: 170
+            })
+            .data("break_default", [6, 170])
+            .data("break_points", [ [1183, 5, 170], [bp, 4, 170], [750, 3, 170], [650, 2, 170], [480, 1, 170] ] );
+        });
+        //]]>
+        </script>
+    </div>
+</div>
+<?php endif; ?>
+<?php endif; ?>

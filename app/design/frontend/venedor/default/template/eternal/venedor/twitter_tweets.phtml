@@ -1,0 +1,58 @@
+<?php
+$venedor = $this->helper('venedor');
+$containerClass = $venedor->getContainerClass();
+$rowClass = $venedor->getRowClass();
+$spanClass = $venedor->getSpanClass();
+
+$tt_result = $this->getTweets();
+$tt_config = $venedor->getTwitterConfig();
+$tt_slider_class = $tt_config['profile_image'] ? 'twitter-slider1' : 'twitter-slider2';
+if ($tt_result) : ?>
+<div id="twitter-slider" class="<?php echo $tt_slider_class ?> <?php echo $containerClass ?>">
+    <ul class="slides">
+    <?php foreach ($tt_result as $tweet) : ?>
+        <li>
+            <?php if ($tt_config['profile_image']) : ?>
+            <div class="photo">
+                <img src="<?php echo $tweet->user->profile_image_url; ?>" alt="<?php echo $tweet->user->name; ?>" title="<?php echo $tweet->user->name; ?>"/>
+            </div>
+            <?php endif ?>
+            <p class="text"><?php echo $this->processString($tweet->text); ?></p>
+            <div class="date"><?php 
+            $created_at = $tweet->created_at; 
+            $created = strtotime($created_at);
+            $now = strtotime('now');
+            $diff = $now - $created;
+            $years = floor($diff / (365*60*60*24));
+            $months = floor($diff / (30*60*60*24));
+            $days = floor($diff / (60*60*24));
+            $hours = floor($diff / (60*60));    
+            $minutes  = floor($diff / 60);
+            $seconds = $diff; 
+            if ($days != 0)
+                echo $days . $this->__(' days ago');
+            else {
+                if ($hours != 0)
+                    echo $hours . $this->__(' hours ago');
+                else 
+                    echo $minutes . $this->__(' minutes ago');
+            }
+            ?></div>
+        </li>
+    <?php endforeach; ?>
+    </ul>
+    <script type="text/javascript">
+    //<![CDATA[
+    jQuery(function($) {
+        $('#twitter-slider').flexslider({
+            controlNav: false,
+            animation: 'slide',
+            animationLoop: true,
+            smoothHeight: true
+        });
+    });
+    //]]>
+    </script>
+    <div class="twitter-icon"></div>
+</div>
+<?php endif; ?>

@@ -1,0 +1,85 @@
+<?php
+/**
+ * Category view template
+ *
+ * @see Mage_Catalog_Block_Category_View
+ */
+?>
+<?php
+    $_helper    = $this->helper('catalog/output');
+    $_category  = $this->getCurrentCategory();
+    $_imgHtml   = '';
+    if ($_imgUrl = $_category->getImageUrl()) {
+        $_imgHtml = '<p class="category-image"><img src="'.$_imgUrl.'" alt="'.$this->htmlEscape($_category->getName()).'" title="'.$this->htmlEscape($_category->getName()).'" /></p>';
+        $_imgHtml = $_helper->categoryAttribute($_category, $_imgHtml, 'image');
+    }
+    $venedor = $this->helper('venedor');
+    $b = $venedor->getConfigGroup();
+    
+if ($b['category']['banner_type'] == 'banner') : ?>
+    <div class="category-banner">
+        <?php if($_imgUrl): ?>
+            <?php echo $_imgHtml ?>
+        <div class="category-wrap">
+        <?php else: ?>
+        <div>
+        <?php endif; ?>
+            <div class="page-title category-title">
+                <?php if($this->IsRssCatalogEnable() && $this->IsTopCategory()): ?>
+                    <a href="<?php echo $this->getRssLink() ?>" class="link-rss"><?php echo $this->__('Subscribe to RSS Feed') ?></a>
+                <?php endif; ?>
+                <h1><?php echo $_helper->categoryAttribute($_category, $_category->getName(), 'name') ?></h1>
+            </div>
+
+            <?php if($_description=$this->getCurrentCategory()->getDescription()): ?>
+                <div class="category-description std">
+                    <?php 
+                    $category_desc = $_helper->categoryAttribute($_category, $_description, 'description');
+                    $category_short_desc = $category_desc;
+                    if (strlen($category_short_desc) > 120)
+                        $category_short_desc = substr($category_short_desc, 0, 120) . '...';
+                    echo $category_short_desc;
+                    ?>
+                </div>
+                
+                <a title="<?php echo $_helper->categoryAttribute($_category, $_category->getName(), 'name') ?>" id="category-learnmore" class="button button-inverse" href="#category-full-description"><span><span><?php echo $this->__('Learn More') ?></span></span></a>
+                
+                <script type="text/javascript">
+                //<![CDATA[
+                    jQuery(function($) {
+                        $('#category-learnmore').colorbox({
+                            inline: true,
+                            width: '80%'
+                        })
+                    });
+                //]]>
+                </script>
+            <?php endif; ?>
+        </div>
+    </div>
+
+    <?php if($_description=$this->getCurrentCategory()->getDescription()): ?>
+        <?php 
+        $category_desc = $_helper->categoryAttribute($_category, $_description, 'description');
+        ?>
+        <div id="category-full-description">
+            <div class="page-title category-title">
+                <h1><?php echo $_helper->categoryAttribute($_category, $_category->getName(), 'name') ?></h1>
+            </div>
+            <?php echo $category_desc ?>
+        </div>
+    <?php endif; ?>
+<?php endif; ?>
+
+<?php echo $this->getMessagesBlock()->toHtml(); ?>
+
+<?php if($this->isContentMode()): ?>
+    <?php echo $this->getCmsBlockHtml() ?>
+
+<?php elseif($this->isMixedMode()): ?>
+    <?php echo $this->getCmsBlockHtml() ?>
+    <?php echo $this->getProductListHtml() ?>
+
+<?php else: ?>
+    <?php echo $this->getProductListHtml() ?>
+<?php endif; ?>

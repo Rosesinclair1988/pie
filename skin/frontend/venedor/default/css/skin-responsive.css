@@ -1,0 +1,25 @@
+
+
+@media (min-width: 1200px) {
+    
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    .header-contact {
+        display: none;
+    }
+}
+
+@media (max-width: 767px) {
+    .header-contact {
+        display: none;
+    }
+}
+
+@media (max-width: 480px) {
+    
+}
+
+@media (max-width: 320px) {
+    
+}

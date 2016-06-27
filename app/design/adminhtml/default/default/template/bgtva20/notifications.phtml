@@ -1,0 +1,12 @@
+<?php if (mage::helper('bgtva20')->getHappyNewYearDate() < now()): ?>
+    <div class="notification-global">
+        <strong class="icon-head head-tax f-left">
+            <?php echo $this->helper('tax')->__('Bigento TVA : ') ?> </strong>&nbsp;
+        <span class="f-right">
+        <a href="<?php echo $this->getUrl('adminhtml/tax_rate'); ?>"><?php echo $this->helper('tax')->__('Voir les taux') ?></a>
+        </span>
+        <?php echo $this->getMessage(); ?>
+    </div>
+<?php else: ?>
+
+<?php endif; ?>

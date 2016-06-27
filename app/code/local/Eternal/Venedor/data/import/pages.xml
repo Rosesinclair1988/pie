@@ -1,0 +1,96 @@
+<root>
+	<pages>
+		<cms_page>
+			<title>Venedor Home Page</title>
+			<identifier>venedor-home-page</identifier>
+			<content><![CDATA[<h2 class="subtitle">Our Products</h2>
+<p class="desc">Save your money and time with our store. Here's the best part of our impressive assortment.</p>
+<ul id="our-products-tabs" class="button-tabs">
+<li class="active"><a href="#all" data-toggle="tab">All</a></li>
+<li><a href="#latest" data-toggle="tab">Latest</a></li>
+<li><a href="#new" data-toggle="tab">News</a></li>
+<li><a href="#bestsellers" data-toggle="tab">Bestsellers</a></li>
+<li><a href="#specials" data-toggle="tab">Specials</a></li>
+</ul>
+<div class="tab-content">
+<div id="all" class="tab-pane active">{{block type="venedor/product_list_featured" product_count="6" is_random="1" is_grid="1" template="catalog/product/list/featured.phtml"}}</div>
+<div id="latest" class="tab-pane">{{block type="venedor/product_list_featured" product_count="6" is_latest="1" is_grid="1" template="catalog/product/list/featured.phtml"}}</div>
+<div id="new" class="tab-pane">{{block type="venedor/product_list_featured" product_count="6" is_new="1" is_random="1" is_grid="1" template="catalog/product/list/featured.phtml"}}</div>
+<div id="bestsellers" class="tab-pane">{{block type="venedor/product_list_bestseller" product_count="6" is_grid="1" template="catalog/product/list/featured.phtml"}}</div>
+<div id="specials" class="tab-pane">{{block type="venedor/product_list_featured" product_count="6" is_random="1" is_grid="1" is_special="1" template="catalog/product/list/featured.phtml"}}</div>
+</div>
+<p>&nbsp;</p>
+<div class="row">
+<div class="col-sm-7 span7">
+<h2 class="subtitle">Welcome to Venedor</h2>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Venedor is a fully responsive Magento theme with advanced admin module. Based on Bootstrap&rsquo;s 12 column 1200px responsive grid Theme. Great looks on desktops, tablets and mobiles. <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Venedor is extremely customizable, easy to use and fully responsive. Suitable for every type of store. Great as a starting point for your custom projects. This theme includes several extensions including ajax price slider that will help you improve your sales. We supply a full help with our products and after purchase support to all our customers. <a href="http://themeforest.net/item/venedor-premium-responsive-magento-theme/5799996">Buy Venedor Theme!</a></p>
+</div>
+<div class="col-sm-5 span5"><img style="width: 100%;" src="{{media url="wysiwyg/eternal/venedor/backgrounds/responsive.png"}}" alt="" /></div>
+</div>
+<p>&nbsp;</p>
+<p>{{block type="venedor/product_list_featured" product_count="12" is_random="1" mode="grid" is_special="1" is_wide="0" block_name="On Sale" block_description="Only with us you can get a new model with a discount." template="catalog/product/list/featured_slider.phtml"}}</p>]]></content>
+			<is_active>1</is_active>
+			<stores><item>0</item></stores>
+		</cms_page>
+		<cms_page>
+			<title>Venedor Home Page 2</title>
+			<identifier>venedor-home-page-2</identifier>
+			<content><![CDATA[<p>{{block type="venedor/product_list_featured" product_count="12" is_latest="1" is_wide="1" block_name="Latest" block_description="Buy discount items from the latest collections of world brands." template="catalog/product/list/featured_slider.phtml"}}</p>
+<p>&nbsp;</p>
+<div class="row">
+<div class="col-sm-6 span6">
+<h2 class="subtitle">Welcome to Venedor</h2>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Venedor is a fully responsive Magento theme with advanced admin module. Based on Bootstrap&rsquo;s 12 column 1200px responsive grid Theme. Great looks on desktops, tablets and mobiles. <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Venedor is extremely customizable, easy to use and fully responsive. Suitable for every type of store. Great as a starting point for your custom projects. This theme includes several extensions including ajax price slider that will help you improve your sales. We supply a full help with our products and after purchase support to all our customers. <a href="http://themeforest.net/item/venedor-premium-responsive-magento-theme/5799996">Buy Venedor Theme!</a></p>
+</div>
+<div class="col-sm-6 span6"><img style="width: 100%;" src="{{media url="wysiwyg/eternal/venedor/backgrounds/responsive2.png"}}" alt="" /></div>
+</div>
+<p>&nbsp;</p>
+<p><br/></p>
+<p>{{block type="venedor/product_list_bestseller" product_count="12" is_wide="1" block_name="Bestsellers" block_description="Special offers and biggest discounts for the most popular products." template="catalog/product/list/featured_slider.phtml"}}</p>]]></content>
+			<is_active>1</is_active>
+			<stores><item>0</item></stores>
+		</cms_page>
+		<cms_page>
+			<title>Venedor Home Page 3</title>
+			<identifier>venedor-home-page-3</identifier>
+			<content><![CDATA[<h2 class="subtitle">Our Products</h2>
+<p class="desc">Save your money and time with our store. Here's the best part of our impressive assortment.</p>
+<ul id="our-products-tabs" class="button-tabs">
+<li class="active"><a href="#all" data-toggle="tab">All</a></li>
+<li><a href="#latest" data-toggle="tab">Latest</a></li>
+<li><a href="#new" data-toggle="tab">News</a></li>
+<li><a href="#bestsellers" data-toggle="tab">Bestsellers</a></li>
+<li><a href="#specials" data-toggle="tab">Specials</a></li>
+</ul>
+<div class="tab-content">
+<div id="all" class="tab-pane active">{{block type="venedor/product_list_featured" product_count="6" is_random="1" is_grid="1" template="catalog/product/list/featured.phtml"}}</div>
+<div id="latest" class="tab-pane">{{block type="venedor/product_list_featured" product_count="6" is_latest="1" is_grid="1" template="catalog/product/list/featured.phtml"}}</div>
+<div id="new" class="tab-pane">{{block type="venedor/product_list_featured" product_count="6" is_new="1" is_random="1" is_grid="1" template="catalog/product/list/featured.phtml"}}</div>
+<div id="bestsellers" class="tab-pane">{{block type="venedor/product_list_bestseller" product_count="6" is_grid="1" template="catalog/product/list/featured.phtml"}}</div>
+<div id="specials" class="tab-pane">{{block type="venedor/product_list_featured" product_count="6" is_random="1" is_grid="1" is_special="1" template="catalog/product/list/featured.phtml"}}</div>
+</div>
+<p>&nbsp;</p>
+<p>{{block type="venedor/product_list_featured" product_count="12" is_random="1" mode="grid" is_special="1" is_wide="0" block_name="On Sale" block_description="Only with us you can get a new model with a discount." template="catalog/product/list/featured_slider.phtml"}}</p>]]></content>
+			<is_active>1</is_active>
+			<stores><item>0</item></stores>
+		</cms_page>
+		<cms_page>
+			<title>Venedor Home Page 4</title>
+			<identifier>venedor-home-page-4</identifier>
+			<content><![CDATA[<p>{{block type="venedor/product_list_featured" product_count="12" is_latest="1" is_wide="1" block_name="Latest" block_description="Buy discount items from the latest collections of world brands." template="catalog/product/list/featured_slider.phtml"}}</p>
+<p>&nbsp;</p>
+<div class="row">
+<div class="col-sm-6 span6">
+<h2 class="subtitle">Welcome to Venedor</h2>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Venedor is a fully responsive Magento theme with advanced admin module. Based on Bootstrap&rsquo;s 12 column 1200px responsive grid Theme. Great looks on desktops, tablets and mobiles. <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Venedor is extremely customizable, easy to use and fully responsive. Suitable for every type of store. Great as a starting point for your custom projects. This theme includes several extensions including ajax price slider that will help you improve your sales. We supply a full help with our products and after purchase support to all our customers. <a href="http://themeforest.net/item/venedor-premium-responsive-magento-theme/5799996">Buy Venedor Theme!</a></p>
+</div>
+<div class="col-sm-6 span6"><img style="width: 100%;" src="{{media url="wysiwyg/eternal/venedor/backgrounds/responsive3.png"}}" alt="" /></div>
+</div>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>{{block type="venedor/product_list_bestseller" product_count="12" is_wide="1" block_name="Bestsellers" block_description="Special offers and biggest discounts for the most popular products." template="catalog/product/list/featured_slider.phtml"}}</p>]]></content>
+			<is_active>1</is_active>
+			<stores><item>0</item></stores>
+		</cms_page>
+	</pages>
+</root>

@@ -1,0 +1,41 @@
+<?php
+/**
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+
+<?php $_product = $this->getProduct(); ?>
+<?php $buttonTitle = $this->__('Update Cart'); ?>
+<?php if ($_product->isSaleable()): ?>
+    <div class="add-to-cart">
+        <?php if (!$_product->isGrouped()): ?>
+        <label for="qty"><?php echo $this->__('Qty:') ?></label>
+        <div class="qty-wrap"><input type="text" name="qty" id="qty" maxlength="12" value="<?php echo $this->getProductDefaultQty() * 1 ?>" title="<?php echo $this->__('Qty') ?>" class="input-text qty" />
+        <button type="button" class="button-arrow button-up"><?php echo $this->__('Increase') ?></button>
+        <button type="button" class="button-arrow button-down"><?php echo $this->__('Decrease') ?></button></div>
+        <script type="text/javascript">
+        //<![CDATA[
+        jQuery(function($) {
+            $('.add-to-cart .button-up').click(function() {
+                $qty = $(this).parent().find('.qty');
+                qty = parseInt($qty.val()) + 1;
+                $qty.val(qty);
+            });
+            $('.add-to-cart .button-down').click(function() {
+                $qty = $(this).parent().find('.qty');
+                qty = parseInt($qty.val()) - 1;
+                if (qty < 1)
+                    qty = 1;
+                $qty.val(qty);
+            });
+        });
+        //]]>
+        </script>
+        <?php endif; ?>
+        <button type="button" title="<?php echo $buttonTitle ?>" class="button btn-cart" onclick="productAddToCartForm.submit(this)"><span><span><?php echo $buttonTitle ?></span></span></button>
+    </div>
+    <?php $html = $this->getChildHtml('', true, true); if ($html) : ?><div class="add-to-cart-extra"><?php echo $html ?></div><?php endif; ?>
+<?php endif; ?>

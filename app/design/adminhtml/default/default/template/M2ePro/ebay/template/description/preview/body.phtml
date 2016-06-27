@@ -1,0 +1,14 @@
+<div class="entry-edit" id="magento_block_ebay_template_description_preview" style="padding: 5px;">
+
+    <div class="entry-edit-head">
+        <h4 class="icon-head head-edit-form fieldset-legend"><?php echo Mage::helper('M2ePro')->escapeHtml($this->getData('title')); ?></h4>
+        <span style="color: gray"><?php echo Mage::helper('M2ePro')->escapeHtml($this->getData('subtitle')) ?></span>
+    </div>
+
+    <div class="fieldset">
+        <div class="hor-scroll">
+            <?php echo $this->getData('description'); ?>
+        </div>
+    </div>
+
+</div>

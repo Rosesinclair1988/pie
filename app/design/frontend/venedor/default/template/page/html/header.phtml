@@ -1,0 +1,106 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+/**
+ * @var Mage_Page_Block_Html_Header $this
+ */
+?>
+<?php 
+$venedor = $this->helper('venedor');
+$containerClass = $venedor->getContainerClass();
+$b = $venedor->getConfigGroup();
+$switcher_pos = $b['header']['switcher_position'];
+$switcher_html = $this->getChildHtml('store_language') . $this->getChildHtml('currency');
+$cart_pos = $b['header']['cart_position'];
+$cart_html = $this->getChildHtml('cart_sidebar');
+
+$c1 = ($cart_pos == 'top' && $switcher_pos == 'top') ? 'header-top-below' : 'left';
+?>
+<div class="header-top">
+    <div class="<?php echo $containerClass ?>">
+        <div class="left">
+            <?php echo $this->getChildHtml('topLinks') ?>
+        </div>
+        <div class="right clearfix <?php echo ($cart_pos == 'top' && $switcher_pos == 'top' && $cart_html && $switcher_html) ? 'header-top-both' : '' ?>">
+            <?php if ($cart_pos == 'top') echo $cart_html; ?>
+            <?php if ($switcher_pos == 'top') echo $switcher_html; ?>
+            <div class="<?php echo $c1 ?>">
+            <?php $helper = Mage::helper('customer'); ?>
+                <p class="login-link <?php if ($switcher_pos != 'top' && $cart_pos != 'top') echo 'static' ?>">
+                    <?php if ($helper->isLoggedIn()): ?>
+                        <a href="<?php echo $helper->getLogoutUrl(); ?>"><?php echo $this->__('Logout');?></a>
+                    <?php else: ?>
+                        <a href="<?php echo $helper->getLoginUrl(); ?>"><?php echo $this->__('Login');?></a> <?php echo $this->__('or') ?> <a href="<?php echo $helper->getRegisterUrl(); ?>"><?php echo $this->__('create an account');?></a>.
+                    <?php endif; ?> 
+                     <?php echo $this->getAdditionalHtml() ?>
+                </p>
+                <p class="welcome-msg"><?php echo $this->getWelcome() ?> <?php echo $this->getAdditionalHtml() ?></p>
+            </div>
+        </div>        
+    </div>    
+</div>
+<div class="header">
+    <div class="<?php echo $containerClass ?>">
+        <div class="clearfix">
+            <?php if ($this->getIsHomePage()):?>
+            <h1 class="logo"><strong><?php echo $this->getLogoAlt() ?></strong><a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="logo"><img src="<?php echo $venedor->getLogo() ?>" alt="<?php echo $this->getLogoAlt() ?>" /></a></h1>
+            <?php else:?>
+            <a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="logo"><strong><?php echo $this->getLogoAlt() ?></strong><img src="<?php echo $venedor->getLogo() ?>" alt="<?php echo $this->getLogoAlt() ?>" /></a>
+            <?php endif?>
+            <div class="header-right">
+                <?php if ($switcher_pos == 'middle' || $cart_pos == 'middle') : ?>
+                <div class="clearfix header-both <?php if ($cart_pos == 'middle' && $switcher_pos != 'middle') echo 'header-both1'; ?> <?php if ($cart_pos == 'bottom' && $switcher_pos == 'middle') echo 'header-both2'; ?>">
+                    <?php if ($cart_pos == 'middle') echo $cart_html; ?>
+                    <?php if ($switcher_pos == 'middle') echo $switcher_html; ?>
+                </div>
+                <?php endif; ?>
+                <?php
+                $custom_block = $b['header']['custom_block'];
+                if ($custom_block) : ?>
+                <div class="header-contact clearfix"><?php echo $html = $this->getLayout()->createBlock('cms/block')->setBlockId($custom_block)->toHtml(); ?></div>
+                <?php endif; ?>
+            </div>
+        </div>
+        <?php echo $this->getChildHtml('topContainer'); ?>
+    </div>
+    <div class="header-menu<?php if ($b['header']['menu_position'] == 'right') echo ' header-menu-right' ?>">
+        <div class="<?php echo $containerClass ?>">
+            <?php if ($b['header']['menu_position'] == 'left') : ?>
+            <?php echo $this->getChildHtml('topMenu') ?>
+            <div class="quick-access <?php if ($switcher_pos == 'middle' || $cart_pos == 'middle') echo 'quick-access1' ?> <?php if ($cart_pos == 'bottom' && $switcher_pos == 'middle') echo 'quick-access2'; ?>">
+                <?php echo $this->getChildHtml('topSearch') ?>
+                <?php if ($cart_pos == 'bottom') echo $cart_html; ?>
+            </div>
+            <?php else : ?>
+            <div class="quick-access <?php if ($switcher_pos == 'middle' || $cart_pos == 'middle') echo 'quick-access1' ?> <?php if ($cart_pos == 'bottom' && $switcher_pos == 'middle') echo 'quick-access2'; ?>">
+                <?php echo $this->getChildHtml('topSearch') ?>
+                <?php if ($cart_pos == 'bottom') echo $cart_html; ?>
+            </div>
+            <?php echo $this->getChildHtml('topMenu') ?>
+            <?php endif; ?>
+        </div>
+        <div class="container-shadow"></div>
+    </div>    
+</div>

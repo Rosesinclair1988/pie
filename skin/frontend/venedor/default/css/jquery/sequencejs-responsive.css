@@ -1,0 +1,246 @@
+
+
+@media (min-width: 1200px) {
+    #homeslider-sequence {
+        height: 600px;
+    }
+    .sequence-next,
+    .sequence-prev {
+        margin-top: -22px;
+    }
+    
+    .sequence-canvas .slide-title {
+        font-size: 35px;
+    }
+    .sequence-canvas .slide-desc {
+        font-size: 28px;
+    }
+    
+    /* block_homeslide1 */
+    .sequence-canvas .block_homeslider1 .slide-title {
+        top: 28%;
+    }
+    
+    /* block_homeslide2 */
+    .sequence-canvas .block_homeslider2 .slide-title {
+        top: 27%;
+    }
+    .sequence-canvas .block_homeslider2 .slide-desc {
+        width: 33%;
+        font-size: 22px;
+    }
+    .sequence-canvas .block_homeslider2 .slide-link {
+        top: 49%;
+    }
+    .sequence-canvas .block_homeslider2.animate-in .slide-title,
+    .sequence-canvas .block_homeslider2.animate-in .slide-desc,
+    .sequence-canvas .block_homeslider2.animate-in .slide-link {
+        left: 65%;
+    }
+    
+    /* block_homeslide3 */
+    .sequence-canvas .block_homeslider3 .slide-title {
+        top: 7%;
+    }
+    .sequence-canvas .block_homeslider3 .slide-link {
+        top: 30%;
+    }
+    .sequence-canvas .block_homeslider3.animate-in .slide-title,
+    .sequence-canvas .block_homeslider3.animate-in .slide-desc,
+    .sequence-canvas .block_homeslider3.animate-in .slide-link {
+        left: 2%;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    #homeslider-sequence {
+        height: 370px;
+    }
+    .sequence-next,
+    .sequence-prev {
+        margin-top: -22px;
+    }
+    .sequence-canvas .slide-title {
+        font-size: 30px;
+    }
+    .sequence-canvas .slide-desc {
+        font-size: 23px;
+    }
+    .sequence-canvas .slide-link {
+        font-size: 14px;
+        padding: 8px 14px;
+    }
+    
+    /* block_homeslide1 */
+    .sequence-canvas .block_homeslider1 .slide-title {
+        top: 15%;
+    }
+    .sequence-canvas .block_homeslider1 .model {
+        left: 44%;
+    }
+    .sequence-canvas .block_homeslider1 .slide-desc {
+        top: 43%;
+    }
+    .sequence-canvas .block_homeslider1 .slide-desc2 {
+        top: 51%;
+    }
+    .sequence-canvas .block_homeslider1 .slide-desc3 {
+        top: 59%;
+    }
+    .sequence-canvas .block_homeslider1 .slide-desc4 {
+        top: 67%;
+    }
+    .sequence-canvas .block_homeslider1 .slide-desc5 {
+        top: 75%;
+    }
+    
+    /* block_homeslide2 */
+    .sequence-canvas .block_homeslider2 .slide-title {
+        top: 27%;
+    }
+    .sequence-canvas .block_homeslider2 .slide-desc {
+        top: 42%;
+        width: 45%;
+        font-size: 18px;
+    }
+    .sequence-canvas .block_homeslider2 .slide-link {
+        top: 57%;
+    }
+    .sequence-canvas .block_homeslider2.animate-in .slide-title,
+    .sequence-canvas .block_homeslider2.animate-in .slide-desc,
+    .sequence-canvas .block_homeslider2.animate-in .slide-link {
+        left: 63%;
+    }
+    
+    /* block_homeslide3 */
+    .sequence-canvas .block_homeslider3 .slide-title {
+        top: 5%;
+    }
+    .sequence-canvas .block_homeslider3 .slide-desc {
+        width: 60%;
+        top: 20%;
+    }
+    .sequence-canvas .block_homeslider3 .slide-link {
+        top: 37%;
+    }
+    .sequence-canvas .block_homeslider3.animate-in .slide-title,
+    .sequence-canvas .block_homeslider3.animate-in .slide-desc,
+    .sequence-canvas .block_homeslider3.animate-in .slide-link,
+    .sequence-canvas .block_homeslider3.animate-in .man {
+        left: 5%;
+    }
+}
+
+@media (max-width: 767px) {
+    #homeslider-sequence {
+        height: 340px;
+    }
+    .sequence-canvas .slide-title {
+        font-size: 20px;
+    }
+    .sequence-canvas .slide-desc {
+        display: none;
+    }
+    .sequence-canvas .slide-link {
+        font-size: 11px;
+        padding: 8px 10px;
+        -webkit-transition-delay: 3.0s;
+           -moz-transition-delay: 3.0s;
+            -ms-transition-delay: 3.0s;
+             -o-transition-delay: 3.0s;
+                transition-delay: 3.0s;
+    }
+    
+    /* block_homeslide1 */
+    .sequence-canvas .block_homeslider1 .slide-title {
+        top: 22%;
+        line-height: 1.5;
+    }
+    
+    /* block_homeslide2 */
+    .sequence-canvas .block_homeslider2 .slide-title {
+        top: 25%
+    }
+    .sequence-canvas .block_homeslider2 .slide-link {
+        top: 40%;
+    }
+    .sequence-canvas .block_homeslider2.animate-in .slide-title,
+    .sequence-canvas .block_homeslider2.animate-in .slide-link {
+        left: 62%;
+    }
+    
+    /* block_homeslide3 */
+    .sequence-canvas .block_homeslider3 .slide-title {
+        top: 10%
+    }
+    .sequence-canvas .block_homeslider3 .slide-link {
+        top: 25%;
+    }
+    .sequence-canvas .block_homeslider3.animate-in .slide-title,
+    .sequence-canvas .block_homeslider3.animate-in .slide-link {
+        left: 2%;
+    }
+}
+
+@media (max-width: 650px) {
+    #homeslider-sequence {
+        height: 280px;
+    }
+    
+    /* block_homeslide1 */
+    .sequence-canvas .block_homeslider1 .slide-title {
+        top: 17%;
+    }
+    
+    /* block_homeslide2 */
+    .sequence-canvas .block_homeslider2 .slide-title {
+        top: 25%;
+    }
+    .sequence-canvas .block_homeslider2 .slide-link {
+        top: 50%;
+    }
+    
+    /* block_homeslide3 */
+    .sequence-canvas .block_homeslider3 .slide-title {
+        top: 10%;
+        width: 65%;
+    }
+    .sequence-canvas .block_homeslider3 .slide-link {
+        top: 35%;
+    }
+}
+
+@media (max-width: 480px) {
+    #homeslider-sequence {
+        height: 165px;
+    }
+    .sequence-pagination {
+        display: none !important;
+    }
+    
+    /* block_homeslide1 */
+    .sequence-canvas .block_homeslider1 .slide-title {
+        top: 55%;
+        line-height: 1.2;
+    }
+    
+    /* block_homeslide2 */
+    .sequence-canvas .block_homeslider2 .slide-title {
+        top: 30%;
+    }
+    .sequence-canvas .block_homeslider2 .slide-link {
+        top: 66%;
+    }
+    .sequence-canvas .block_homeslider2.animate-in .slide-title,
+    .sequence-canvas .block_homeslider2.animate-in .slide-link {
+        left: 48%;
+    }
+    
+    /* block_homeslide3 */
+    .sequence-canvas .block_homeslider3 .slide-title {
+        top: 0;
+    }
+    .sequence-canvas .block_homeslider3 .slide-link {
+        top: 47%;
+    }
+}

@@ -1,0 +1,197 @@
+<?php if (!$this->getRequest()->getParam('id')) { ?>
+
+<div id="block_notice_category_add" class="block_notices_module" title="<?php echo Mage::helper('M2ePro')->__('Add Category'); ?>">
+    <?php echo Mage::helper('M2ePro')->__('TODO TEXT'); ?>
+</div>
+
+<?php } ?>
+
+<?php
+$formData = Mage::helper('M2ePro')->getGlobalValue('temp_data') ? Mage::helper('M2ePro')->getGlobalValue('temp_data') : array();
+$default = array(
+    'category' => array(
+        'id' => '',
+        'title' => '',
+        'path' => '',
+        'xsd_hash' => '',
+        'node_title' => ''
+    ),
+    'specifics' => array()
+);
+$formData = array_merge($default, $formData);
+
+$isEdit = !!$this->getRequest()->getParam('id');
+?>
+
+<script type="text/javascript">
+
+    // General for all tabs
+    //-----------------------------
+    if (typeof M2ePro == 'undefined') {
+        M2ePro = {};
+        M2ePro.url = {};
+        M2ePro.formData = {};
+        M2ePro.customData = {};
+        M2ePro.text = {};
+    }
+
+    M2ePro.autoCompleteData = {
+        url : {}
+    };
+
+    M2ePro.text.press_choose_btn = '<?php echo Mage::helper('M2ePro')->__('This is a required field. Please press Choose button.'); ?>';
+    M2ePro.text.invalid_data = '<?php echo Mage::helper('M2ePro')->__('Incorrect data.'); ?>';
+    M2ePro.text.title_not_unique_error = '<?php echo Mage::helper('M2ePro')->escapeJs(Mage::helper('M2ePro')->__('The specified title is already used for other category.')); ?>';
+    M2ePro.text.allower_values = '<?php echo Mage::helper('M2ePro')->escapeJs(Mage::helper('M2ePro')->__('Allowed Values: ')); ?>';
+
+    M2ePro.formData  = <?php echo json_encode($formData); ?>;
+    M2ePro.formData.attributes = <?php echo json_encode($this->attributes); ?>;
+
+    M2ePro.url.getXsds = '<?php echo $this->getUrl('*/adminhtml_amazon_category/getXsds',array('marketplace_id'=>$this->marketplaceId)); ?>';
+    M2ePro.url.getSpecifics = '<?php echo $this->getUrl('*/adminhtml_amazon_category/getSpecifics'); ?>';
+    M2ePro.url.getCategories = '<?php echo $this->getUrl('*/adminhtml_amazon_category/getCategories',array('marketplace_id'=>$this->marketplaceId)); ?>';
+    M2ePro.url.check_repetition = '<?php echo $this->getUrl('*/adminhtml_amazon_category/checkRepetition',array('marketplace_id'=>$this->marketplaceId)); ?>';
+
+    M2ePro.url.helpIcon = '<?php echo $this->getSkinUrl('images').'/fam_help.gif'; ?>';
+
+    Event.observe(window, 'load', function() {
+
+        AmazonCategoryHandlerObj = new AmazonCategoryHandler(M2ePro,new AmazonCategorySpecificHandler(M2ePro));
+
+        $('node_title').observe('change', function(event) {
+            AmazonCategoryHandlerObj.node_title_change(this);
+        });
+
+        editForm = new varienForm('edit_form', '<?php echo $this->getValidationUrl(); ?>');
+    });
+
+    //-----------------------------
+
+</script>
+
+<form id="<?php echo $this->getForm()->getId(); ?>" action="<?php echo $this->getForm()->getData('action'); ?>" method="post" enctype="multipart/form-data">
+
+<input name="form_key" value="<?php echo $this->getFormKey(); ?>" type="hidden" />
+<input name="category[id]" value="<?php echo $formData['category']['id']; ?>" type="hidden" />
+
+<div class="entry-edit" id="magento_block_category_edit_general">
+
+    <div class="entry-edit-head">
+        <h4 class="icon-head head-edit-form fieldset-legend"><?php echo Mage::helper('M2ePro')->__('Category Configuration'); ?></h4>
+    </div>
+
+    <div class="fieldset">
+        <div class="hor-scroll">
+
+            <table class="form-list" cellspacing="0" cellpadding="0">
+
+                <tr>
+                    <td class="label">
+                        <label for="title"><?php echo Mage::helper('M2ePro')->__('Title'); ?>: <span class="required">*</span></label>
+                    </td>
+                    <td class="value">
+                        <input id="title" name="category[title]" value="<?php echo Mage::helper('M2ePro')->__($formData['category']['title']); ?>" type="text" class="M2ePro-category-title input-text required-entry" />
+                        <p class="note">
+                            <span><?php echo Mage::helper('M2ePro')->__('TODO TEXT'); ?></span>
+                        </p>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="label">
+                        <label for="node_title"><?php echo Mage::helper('M2ePro')->__('Node'); ?>: <span class="required">*</span></label>
+                    </td>
+                    <td class="value">
+                        <?php if ($formData['category']['node_title']) { ?>
+                            <span style="font-weight: bold;" id="node_title">
+                                <?php echo $formData['category']['node_title']; ?>
+                                <?php foreach ($this->nodes as $node) {
+                                    if ($node['title'] == $formData['category']['node_title']) {
+                                        echo '<input id="node_hash" name="node_hash" value="'.$node['hash'].'" type="hidden" />';
+                                        break;
+                                    }
+                                } ?>
+                            </span>
+                            <input type="hidden" name="category[node_title]" value="<?php echo $formData['category']['node_title']; ?>" class="required-entry" />
+                        <?php } else { ?>
+                            <select id="node_title" name="category[node_title]" class="required-entry">
+                                <option style="display: none"></option>
+                                <?php foreach ($this->nodes as $node) { ?>
+                                    <option value="<?php echo $node['title'] ;?>" node_hash="<?php echo $node['hash']; ?>"> <?php echo $node['title'] ;?></option>
+                                <? } ?>
+                            </select>
+                            <p class="note">
+                                <span><?php echo Mage::helper('M2ePro')->__('TODO TEXT'); ?></span>
+                            </p>
+                        <?php } ?>
+                    </td>
+                </tr>
+
+                <tr id="categories_tr" <?php if (empty($formData['category']['category_path'])) : ?> style="display: none;" <?php endif; ?>>
+
+                    <td class="label">
+                        <label><?php echo Mage::helper('M2ePro')->__('Category'); ?>: <span class="required">*</span></label>
+                    </td>
+
+                    <td class="value" style="width: auto;">
+
+                        <div id="categories_container">
+
+                        </div>
+
+                        <p id="category_confirm_button_container" style="display: none; margin: 1px 0 0 0; float: left">
+                            <?php echo $this->getChildHtml('category_confirm_button'); ?>
+                        </p>
+
+                        <p id="category_change_button_container" style="display: none; margin: 1px 0 0 0">
+                            <?php echo $this->getChildHtml('category_change_button'); ?>
+                        </p>
+
+                        <p id="category_cancel_button_container" style="display: none; margin: 1px 0 0 10px; float: left">
+                            <?php echo $this->getChildHtml('category_cancel_button'); ?>
+                        </p>
+
+                    </td>
+
+                </tr>
+
+                <tr id="xsds_tr" style="display: none;">
+
+                    <td class="label">
+                        <label><?php echo Mage::helper('M2ePro')->__('Subcategory'); ?>: <span class="required">*</span></label>
+                    </td>
+
+                    <td class="value" style="width: auto;">
+
+                        <input class="required-entry" type="hidden" name="category[xsd_hash]" id="xsd_hash" value="<?php echo $formData['category']['xsd_hash']; ?>" />
+
+                    </td>
+
+                </tr>
+
+            </table>
+
+        </div>
+    </div>
+
+</div>
+
+<div class="entry-edit" id="magento_block_specific_edit_general" style="display: none;">
+
+    <div class="entry-edit-head">
+        <h4 class="icon-head head-edit-form fieldset-legend"><?php echo Mage::helper('M2ePro')->__('Specifics Configuration'); ?></h4>
+    </div>
+
+    <div class="fieldset">
+        <div class="hor-scroll">
+
+            <table class="form-list" cellspacing="0" cellpadding="0" id="specifics_container">
+
+            </table>
+
+        </div>
+    </div>
+
+</div>
+
+</form>

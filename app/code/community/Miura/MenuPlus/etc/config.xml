@@ -1,0 +1,163 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Miura Menu+ Extension
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ *
+ * @category   Miura
+ * @package    Miura_MenuPlus
+ * @author     Clement Larduinat
+ * @copyright  Copyright (c) 2011 Miura Conseil (http://www.miura-conseil.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config>
+    <modules>
+        <Miura_MenuPlus>
+            <version>2.0.2.0</version>
+        </Miura_MenuPlus>
+    </modules>
+    <global>
+        <blocks>
+            <menuplus>
+                <class>Miura_MenuPlus_Block</class>
+            </menuplus>
+        </blocks>
+        <helpers>
+            <menuplus>
+                <class>Miura_MenuPlus_Helper</class>
+            </menuplus>
+        </helpers>
+        <models>
+            <menuplus>
+                <class>Miura_MenuPlus_Model</class>
+            </menuplus>
+        </models>
+        <resources>
+            <menuplus_setup>
+                <setup>
+                    <module>Miura_MenuPlus</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </menuplus_setup>
+        </resources>
+    </global>
+    <frontend>
+        <layout>
+            <updates>
+                <menuplus module="Miura_MenuPlus">
+                    <file>Miura/MenuPlus.xml</file>
+                </menuplus>
+            </updates>
+        </layout>
+        <translate>
+            <modules>
+                <Miura_MenuPlus>
+                    <files>
+                        <default>Miura_MenuPlus.csv</default>
+                    </files>
+                </Miura_MenuPlus>
+            </modules>
+        </translate>
+    </frontend>
+    <adminhtml>
+        <translate>
+            <modules>
+                <Miura_MenuPlus>
+                    <files>
+                        <default>Miura_MenuPlus.csv</default>
+                    </files>
+                </Miura_MenuPlus>
+            </modules>
+        </translate>
+        <acl>
+            <resources>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <menuplus>
+                                            <title>Menu+</title>
+                                        </menuplus>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+    </adminhtml>
+    <default>
+        <menuplus>
+            <global>
+                <active>1</active>
+                <skin>default</skin>
+            </global>
+            <dropdown>
+                <lca>1</lca>
+                <mca>1</mca>
+                <rca>0</rca>
+                <mcc>subcategories</mcc>
+            </dropdown>
+            <mainbar>
+                <hla>0</hla>
+                <cl1o>1</cl1o>
+                <cl2o>2</cl2o>
+                <cl3o>3</cl3o>
+                <cusl1o>4</cusl1o>
+                <cusl2o>5</cusl2o>
+                <cusl3o>6</cusl3o>
+            </mainbar>
+            <subcategories>
+                <d>3</d>
+                <s>1</s>
+                <mp>0</mp>
+                <ncpc>5</ncpc>
+                <sm>0</sm>
+                <sml>5</sml>
+                <smincpc>0</smincpc>
+            </subcategories>
+            <thumbnail>
+                <a>1</a>
+                <p>left</p>
+                <o>1</o>
+                <w>150</w>
+                <h>0</h>
+            </thumbnail>
+            <link>
+                <a>1</a>
+                <l>Show category products</l>
+                <p>left</p>
+                <o>3</o>
+                <c>1</c>
+            </link>
+            <description>
+                <a>1</a>
+                <p>left</p>
+                <o>3</o>
+            </description>
+            <staticblocks>  
+                <sb1a>0</sb1a>
+                <sb1p>right</sb1p>
+                <sb1o>1</sb1o>
+                <sb2a>0</sb2a>
+                <sb2p>right</sb2p>
+                <sb2o>2</sb2o>
+                <sb3a>0</sb3a>
+                <sb3p>right</sb3p>
+                <sb3o>3</sb3o>
+            </staticblocks>
+        </menuplus>
+    </default>
+</config>

@@ -1,0 +1,35 @@
+#########################################################################
+#
+# Pathfile
+#
+# Liste fichiers parametres utilis�s par le module de paiement
+#
+#########################################################################
+
+# ------------------------------------------------------------------------
+# Chemin vers le r�pertoire des logos depuis le web alias
+# Exemple pour le r�pertoire www.merchant.com/cyberplus/payment/logo/
+# indiquer:
+# ------------------------------------------------------------------------
+#
+D_LOGO!http://www.piecesplomberie.com/media/atos/!
+#
+#------------------------------------------------------------------------
+#  Fichiers parametres lies a l'api cyberplus paiement
+#------------------------------------------------------------------------
+#
+# Certificat du commercant
+#
+F_CERTIFICATE!/home/piecesplomberie.com/public_html/lib/atos/certif!
+#
+# Fichier param�tre commercant
+#
+F_PARAM!/home/piecesplomberie.com/public_html/lib/atos/parmcom!
+#
+# Fichier des param�tres communs
+#
+F_DEFAULT!/home/piecesplomberie.com/public_html/lib/atos/pathfile.051837244600014!
+#
+# --------------------------------------------------------------------------
+# End of file
+# --------------------------------------------------------------------------

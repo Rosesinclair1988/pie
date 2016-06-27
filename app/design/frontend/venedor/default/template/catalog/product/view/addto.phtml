@@ -1,0 +1,27 @@
+<?php
+/**
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+
+<?php 
+$_product = $this->getProduct();
+$_wishlistSubmitUrl = $this->helper('wishlist')->getAddUrl($_product); 
+$venedor = $this->helper('venedor');
+$b = $venedor->getConfigGroup();
+$_compareUrl = $this->helper('catalog/product_compare')->getAddUrl($_product);
+?>
+
+<?php if (($b['product']['addlinks_wishlist'] && $this->helper('wishlist')->isAllow()) || ($b['product']['addlinks_compare'] && $_compareUrl)) : ?>
+<ul class="add-to-links">
+<?php if ($b['product']['addlinks_wishlist'] && $this->helper('wishlist')->isAllow()) : ?>
+    <li><a href="<?php echo $_wishlistSubmitUrl ?>" onclick="productAddToCartForm.submitLight(this, this.href); return false;" class="button link-wishlist" title="<?php echo $this->__('Add to Wishlist') ?>"><?php echo $this->__('Add to Wishlist') ?></a><span><?php echo $this->__('Wishlist') ?></span></li>
+<?php endif; ?>
+<?php if($b['product']['addlinks_compare'] && $_compareUrl) : ?>
+    <li><a href="<?php echo $_compareUrl ?>" class="button link-compare" title="<?php echo $this->__('Add to Compare') ?>"><?php echo $this->__('Add to Compare') ?></a><span><?php echo $this->__('Compare') ?></span></li>
+<?php endif; ?>
+</ul>
+<?php endif; ?>

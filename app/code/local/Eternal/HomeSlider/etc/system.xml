@@ -1,0 +1,203 @@
+<?xml version="1.0"?>
+<config>
+    <tabs>
+        <eternal translate="label">
+            <label>Eternal Extensions</label>
+            <sort_order>150</sort_order>
+        </eternal>
+    </tabs>
+    <sections>
+        <eternal_homeslider translate="label">
+            <label>Homepage Slider</label>
+            <tab>eternal</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>200</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <general translate="label">
+                    <label>General</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>1000</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <enabled translate="label">
+                            <label>Enable Slider</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_enabledisable</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enabled>
+                        <type translate="label">
+                            <label>Slider Type</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>eternal_homeslider/system_config_source_slider_type</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </type>
+                        <blocks translate="label">
+                            <label>Displayed Blocks</label>
+                            <comment>Comma separated list of static block identifiers. These static blocks will be displayed as slides.</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <type>block</type>
+                            </depends>
+                        </blocks>
+                        <products translate="label">
+                            <label>Displayed Products</label>
+                            <comment>Comma separated list of product skus. These products will be displayed as slides.</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <type>product</type>
+                            </depends>
+                        </products>
+                        <block_plugin translate="label">
+                            <label>Plugin Type</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>eternal_homeslider/system_config_source_block_plugin_type</source_model>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <type>block</type>
+                            </depends>
+                        </block_plugin>
+                        <active_responsive translate="label comment">
+                            <label>Active Responsive </label>
+                            <comment>Set to 'Yes', if you want to active responsive.</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </active_responsive>
+                        <show_controls translate="label comment">
+                            <label>Show Controls</label>
+                            <comment>Set to 'Yes', if you want to show the direction controls.</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>70</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </show_controls>
+                        <show_pager translate="label comment">
+                            <label>Show Pager</label>
+                            <comment>Set to 'Yes', if you want to show the pager.</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>80</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </show_pager>
+                        <transaction translate="label">
+                            <label>Transaction Effect</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>eternal_homeslider/system_config_source_slider_transaction</source_model>
+                            <sort_order>90</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <type>block</type>
+                            </depends>
+                        </transaction>
+                        <speed translate="label comment">
+                            <label>Transaction Speed</label>
+                            <comment>Time (in milliseconds) of slide transition animation.</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>100</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </speed>
+                        <auto_play translate="label comment">
+                            <label>Auto Play</label>
+                            <comment>Set to 'Enable', if you want to play automatically.</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_enabledisable</source_model>
+                            <sort_order>110</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </auto_play>
+                        <timeout translate="label comment">
+                            <label>Timeout</label>
+                            <comment>Time (in milliseconds) between slide transitions. Note that 1000 miliseconds = 1 second.</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>120</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </timeout>
+                        <pause_hover translate="label comment">
+                            <label>Pause on Hover</label>
+                            <comment>Set to 'Enable', if you want to pause the transaction when the slideshow is mouseovered.</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_enabledisable</source_model>
+                            <sort_order>130</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </pause_hover>
+                    </fields>
+                </general>
+                <banner translate="label">
+                    <label>Banner</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>2000</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <enabled translate="label">
+                            <label>Enable Banner</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_enabledisable</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enabled>
+                        <blocks translate="label">
+                            <label>Displayed Banners</label>
+                            <comment>Comma separated list of static block identifiers. These static blocks will be displayed as banners.</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </blocks>
+                        <count translate="label">
+                            <label>Banner Count</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>eternal_homeslider/system_config_source_banner_count</source_model>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </count>
+                    </fields>
+                </banner>
+            </groups>
+        </eternal_homeslider>
+    </sections>
+</config>

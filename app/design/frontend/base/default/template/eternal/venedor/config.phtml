@@ -1,0 +1,2103 @@
+/* System Config Styles */
+/* Created at <?php echo date("Y-m-d H:i:s") ?> */
+<?php 
+$venedor = Mage::helper('venedor');
+$b = $venedor->getConfigGroup(Mage::registry('venedor_css_generate_store'));
+$c = $venedor->getConfigGroupDesign(Mage::registry('venedor_css_generate_store'));
+$bg_mode = $c['page']['bg_mode'];
+$bg_image = $venedor->getBackgroundImageUrl();
+$bg_texture = $venedor->getTextureUrl();
+$hs_bg_mode = $c['home_slider']['bg_mode'];
+$hs_bg_image = $venedor->getSliderBackgroundImageUrl();
+$hs_bg_texture = $venedor->getSliderTextureUrl();
+$header_texture = $venedor->getHeaderTextureUrl();
+$footer_texture = $venedor->getFooterTextureUrl();
+$menu_texture = $venedor->getMenuTextureUrl();
+$menu_columns = (int)Mage::getStoreConfig('eternal_custommenu/columns/count');
+$breadcrumbs_texture = $venedor->getBreadcrumbsTextureUrl();
+$category_banner_texture = $venedor->getCategoryBannerTextureUrl();
+$twitter_icon = $venedor->getTwitterIcon();
+$icon_set = $c['general']['icon_set'];
+?>
+
+/*========== Common Styles ==========*/
+body {
+    color: <?php echo $c['general']['text_color'] ?>;
+    font-size: <?php echo $c['general']['font_size'] ?>;
+<?php if ($c['general']['font_family_group'] == 'google') : ?>
+    font-family: "<?php echo $c['general']['font_family'] ?>", "Helvetica Neue", Helvetica, Arial, sans-serif;
+<?php elseif ($c['general']['font_family_group'] == 'custom') : ?>
+    font-family: <?php echo $c['general']['font_family_custom'] ?>;
+<?php else : ?>
+    font-family: <?php echo $c['general']['font_family_group'] ?>;
+<?php endif; ?>
+
+    background-color: <?php echo $c['page']['bg_color'] ?>;
+<?php if ($bg_mode == 'image' && $bg_image) : ?>
+    <?php if ($bg_image): ?>background-image: url(<?php echo $bg_image ?>);<?php endif; ?>
+    background-repeat: <?php echo $c['page']['bg_repeat'] ?>;
+    background-attachment: <?php echo $c['page']['bg_attachment'] ?>;
+    background-position: <?php echo $c['page']['bg_position_x'] ?> <?php echo $c['page']['bg_position_y'] ?>;
+<?php elseif ($bg_mode == 'texture' && $bg_texture) : ?>
+    <?php if ($bg_texture): ?>background-image: url(<?php echo $bg_texture ?>);<?php endif; ?>
+    background-position: center center;
+    background-repeat: repeat;
+<?php endif; ?>
+}
+
+label, input, button, select, textarea {
+<?php if ($c['general']['font_family_group'] == 'google') : ?>
+    font-family: "<?php echo $c['general']['font_family'] ?>", "Helvetica Neue", Helvetica, Arial, sans-serif;
+<?php elseif ($c['general']['font_family_group'] == 'custom') : ?>
+    font-family: <?php echo $c['general']['font_family_custom'] ?>;
+<?php else : ?>
+    font-family: <?php echo $c['general']['font_family_group'] ?>;
+<?php endif; ?>
+}
+
+a {
+    color: <?php echo $c['general']['link_color'] ?>;
+}
+
+a:hover, a:focus {
+    color: <?php echo $c['general']['link_hover_color'] ?>;
+}
+
+h1, h2, h3, h4, h5, h6,
+.block .block-title,
+.slide-title {
+    color: <?php echo $c['block']['title_color'] ?>;
+    font-weight: <?php echo $c['general']['heading_font_weight'] ?>;
+<?php if ($c['general']['heading_font_family_group'] == 'google') : ?>
+    font-family: "<?php echo $c['general']['heading_font_family'] ?>", "Helvetica Neue", Helvetica, Arial, sans-serif;
+<?php elseif ($c['general']['heading_font_family_group'] == 'custom') : ?>
+    font-family: <?php echo $c['general']['heading_font_family_custom'] ?>;
+<?php else : ?>
+    font-family: <?php echo $c['general']['heading_font_family_group'] ?>;
+<?php endif; ?>
+}
+
+h1 a, h2 a, h3 a, h4 a, h5 a, h6 a, .block .block-title a,
+.slide-title a {
+    color: <?php echo $c['block']['title_color'] ?>;
+}
+h1 a:hover, h2 a:hover, h3 a:hover, h4 a:hover, h5 a:hover, h6 a:hover, .block .block-title a:hover,
+h1 a:hover, h2 a:focus, h3 a:focus, h4 a:focus, h5 a:focus, h6 a:focus, .block .block-title a:focus,
+.slide-title a:hover, .slide-title a:focus {
+    color: <?php echo $c['general']['link_color'] ?>;
+}
+p.desc {
+<?php if ($c['general']['desc_font_family_group'] == 'google') : ?>
+    font-family: "<?php echo $c['general']['desc_font_family'] ?>", "Helvetica Neue", Helvetica, Arial, sans-serif;
+<?php elseif ($c['general']['desc_font_family_group'] == 'custom') : ?>
+    font-family: <?php echo $c['general']['desc_font_family_custom'] ?>;
+<?php else : ?>
+    font-family: <?php echo $c['general']['desc_font_family_group'] ?>;
+<?php endif; ?>
+}
+
+.main-container .button,
+.main-container .btn,
+.button-arrow,
+#mini-cart .button,
+.button-tabs li a,
+#Growler .button {
+    text-transform: <?php echo $c['general']['btn_text_transform'] ?>;
+}
+
+.button,
+.btn, .btn.close,
+.button-inverse,
+.sidebar .button,
+.sidebar .btn,
+.dropdown .dropdown-menu .button,
+.buttons-set .back-link a,
+.scrolltop,
+.button-tabs li a {
+<?php if ($c['general']['font_family_group'] == 'google') : ?>
+    font-family: "<?php echo $c['general']['font_family'] ?>", "Helvetica Neue", Helvetica, Arial, sans-serif;
+<?php elseif ($c['general']['font_family_group'] == 'custom') : ?>
+    font-family: <?php echo $c['general']['font_family_custom'] ?>;
+<?php else : ?>
+    font-family: <?php echo $c['general']['font_family_group'] ?>;
+<?php endif; ?>
+    -webkit-border-radius: <?php echo $c['general']['btn_border_radius'] ?>;
+       -moz-border-radius: <?php echo $c['general']['btn_border_radius'] ?>;
+            border-radius: <?php echo $c['general']['btn_border_radius'] ?>;
+    border-width: <?php echo $c['general']['btn_border_width'] ?>;
+    border-color: <?php echo $c['general']['btn_border_color'] ?>;
+    background-color: <?php echo $c['general']['btn_bg_color'] ?>;
+    background-image: none;
+    color: <?php echo $c['general']['btn_color'] ?>;
+    <?php if ($c['general']['btn_border_width'] == 0) : ?>
+    padding: 7px 12px;
+    <?php endif; ?>
+}
+
+.slider-arrow,
+.flex-direction-nav .flex-prev,
+.flex-direction-nav .flex-next,
+.button-arrow,
+.pager .button,
+.toolbar .button,
+.toolbar .btn,
+.dropdown .arrow,
+.dropdown .button,
+.elastislide-next,
+.elastislide-prev,
+.opc .step-title a,
+.prettycheckbox > a,
+.prettyradio > a,
+.fraction-slider .prev,
+.fraction-slider .next,
+.bx-wrapper .bx-controls-direction a,
+.tp-leftarrow,
+.tp-rightarrow {
+<?php if ($c['general']['font_family_group'] == 'google') : ?>
+    font-family: "<?php echo $c['general']['font_family'] ?>", "Helvetica Neue", Helvetica, Arial, sans-serif;
+<?php elseif ($c['general']['font_family_group'] == 'custom') : ?>
+    font-family: <?php echo $c['general']['font_family_custom'] ?>;
+<?php else : ?>
+    font-family: <?php echo $c['general']['font_family_group'] ?>;
+<?php endif; ?>
+    -webkit-border-radius: <?php echo $c['general']['arrow_border_radius'] ?>;
+       -moz-border-radius: <?php echo $c['general']['arrow_border_radius'] ?>;
+            border-radius: <?php echo $c['general']['arrow_border_radius'] ?>;
+    border-width: <?php echo $c['general']['arrow_border_width'] ?>;
+    border-color: <?php echo $c['general']['arrow_border_color'] ?>;
+    border-style: solid;
+    background-color: <?php echo $c['general']['arrow_bg_color'] ?>;
+    color: <?php echo $c['general']['arrow_color'] ?>;
+    <?php if ($c['general']['arrow_border_width'] == 0) : ?>
+    padding: 7px 12px;
+    <?php endif; ?>
+}
+.pager .button,
+.toolbar .button,
+.toolbar .btn,
+.toolbar .button-arrow,
+.toolbar .dropdown .button .arrow {
+    background-color: <?php echo $c['general']['toolbar_btn_bg_color'] ?>;
+}
+.toolbar .button-dark,
+.toolbar .btn-dark,
+.pager .button-dark,
+.pager .btn-dark {
+    background-color: <?php echo $c['general']['arrow_border_color'] ?>;
+}
+
+.prettycheckbox > a,
+.prettyradio > a {
+    border-color: #c3c3c3;
+}
+
+.button:hover,
+.button:focus,
+.btn:hover,
+.btn:focus,
+.btn.close:hover,
+.btn.close:focus,
+.button-inverse,
+.sidebar .button:hover,
+.sidebar .button:focus,
+.sidebar .btn:hover,
+.sidebar .btn:focus,
+.pager .button:hover,
+.pager .button:focus,
+.toolbar .button:hover,
+.toolbar .button:focus,
+.toolbar .btn:hover,
+.toolbar .btn:focus,
+.dropdown .dropdown-menu .button:hover,
+.dropdown .dropdown-menu .button:focus,
+.buttons-set .back-link a:hover,
+.buttons-set .back-link a:focus,
+.scrolltop,
+.button-tabs li a:hover,
+.button-tabs li a:focus {
+    border-color: <?php echo $c['general']['btn_hborder_color'] ?>;
+    background-color: <?php echo $c['general']['btn_hbg_color'] ?>;
+    background-image: none;
+    color: <?php echo $c['general']['btn_hover_color'] ?>;
+}
+
+.slider-arrow:hover,
+.slider-arrow:focus,
+.button-arrow:hover,
+.button-arrow:focus,
+.flex-direction-nav .flex-prev:hover,
+.flex-direction-nav .flex-prev:focus,
+.flex-direction-nav .flex-next:hover,
+.flex-direction-nav .flex-next:focus,
+.dropdown.open .arrow,
+.toolbar .dropdown.open .arrow,
+.elastislide-next:hover,
+.elastislide-next:focus,
+.elastislide-prev:hover,
+.elastislide-prev:focus,
+.opc .step-title a:hover,
+.opc .step-title a:focus,
+.prettycheckbox > a.checked,
+.prettyradio > a.checked,
+.fraction-slider .prev:hover,
+.fraction-slider .prev:focus,
+.fraction-slider .next:hover,
+.fraction-slider .next:focus,
+.bx-wrapper .bx-controls-direction a:hover,
+.bx-wrapper .bx-controls-direction a:focus,
+.tp-leftarrow:hover,
+.tp-leftarrow:focus,
+.tp-rightarrow:hover,
+.tp-rightarrow:focus {
+    border-color: <?php echo $c['general']['btn_hborder_color'] ?>;
+    background-color: <?php echo $c['general']['btn_hbg_color'] ?>;
+    background-image: none;
+    color: <?php echo $c['general']['btn_hover_color'] ?>;
+}
+
+.add-to-cart .qty,
+.qty-holder .qty {
+    background-color: #fff;
+    border: 1px solid <?php echo $c['general']['arrow_border_color'] ?>;
+    -webkit-border-radius: <?php echo $c['general']['arrow_border_radius'] ?>;
+       -moz-border-radius: <?php echo $c['general']['arrow_border_radius'] ?>;
+            border-radius: <?php echo $c['general']['arrow_border_radius'] ?>;
+}
+
+.button-inverse,
+.button-tabs li.active a {
+    border-color: <?php echo $c['general']['btn_hborder_color'] ?> !important;
+    background-color: <?php echo $c['general']['btn_hbg_color'] ?> !important;
+    background-image: none !important;
+    color: <?php echo $c['general']['btn_hover_color'] ?> !important;
+}
+.button-inverse:hover,
+.button-inverse:focus {
+    border-color: <?php echo $c['general']['btn_border_color'] ?> !important;
+    background-color: <?php echo $c['general']['btn_bg_color'] ?> !important;
+    color: <?php echo $c['general']['btn_color'] ?> !important;
+}
+.scrolltop:hover,
+.scrolltop:focus {
+    border-color: <?php echo $c['general']['btn_sborder_color'] ?> !important;
+    background-color: <?php echo $c['general']['btn_sbg_color'] ?> !important;
+    color: <?php echo $c['general']['btn_shover_color'] ?> !important;
+}
+
+.dropdown-select .button {
+    border-color: <?php echo $c['general']['arrow_border_color'] ?> !important;
+    background-color: #fff !important;
+    color: <?php echo $c['general']['arrow_color'] ?> !important;
+}
+.toolbar span.button-active {
+    border-color: <?php echo $c['general']['btn_hborder_color'] ?>;
+    background-color: <?php echo $c['general']['btn_hbg_color'] ?>;
+    color: <?php echo $c['general']['btn_hover_color'] ?>;
+}
+
+select, 
+textarea, 
+input.input-text, 
+input[type="text"], 
+input[type="password"], 
+input[type="datetime"], 
+input[type="datetime-local"], 
+input[type="date"], 
+input[type="month"], 
+input[type="time"], 
+input[type="week"], 
+input[type="number"], 
+input[type="email"], 
+input[type="url"], 
+input[type="search"], 
+input[type="tel"], 
+input[type="color"], 
+.uneditable-input,
+.btn-group.open .btn.dropdown-toggle {
+    border-width: <?php echo $c['general']['input_border_width'] ?>;
+    border-style: solid;
+    border-color: <?php echo $c['general']['input_border_color'] ?>;
+    -webkit-border-radius: <?php echo $c['general']['input_border_radius'] ?>;
+       -moz-border-radius: <?php echo $c['general']['input_border_radius'] ?>;
+            border-radius: <?php echo $c['general']['input_border_radius'] ?>; 
+    color: <?php echo $c['general']['input_color'] ?>;   
+    background-color: <?php echo $c['general']['input_bg_color'] ?>;
+    -webkit-box-shadow: none;
+       -moz-box-shadow: none;
+            box-shadow: none;
+}
+
+form h2,
+form h3,
+.section h3 {
+    color: <?php echo $c['general']['btn_bg_color'] ?>;
+}
+.main h2.subtitle,
+.main .widget .widget-title h2,
+.main .page-title h1,
+.footer-banner h2.subtitle {
+    color: <?php echo $c['general']['btn_bg_color'] ?>;
+    border-left: 4px solid <?php echo $c['general']['btn_hbg_color'] ?>;
+}
+.main h2.subtitle .line,
+.main .widget .widget-title h2 .line, 
+.main .page-title h1 .line,
+.footer-banner h2.subtitle .line {
+    border-top: 1px solid <?php echo $c['general']['arrow_border_color'] ?>;
+}
+
+.opc .input-text {
+    
+}
+
+/*========== Header Top ==========*/
+.header-top {
+    font-size: <?php echo $c['header']['top_font_size'] ?>;
+    border-top: <?php echo $c['header']['top_border_width'] ?> solid <?php echo $c['header']['top_border_color'] ?>;
+    background-color: <?php echo $c['header']['top_bg_color'] ?>;
+    height: <?php echo 36 + (int)$c['header']['top_border_width'] ?>px;
+}
+
+/*========== Header ==========*/
+.header {
+    font-size: <?php echo $c['header']['font_size'] ?>;
+    background-color: <?php echo $c['header']['bg_color'] ?>;
+    <?php if ($header_texture): ?>background-image: url(<?php echo $header_texture ?>);<?php endif; ?>
+    background-position: center center;
+    background-repeat: repeat;
+}
+.header-contact .block {
+    border: <?php echo $c['header']['block_border_width'] ?> solid <?php echo $c['header']['block_border_color'] ?>;
+    background-color: <?php echo $c['header']['block_bg_color'] ?>;
+}
+.header a {
+    color: <?php echo $c['general']['text_color'] ?>;
+}
+.header a:hover,
+.header a:focus {
+    color: <?php echo $c['general']['link_color'] ?>;
+}
+.header .logo {
+    margin-top: <?php echo $c['header']['logo_top'] ?>;
+}
+
+/*========== Top Links ==========*/
+.toplinks a {
+    color: <?php echo $c['header']['toplinks_color'] ?>;
+}
+.toplinks a:hover,
+.toplinks a:focus {
+    color: <?php echo $c['header']['toplinks_hover_color'] ?>;
+}
+
+/*========== Currency, Language Selector, Store Switcher ==========*/
+.block-currency, 
+.block-language {
+    background-color: <?php echo $c['header']['top_border_color'] ?>;
+}
+.dropdown-menu {
+    border-color: <?php echo $c['block']['border_color'] ?>;
+}
+.dropdown-menu > li > a,
+.dropdown-submenu:focus > a {
+    background-color: #fff;
+    background-image: none;
+    color: <?php echo $c['general']['text_color'] ?>;
+}
+
+.dropdown-menu > li > a:hover,
+.dropdown-menu > li > a:focus,
+.dropdown-menu > .active > a,
+.dropdown-menu > .active > a:hover,
+.dropdown-menu > .active > a:focus,
+.dropdown-submenu:hover > a {
+    background-color: <?php echo $c['header']['top_border_color'] ?> !important;
+    background-image: none;
+    color: <?php echo $c['general']['btn_hover_color'] ?>;
+}
+.block-currency .block-content > a, 
+.block-language .block-content > a,
+.store-switcher .block-content > a {
+    color: <?php echo $c['general']['btn_hover_color'] ?>;
+}
+<?php if ($c['header']['switcher_customize']) : ?>
+.block-currency,
+.block-language,
+.block-currency .dropdown-menu > li > a, 
+.block-currency .dropdown-submenu:focus > a,
+.block-language .dropdown-menu > li > a, 
+.block-language .dropdown-submenu:focus > a {
+    background-color: <?php echo $c['header']['switcher_bg_color'] ?>;
+}
+.block-currency .dropdown-menu > li > a, 
+.block-currency .dropdown-submenu:focus > a,
+.block-language .dropdown-menu > li > a, 
+.block-language .dropdown-submenu:focus > a {
+    background-color: <?php echo $c['header']['switcher_popup_bg_color'] ?>;
+    color: <?php echo $c['header']['switcher_popup_text_color'] ?>;
+    border-width: <?php echo $c['header']['switcher_popup_border_width'] ?>;
+    border-style: solid;
+    border-color: <?php echo $c['header']['switcher_popup_border_color'] ?>;
+}
+.block-currency .block-content > a, 
+.block-language .block-content > a {
+    color: <?php echo $c['header']['switcher_text_color'] ?>;
+    border-width: <?php echo $c['header']['switcher_border_width'] ?>;
+    border-style: solid;
+    border-color: <?php echo $c['header']['switcher_border_color'] ?>;
+}
+.block-currency .block-content.open > a, 
+.block-language .block-content.open > a {
+    border-width: <?php echo $c['header']['switcher_hborder_width'] ?>;
+    border-style: solid;
+    border-color: <?php echo $c['header']['switcher_hborder_color'] ?>;
+}
+.block-currency .block-content.open > a, 
+.block-language .block-content.open > a,
+.block-currency .dropdown-menu > li > a:hover,
+.block-currency .dropdown-menu > li > a:focus,
+.block-currency .dropdown-menu > .active > a,
+.block-currency .dropdown-menu > .active > a:hover,
+.block-currency .dropdown-menu > .active > a:focus,
+.block-currency .dropdown-submenu:hover > a,
+.block-language .dropdown-menu > li > a:hover,
+.block-language .dropdown-menu > li > a:focus,
+.block-language .dropdown-menu > .active > a,
+.block-language .dropdown-menu > .active > a:hover,
+.block-language .dropdown-menu > .active > a:focus,
+.block-language .dropdown-submenu:hover > a {
+    color: <?php echo $c['header']['switcher_hover_color'] ?> !important;
+    background-color: <?php echo $c['header']['switcher_hbg_color'] ?> !important;
+}
+<?php endif; ?>
+
+/*========== Main Menu ==========*/
+.header-menu {
+    background-color: <?php echo $c['top_menu']['bg_color'] ?>;
+    <?php if ($menu_texture): ?>background-image: url(<?php echo $menu_texture ?>);<?php endif; ?>
+    background-position: center center;
+    background-repeat: repeat;
+    margin-top: <?php echo $c['top_menu']['margin_top'] ?>;
+    padding-bottom: <?php echo $c['top_menu']['padding_bottom'] ?>;
+}
+#menu-button a,
+div.menu a,
+#nav li a,
+#nav-links li a,
+.menu-mobile.level0 > .parentMenu > a {
+    color: <?php echo $c['top_menu']['link_color'] ?>;
+    background-color: <?php echo $c['top_menu']['link_bg_color'] ?>;
+    font-size: <?php echo $c['top_menu']['font_size'] ?>;
+    font-weight: <?php echo $c['top_menu']['font_weight'] ?>;
+<?php if ($c['top_menu']['font_family_group'] == 'google') : ?>
+    font-family: "<?php echo $c['top_menu']['font_family'] ?>", "Helvetica Neue", Helvetica, Arial, sans-serif;
+<?php elseif ($c['top_menu']['font_family_group'] == 'custom') : ?>
+    font-family: <?php echo $c['top_menu']['font_family_custom'] ?>;
+<?php else : ?>
+    font-family: <?php echo $c['top_menu']['font_family_group'] ?>;
+<?php endif; ?>
+}
+.block2 h3,
+.block2 h3 a {
+    color: <?php echo $c['top_menu']['popup_color'] ?>;
+    font-size: <?php echo (int)$c['top_menu']['font_size'] + 2 ?>px;
+    font-weight: <?php echo $c['top_menu']['font_weight'] ?>;
+<?php if ($c['top_menu']['font_family_group'] == 'google') : ?>
+    font-family: "<?php echo $c['top_menu']['font_family'] ?>", "Helvetica Neue", Helvetica, Arial, sans-serif;
+<?php elseif ($c['top_menu']['font_family_group'] == 'custom') : ?>
+    font-family: <?php echo $c['top_menu']['font_family_custom'] ?>;
+<?php else : ?>
+    font-family: <?php echo $c['top_menu']['font_family_group'] ?>;
+<?php endif; ?>
+}
+#menu-button a {
+    background-color: transparent;
+}
+div.menu a,
+#nav li a,
+#nav-links li a {
+    background-color: <?php echo $c['top_menu']['link_bg_color'] ?>;
+}
+div.menu a:hover,
+div.menu a:focus,
+div.menu.active a,
+#nav li a:hover,
+#nav li a:focus,
+#nav li.active a,
+#nav li.over a,
+#nav-links li a:hover,
+#nav-links li a:focus,
+#nav-links li.active a,
+#nav-links li.over a {
+    color: <?php echo $c['top_menu']['link_hover_color'] ?>;
+    background-color: <?php echo $c['top_menu']['link_bg_hover_color'] ?>;
+}
+#custommenu > .menu.active,
+#nav > li.over,
+#nav-links > li.over {
+    margin-bottom: <?php echo -(int)$c['top_menu']['padding_bottom'] ?>px;
+}
+#custommenu > .menu.active > .parentMenu > a,
+#nav li.over a.level-top,
+#nav-links li.over a.level-top {
+    padding-bottom: <?php echo 13 + (int)$c['top_menu']['padding_bottom'] ?>px;
+}
+<?php if ((int)$c['top_menu']['padding_bottom'] != 0) : ?>
+.mobile-header #menu-button {
+    padding-bottom: <?php echo $c['top_menu']['padding_bottom'] ?>;
+}
+<?php endif; ?>
+#nav ul, 
+#nav div,
+#nav-links ul,
+#nav-links div {
+    top: <?php echo 13 * 2 + 1 + (int)$c['top_menu']['padding_bottom'] + (int)$c['top_menu']['font_size'] * 1.42857 ?>px;
+}
+div.eternal-custom-menu-popup,
+#custommenu-mobile #menu-content,
+#nav ul,
+#nav div,
+#nav-links ul,
+#nav-links div {
+    color: <?php echo $c['top_menu']['popup_color'] ?>;
+    border-style: solid;
+    border-width: <?php echo $c['top_menu']['popup_border_width'] ?>;
+    border-color: <?php echo $c['top_menu']['popup_border_color'] ?>;
+    background-color: <?php echo $c['top_menu']['popup_bg_color'] ?>;
+}
+div.eternal-custom-menu-popup a,
+.menu-mobile .parentMenu a,
+.menu-mobile.level0 > .parentMenu > a,  
+#nav ul li a,
+#nav div a,
+#nav div a:hover,
+#nav div a:focus,
+#nav .active ul li a,
+#nav .over ul li a,
+#nav-links ul li a,
+#nav-links div a,
+#nav-links div a:hover,
+#nav-links div a:focus,
+#nav-links .active ul li a,
+#nav-links .over ul li a {
+    color: <?php echo $c['top_menu']['popup_color'] ?>;
+}
+#nav ul li a:hover,
+#nav ul li a:focus,
+#nav ul li.over > a,
+#nav-links ul li a:hover,
+#nav-links ul li a:focus,
+#nav-links ul li.over > a {
+    color: <?php echo $c['top_menu']['popup_hover_color'] ?>;
+}
+div.eternal-custom-menu-popup a:hover,
+div.eternal-custom-menu-popup a:focus,
+.menu-mobile .parentMenu a:hover,
+.menu-mobile .parentMenu a:focus,
+.menu-mobile.level0 > .parentMenu > a:hover,
+.menu-mobile.level0 > .parentMenu > a:focus {
+    color: <?php echo $c['top_menu']['popup_hover_color'] ?>;
+}
+div.eternal-custom-menu-popup a.level1,
+.menu-mobile a.level1 {
+    font-size: <?php echo $c['top_menu']['popup_level1_font_size'] ?>;
+    font-weight: <?php echo $c['top_menu']['popup_level1_font_weight'] ?>;
+<?php if ($c['top_menu']['popup_level1_font_family_group'] == 'google') : ?>
+    font-family: "<?php echo $c['top_menu']['popup_level1_font_family'] ?>", "Helvetica Neue", Helvetica, Arial, sans-serif;
+<?php elseif ($c['top_menu']['popup_level1_font_family_group'] == 'custom') : ?>
+    font-family: <?php echo $c['top_menu']['popup_level1_font_family_custom'] ?>;
+<?php else : ?>
+    font-family: <?php echo $c['top_menu']['popup_level1_font_family_group'] ?>;
+<?php endif; ?>
+}
+div.column {
+    width: <?php echo 100 / $menu_columns ?>%;
+}
+<?php if ($c['top_menu']['link_show_border']): ?>
+div.menu,
+#nav > li,
+#nav-links > li {
+    border-left: 1px solid rgba(0,0,0,0.4);
+}
+div.menu a,
+#nav > li > a,
+#nav-links > li > a {
+    border-left: 1px solid rgba(200,200,200,0.2);
+}
+div.menu-last span {
+    display:block;
+    width:1px;
+    height:50px;
+    border-left: 1px solid rgba(200,200,200,0.2);
+}
+<?php endif; ?>
+#menu-button .btn-navbar .icon-bar {
+    background-color: <?php echo $c['general']['btn_hover_color'] ?>;
+}
+#menu-button a .btn-navbar,
+#menu-button a:hover .btn-navbar,
+#menu-button a:focus .btn-navbar {
+    border-color: <?php echo $c['general']['btn_border_color'] ?>;
+    background-color: <?php echo $c['general']['btn_bg_color'] ?>;
+}
+#menu-button a:hover .btn-navbar .icon-bar,
+#menu-button a:focus .btn-navbar .icon-bar,
+#menu-button .btn-navbar:hover .icon-bar {
+    background-color: <?php echo $c['general']['btn_hover_color'] ?>;
+}
+#menu-button a {
+    color: <?php echo $c['top_menu']['link_color'] ?>;    
+    font-size: <?php echo (int)$c['top_menu']['font_size'] + 3 ?>px;
+}
+#custommenu-mobile .menu-mobile,
+#custommenu-mobile .itemMenuName,
+#custommenu-mobile .itemMenu {
+    background-color: <?php echo $c['top_menu']['mobile_level3_bg_color'] ?>;
+}
+#custommenu-mobile .menu-mobile.level0 > .parentMenu,
+#custommenu-mobile .menu-mobile.level0 > .parentMenu > a {
+    background-color: <?php echo $c['top_menu']['popup_bg_color'] ?>;
+}
+#custommenu-mobile .menu-mobile .itemMenu.level1 > .parentMenu,
+#custommenu-mobile .menu-mobile .itemMenu.level1 > .parentMenu > a {
+    background-color: <?php echo $c['top_menu']['mobile_level2_bg_color'] ?>;
+}
+
+/*========== Quick Access, Wishlist, Compare Links ==========*/
+.form-search .button {
+    background-image: url(../images/icons/<?php echo $c['general']['btn_hicon_type'] ?>icon_search.png);
+}
+.form-search .button:hover,
+.form-search .button:focus {
+    background-image: url(../images/icons/<?php echo $c['general']['btn_sicon_type'] ?>icon_search.png);
+}
+#mini-cart .icon-cart {
+    background-image: url(../images/icons/<?php echo $c['general']['btn_hicon_type'] ?>icon_cart.png);
+}
+#mini-cart.open .icon-cart {
+    background-image: url(../images/icons/<?php echo $c['general']['btn_sicon_type'] ?>icon_cart.png);
+}
+.link-wishlist {
+    background-image: url(../images/icons/<?php echo $c['general']['btn_hicon_type'] ?>icon_wishlist.png);
+}
+.link-wishlist:hover,
+.link-wishlist:focus {
+    background-image: url(../images/icons/<?php echo $c['general']['btn_sicon_type'] ?>icon_wishlist.png);
+}
+.link-friend {
+    background-image: url(../images/icons/<?php echo $c['general']['btn_hicon_type'] ?>icon_friend.png);
+}
+.link-friend:hover,
+.link-friend:focus {
+    background-image: url(../images/icons/<?php echo $c['general']['btn_sicon_type'] ?>icon_friend.png);
+}
+.link-compare {
+    background-image: url(../images/icons/<?php echo $c['general']['btn_hicon_type'] ?>icon_compare.png);
+}
+.link-compare:hover,
+.link-compare:focus {
+    background-image: url(../images/icons/<?php echo $c['general']['btn_sicon_type'] ?>icon_compare.png);
+}
+.link-edit {
+    background-image: url(../images/icons/<?php echo $c['general']['btn_hicon_type'] ?>icon_edit.png);
+}
+.link-edit:hover,
+.link-edit:focus {
+    background-image: url(../images/icons/<?php echo $c['general']['btn_sicon_type'] ?>icon_edit.png);
+}
+.icon-fblike {
+    background-image: url(../images/icons/<?php echo $c['general']['btn_hicon_type'] ?>icon_fblike.png);
+}
+:hover .icon-fblike,
+:focus .icon-fblike {
+    background-image: url(../images/icons/<?php echo $c['general']['btn_sicon_type'] ?>icon_fblike.png);
+}
+
+#search_mini_form .button,
+#mini-cart > .button,
+.store-switcher .button {
+    -webkit-border-radius: 0;
+       -moz-border-radius: 0;
+            border-radius: 0;
+    -webkit-box-shadow: none;
+       -moz-box-shadow: none;
+            box-shadow: none;
+}
+
+#search_mini_form .button,
+#mini-cart > .button,
+.store-switcher .button,
+.link-wishlist,
+.link-compare,
+.link-friend,
+.link-edit,
+.footer-top .button,
+.footer-bottom .button,
+#Growler .button {
+    color: <?php echo $c['general']['btn_hover_color'] ?>;
+    background-color: <?php echo $c['general']['btn_hbg_color'] ?>;
+    border-color: <?php echo $c['general']['btn_hborder_color'] ?>;
+}
+
+#search_mini_form .button:hover,
+#search_mini_form .button:focus,
+#mini-cart > .button:hover,
+#mini-cart > .button:focus,
+.store-switcher .button:hover,
+.store-switcher .button:focus,
+.link-wishlist:hover,
+.link-wishlist:focus,
+.link-compare:hover,
+.link-compare:focus,
+.link-friend:hover,
+.link-friend:focus,
+.link-edit:hover,
+.link-edit:focus,
+.footer-top .button:hover, 
+.footer-top .button:focus, 
+.footer-bottom .button:hover, 
+.footer-bottom .button:focus,
+#Growler .button:hover,
+#Growler .button:focus {
+    color: <?php echo $c['general']['btn_shover_color'] ?>;
+    -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2) inset, 0 1px 2px rgba(0, 0, 0, 0.05);
+       -moz-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2) inset, 0 1px 2px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2) inset, 0 1px 2px rgba(0, 0, 0, 0.05);
+    border-color: <?php echo $c['general']['btn_sborder_color'] ?>;
+    background-color: <?php echo $c['general']['btn_sbg_color'] ?>;
+}
+#mini-cart.open > .button {
+    -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2) inset, 0 1px 2px rgba(0, 0, 0, 0.05) !important;
+       -moz-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2) inset, 0 1px 2px rgba(0, 0, 0, 0.05) !important;
+            box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2) inset, 0 1px 2px rgba(0, 0, 0, 0.05) !important;
+    border-color: <?php echo $c['general']['btn_sborder_color'] ?> !important;
+    background-color: <?php echo $c['general']['btn_sbg_color'] ?> !important;
+}
+#mini-cart .dropdown-menu {
+    border-top: 3px solid <?php echo $c['general']['btn_sbg_color'] ?> !important;
+}
+.mini-products-list .price,
+#mini-cart .block-content .price {
+    color: <?php echo $c['block']['price_color'] ?>;
+}
+.link-wishlist.no-image,
+.link-compare.no-image,
+.link-friend.no-image,
+.link-edit.no-image {
+    color: <?php echo $c['general']['link_color'] ?> !important;
+}
+.link-wishlist.no-image:hover,
+.link-wishlist.no-image:focus,
+.link-compare.no-image:hover,
+.link-compare.no-image:focus,
+.link-friend.no-image:hover,
+.link-friend.no-image:focus,
+.link-edit.no-image:hover,
+.link-edit.no-image:focus {
+    color: <?php echo $c['general']['link_hover_color'] ?> !important;
+}
+<?php if ($c['header']['cart_customize']) : ?>
+#mini-cart > .button {
+    background-color: <?php echo $c['header']['cart_bg_color'] ?>;
+    color: <?php echo $c['header']['cart_text_color'] ?>;
+    border-color: <?php echo $c['header']['cart_border_color'] ?>;
+    border-width: <?php echo $c['header']['cart_border_width'] ?>;
+    border-style: solid;
+}
+#mini-cart > .button:hover,
+#mini-cart > .button:focus,
+#mini-cart.open > .button {
+    background-color: <?php echo $c['header']['cart_hbg_color'] ?> !important; 
+    color: <?php echo $c['header']['cart_hover_color'] ?> !important;   
+    border-color: <?php echo $c['header']['cart_hborder_color'] ?> !important;
+    border-width: <?php echo $c['header']['cart_hborder_width'] ?> !important;
+    border-style: solid;
+}
+#mini-cart .icon-cart {
+    background-image: url(../images/icons/<?php echo $c['header']['cart_icon_type'] ?>icon_cart.png);
+}
+#mini-cart.open .icon-cart {
+    background-image: url(../images/icons/<?php echo $c['header']['cart_hicon_type'] ?>icon_cart.png);
+}
+<?php endif; ?>
+<?php if ($c['header']['search_customize']) : ?>
+#search_mini_form .input-text {
+    color: <?php echo $c['header']['search_textbox_text_color'] ?>;
+    background-color: <?php echo $c['header']['search_text_bg_color'] ?>;
+    border-color: <?php echo $c['header']['search_text_border_color'] ?>;
+    border-width: <?php echo $c['header']['search_text_border_width'] ?>;
+    border-style: solid;
+}
+#search_mini_form .button {
+    background-image: url(../images/icons/<?php echo $c['header']['search_btn_icon_type'] ?>icon_search.png);
+    background-color: <?php echo $c['header']['search_btn_bg_color'] ?>;
+    border-color: <?php echo $c['header']['search_btn_border_color'] ?>;
+    border-width: <?php echo $c['header']['search_btn_border_width'] ?>;
+    border-style: solid;
+}
+#search_mini_form .button:hover,
+#search_mini_form .button:focus {
+    background-image: url(../images/icons/<?php echo $c['header']['search_btn_hicon_type'] ?>icon_search.png);
+    background-color: <?php echo $c['header']['search_btn_hbg_color'] ?>;
+    border-color: <?php echo $c['header']['search_btn_hborder_color'] ?>;
+    border-width: <?php echo $c['header']['search_btn_hborder_width'] ?>;
+    border-style: solid;
+}
+<?php endif; ?>
+
+/*========== Footer ==========*/
+.footer {
+    color: <?php echo $c['footer']['color'] ?>;
+    background-color: <?php echo $c['footer']['bg_color'] ?>;
+    <?php if ($footer_texture): ?>background-image: url(<?php echo $footer_texture ?>);<?php endif; ?>
+    background-position: center center;
+    background-repeat: repeat;
+    font-size: <?php echo $c['footer']['font_size'] ?>;
+    font-weight: <?php echo $c['footer']['font_weight'] ?>;
+<?php if ($c['footer']['font_family_group'] == 'google') : ?>
+    font-family: "<?php echo $c['footer']['font_family'] ?>", "Helvetica Neue", Helvetica, Arial, sans-serif;
+<?php elseif ($c['footer']['font_family_group'] == 'custom') : ?>
+    font-family: <?php echo $c['footer']['font_family_custom'] ?>;
+<?php else : ?>
+    font-family: <?php echo $c['footer']['font_family_group'] ?>;
+<?php endif; ?>
+}
+.footer-bottom {
+    color: <?php echo $c['footer']['bottom_text_color'] ?>;
+    background-color: <?php echo $c['footer']['bottom_bg_color'] ?>;
+}
+.footer h3,
+.footer .title {
+    color: <?php echo $c['footer']['title_color'] ?>;
+    font-size: <?php echo $c['footer']['title_font_size'] ?>;
+    font-weight: <?php echo $c['footer']['title_font_weight'] ?>;
+<?php if ($c['footer']['title_font_family_group'] == 'google') : ?>
+    font-family: "<?php echo $c['footer']['title_font_family'] ?>", "Helvetica Neue", Helvetica, Arial, sans-serif;
+<?php elseif ($c['footer']['title_font_family_group'] == 'custom') : ?>
+    font-family: <?php echo $c['footer']['title_font_family_custom'] ?>;
+<?php else : ?>
+    font-family: <?php echo $c['footer']['title_font_family_group'] ?>;
+<?php endif; ?>
+}
+.footer a {
+    color: <?php echo $c['footer']['color'] ?>;
+}
+.footer a:hover,
+.footer a:focus {
+    color: <?php echo $c['footer']['hover_color'] ?>;
+}
+.footer .copyright address {
+    font-size: <?php echo (int)$c['general']['font_size'] - 1 ?>px;
+}
+.footer .social-links .icon {
+    background-color: <?php echo $c['footer']['social_icon_bg_color'] ?>;
+    border-color: <?php echo $c['footer']['social_icon_bg_color'] ?>;
+    -webkit-border-radius: <?php echo $c['general']['btn_border_radius'] ?>;
+       -moz-border-radius: <?php echo $c['general']['btn_border_radius'] ?>;
+            border-radius: <?php echo $c['general']['btn_border_radius'] ?>;
+}
+.footer .fblike-box a {
+    color: <?php echo $c['general']['btn_hbg_color'] ?>;
+}
+.footer .fblike-box a:hover,
+.footer .fblike-box a:focus {
+    color: <?php echo $c['general']['btn_sbg_color'] ?>;
+}
+.footer .fblike-box a.button {
+    color: <?php echo $c['general']['btn_hover_color'] ?>;
+}
+.footer .fblike-box a.button:hover,
+.footer .fblike-box a.button:focus {
+    color: <?php echo $c['general']['btn_shover_color'] ?>;
+}
+.footer-tweets {
+    background-color: <?php echo $c['twitter']['bg_color'] ?>;
+    color: <?php echo $c['twitter']['text_color'] ?>;
+}
+.footer-tweets a,
+#twitter-footer-slider a {
+    color: <?php echo $c['twitter']['link_color'] ?>;
+}
+.footer-tweets a:hover,
+#twitter-footer-slider a:hover {
+    color: <?php echo $c['twitter']['hover_color'] ?>;
+}
+.footer-tweets .date,
+#twitter-footer-slider .date {
+    color: <?php echo $c['twitter']['date_color'] ?>;
+}
+.footer-tweets .twitter-icon {
+    bottom: <?php echo $c['twitter']['icon_bottom'] ?>;
+    background-image: url(<?php echo $twitter_icon ?>);
+}
+.footer-top {
+    border-bottom: 1px solid <?php echo $c['footer']['top_bottom_border_color'] ?>;
+}
+.footer-bottom {
+    border-top: 1px solid <?php echo $c['footer']['bottom_top_border_color'] ?>;
+}
+.footer-subscribe {
+    background-color: <?php echo $c['subscribe']['bg_color'] ?>;
+}
+.footer-subscribe .block-title {
+    color: <?php echo $c['subscribe']['title_color'] ?>;
+}
+.footer-subscribe .input-box input {
+    border: <?php echo $c['subscribe']['textbox_border_width'] ?> solid <?php echo $c['subscribe']['textbox_border_color'] ?>;
+    background-color: <?php echo $c['subscribe']['textbox_bg_color'] ?>;
+    color: <?php echo $c['subscribe']['textbox_color'] ?>; 
+}
+.footer-bottom a {
+    color: <?php echo $c['footer']['bottom_text_color'] ?>;
+}
+.footer-bottom a:hover,
+.footer-bottom a:focus {
+    color: <?php echo $c['footer']['bottom_hover_color'] ?>;
+}
+
+/*========== Main ==========*/
+.main-slider {
+    border-top: <?php echo $c['home_slider']['border_top_width'] ?> solid <?php echo $c['home_slider']['border_top_color'] ?>;
+    border-bottom: <?php echo $c['home_slider']['border_bottom_width'] ?> solid <?php echo $c['home_slider']['border_bottom_color'] ?>;
+    background-color: <?php echo $c['home_slider']['bg_color'] ?>;
+<?php if ($hs_bg_mode == 'image' && $hs_bg_image) : ?>
+    <?php if ($hs_bg_image): ?>background-image: url(<?php echo $hs_bg_image ?>);<?php endif; ?>
+    background-repeat: <?php echo $c['home_slider']['bg_repeat'] ?>;
+    background-attachment: <?php echo $c['home_slider']['bg_attachment'] ?>;
+    background-position: <?php echo $c['home_slider']['bg_position_x'] ?> <?php echo $c['home_slider']['bg_position_y'] ?>;
+<?php elseif ($hs_bg_mode == 'texture' && $hs_bg_texture) : ?>
+    <?php if ($hs_bg_texture): ?>background-image: url(<?php echo $hs_bg_texture ?>);<?php endif; ?>
+    background-position: center center;
+    background-repeat: repeat;
+<?php endif; ?>
+}
+
+/*========== Breadcrumbs ==========*/
+.breadcrumbs {
+    color: <?php echo $c['breadcrumbs']['color'] ?>;
+    border-top: <?php echo $c['breadcrumbs']['border_top_width'] ?> solid <?php echo $c['breadcrumbs']['border_top_color'] ?>;
+    border-bottom: <?php echo $c['breadcrumbs']['border_bottom_width'] ?> solid <?php echo $c['breadcrumbs']['border_bottom_color'] ?>;
+    font-size: <?php echo $c['breadcrumbs']['font_size'] ?>;
+    font-weight: <?php echo $c['breadcrumbs']['font_weight'] ?>;
+<?php if ($c['breadcrumbs']['font_family_group'] == 'google') : ?>
+    font-family: "<?php echo $c['breadcrumbs']['font_family'] ?>", "Helvetica Neue", Helvetica, Arial, sans-serif;
+<?php elseif ($c['breadcrumbs']['font_family_group'] == 'custom') : ?>
+    font-family: <?php echo $c['breadcrumbs']['font_family_custom'] ?>;
+<?php else : ?>
+    font-family: <?php echo $c['breadcrumbs']['font_family_group'] ?>;
+<?php endif; ?>
+<?php if ($c['breadcrumbs']['show_bg']) : ?>
+    background-color: <?php echo $c['breadcrumbs']['bg_color'] ?>;
+    <?php if ($breadcrumbs_texture): ?>background-image: url(<?php echo $breadcrumbs_texture ?>);<?php endif; ?>
+    background-position: center center;
+    background-repeat: repeat;
+<?php else : ?>
+    margin-bottom: -15px;
+<?php endif; ?>
+}
+.breadcrumbs a {
+    color: <?php echo $c['breadcrumbs']['color'] ?>;
+}
+.breadcrumbs a:hover,
+.breadcrumbs a:focus {
+    color: <?php echo $c['breadcrumbs']['hover_color'] ?>;
+}
+
+/*========== Product ==========*/
+.price {
+    font-weight: <?php echo $c['product']['price_font_weight'] ?>;
+<?php if ($c['product']['price_font_family_group'] == 'google') : ?>
+    font-family: "<?php echo $c['product']['price_font_family'] ?>", "Helvetica Neue", Helvetica, Arial, sans-serif;
+<?php elseif ($c['product']['price_font_family_group'] == 'custom') : ?>
+    font-family: <?php echo $c['product']['price_font_family_custom'] ?>;
+<?php else : ?>
+    font-family: <?php echo $c['product']['price_font_family_group'] ?>;
+<?php endif; ?>
+}
+.sales, 
+.new {
+    color: <?php echo $c['product']['price_save_color'] ?>;
+    background-color: <?php echo $c['product']['price_save_bg_color'] ?>;
+    font-weight: <?php echo $c['product']['save_font_weight'] ?>;
+<?php if ($c['product']['save_font_family_group'] == 'google') : ?>
+    font-family: "<?php echo $c['product']['save_font_family'] ?>", "Helvetica Neue", Helvetica, Arial, sans-serif;
+<?php elseif ($c['product']['save_font_family_group'] == 'custom') : ?>
+    font-family: <?php echo $c['product']['save_font_family_custom'] ?>;
+<?php else : ?>
+    font-family: <?php echo $c['product']['save_font_family_group'] ?>;
+<?php endif; ?>
+}
+.new {
+    color: <?php echo $c['product']['price_new_color'] ?>;
+    background-color: <?php echo $c['product']['price_new_bg_color'] ?>;
+}
+.product-name,
+.product-name h1,
+.product-name h2,
+.product-name h3,
+.product-name h4,
+#product-tabs > dt,
+#cart-tabs > dt,
+.review-title,
+.author,
+.fraction-slider .slide-title {
+<?php if ($c['product']['name_font_family_group'] == 'google') : ?>
+    font-family: "<?php echo $c['product']['name_font_family'] ?>", "Helvetica Neue", Helvetica, Arial, sans-serif;
+<?php elseif ($c['product']['name_font_family_group'] == 'custom') : ?>
+    font-family: <?php echo $c['product']['name_font_family_custom'] ?>;
+<?php else : ?>
+    font-family: <?php echo $c['product']['name_font_family_group'] ?>;
+<?php endif; ?>
+}
+.product-name,
+.product-name a {
+    color: <?php echo $c['block']['title_color'] ?>;
+}
+a.product-name:hover,
+a.product-name:focus,
+.product-name a:hover,
+.product-name a:focus {
+    color: <?php echo $c['general']['link_color'] ?>;
+}
+.product-options .label,
+.product-options .badge {
+    color: <?php echo $c['general']['text_color'] ?>;
+}
+.author {
+    color: <?php echo $c['general']['link_color'] ?>;
+}
+.ratings .rating-links span,
+.ratings .rating-links a,
+.ratings .amount { 
+    color: <?php echo $c['product']['review_color'] ?>; 
+}
+.ratings .rating-links a:hover {
+    color: <?php echo $c['general']['text_color'] ?>; 
+}
+<?php if ($icon_set == 'blue') : ?>
+.rating-box .rating {
+    background-image: url(../images/bkg_rating_blue.png);
+}
+.ratings-table .rating-box .rating {
+    background-image: url(../images/bkg_rating_small_blue.png);
+}
+<?php elseif ($icon_set == 'orange') : ?>
+.rating-box .rating {
+    background-image: url(../images/bkg_rating_orange.png);
+}
+.ratings-table .rating-box .rating {
+    background-image: url(../images/bkg_rating_small_orange.png);
+}
+<?php elseif ($icon_set == 'pink') : ?>
+.rating-box .rating {
+    background-image: url(../images/bkg_rating_pink.png);
+}
+.ratings-table .rating-box .rating {
+    background-image: url(../images/bkg_rating_small_pink.png);
+}
+<?php else : ?>
+.rating-box .rating {
+    background-image: url(../images/bkg_rating.png);
+}
+.ratings-table .rating-box .rating {
+    background-image: url(../images/bkg_rating_small.png);
+}
+<?php endif; ?>
+<?php if ($b['product']['aspect_ratio']) : ?>
+.product-essential .elastislide-vertical {
+    margin-top: <?php echo -(404 * $b['product']['image_ratio'] - 92 * $b['product']['image_ratio'] * 4) / 6 ?>px !important;
+}
+.product-essential .more-images {
+    height: <?php echo (92 * $b['product']['image_ratio'] + (404 * $b['product']['image_ratio'] - 92 * $b['product']['image_ratio'] * 4) / 3) * 4; ?>px;
+}
+.product-essential .more-images img {
+    padding: <?php echo (404 * $b['product']['image_ratio'] - 92 * $b['product']['image_ratio'] * 4) / 6 ?>px 0 !important;
+}
+<?php endif; ?>
+
+/*========== Category ==========*/
+.category-banner {
+    color:  <?php echo $c['category']['banner_color'] ?>;
+    text-shadow: 1px 0 1px <?php echo $c['category']['banner_shadow_color'] ?>;
+    border-top: <?php echo $c['category']['banner_border_top_width'] ?> solid <?php echo $c['category']['banner_border_top_color'] ?>;
+    border-bottom: <?php echo $c['category']['banner_border_bottom_width'] ?> solid <?php echo $c['category']['banner_border_bottom_color'] ?>;
+    background-color: <?php echo $c['category']['bg_color'] ?>;
+    <?php if ($category_banner_texture): ?>background-image: url(<?php echo $category_banner_texture ?>);<?php endif; ?>
+    background-position: center center;
+    background-repeat: repeat;
+}
+.main-content .category-banner .category-title h1,
+.main-content .category-banner .category-description,
+.category-banner .product-name,
+.category-banner .category-title h1 {
+    color:  <?php echo $c['category']['banner_color'] ?>;
+    text-shadow: 1px 0 1px <?php echo $c['category']['banner_shadow_color'] ?>;
+}
+.category-banner .price {
+    color: <?php echo $c['category']['banner_price_color'] ?>;
+}
+.slider-arrow.prev,
+.toolbar .view-mode .last,
+.toolbar .dropdown-select .arrow,
+.fraction-slider .prev,
+.bx-wrapper .bx-controls-direction .bx-prev,
+.tp-leftarrow {
+    -webkit-border-radius: 0 <?php echo $c['general']['arrow_border_radius'] ?> <?php echo $c['general']['arrow_border_radius'] ?> 0;
+       -moz-border-radius: 0 <?php echo $c['general']['arrow_border_radius'] ?> <?php echo $c['general']['arrow_border_radius'] ?> 0;
+            border-radius: 0 <?php echo $c['general']['arrow_border_radius'] ?> <?php echo $c['general']['arrow_border_radius'] ?> 0;
+}
+.slider-arrow.next,
+.toolbar .view-mode .first,
+.fraction-slider .next,
+.bx-wrapper .bx-controls-direction .bx-next,
+.tp-rightarrow {
+    -webkit-border-radius: <?php echo $c['general']['arrow_border_radius'] ?> 0 0 <?php echo $c['general']['arrow_border_radius'] ?>;
+       -moz-border-radius: <?php echo $c['general']['arrow_border_radius'] ?> 0 0 <?php echo $c['general']['arrow_border_radius'] ?>;
+            border-radius: <?php echo $c['general']['arrow_border_radius'] ?> 0 0 <?php echo $c['general']['arrow_border_radius'] ?>;
+}
+.toolbar .view-mode .first.last {
+    -webkit-border-radius: <?php echo $c['general']['arrow_border_radius'] ?>;
+       -moz-border-radius: <?php echo $c['general']['arrow_border_radius'] ?>;
+            border-radius: <?php echo $c['general']['arrow_border_radius'] ?>;
+}
+.block-layered-nav .button-arrow,
+.opc .step-title a {
+    -webkit-border-radius: 0 0 <?php echo $c['general']['arrow_border_radius'] ?> <?php echo $c['general']['arrow_border_radius'] ?>;
+       -moz-border-radius: 0 0 <?php echo $c['general']['arrow_border_radius'] ?> <?php echo $c['general']['arrow_border_radius'] ?>;
+            border-radius: 0 0 <?php echo $c['general']['arrow_border_radius'] ?> <?php echo $c['general']['arrow_border_radius'] ?>;
+}
+.block-layered-nav .button-arrow.open,
+.opc .active .step-title a {
+    -webkit-border-radius: <?php echo $c['general']['arrow_border_radius'] ?> <?php echo $c['general']['arrow_border_radius'] ?> 0 0;
+       -moz-border-radius: <?php echo $c['general']['arrow_border_radius'] ?> <?php echo $c['general']['arrow_border_radius'] ?> 0 0;
+            border-radius: <?php echo $c['general']['arrow_border_radius'] ?> <?php echo $c['general']['arrow_border_radius'] ?> 0 0;
+}
+.add-to-cart .button-up,
+.qty-holder .button-up {
+    -webkit-border-radius: 0 <?php echo $c['general']['arrow_border_radius'] ?> 0 0;
+       -moz-border-radius: 0 <?php echo $c['general']['arrow_border_radius'] ?> 0 0;
+            border-radius: 0 <?php echo $c['general']['arrow_border_radius'] ?> 0 0;
+}
+.add-to-cart .button-down,
+.qty-holder .button-down {
+    -webkit-border-radius: 0 0 <?php echo $c['general']['arrow_border_radius'] ?> 0;
+       -moz-border-radius: 0 0 <?php echo $c['general']['arrow_border_radius'] ?> 0;
+            border-radius: 0 0 <?php echo $c['general']['arrow_border_radius'] ?> 0;
+}
+
+.block-layered-nav .button-arrow,
+.elastislide-vertical .elastislide-next,
+.button-down,
+.opc .step-title a {
+    background-image: url(../images/icons/<?php echo $c['general']['arrow_icon_type'] ?>icon_arrow_down.png);
+}
+.block-layered-nav .button-arrow:hover,
+.block-layered-nav .button-arrow:focus,
+.elastislide-vertical .elastislide-next:hover,
+.elastislide-vertical .elastislide-next:focus,
+.button-down:hover,
+.button-down:focus,
+.opc .step-title a:hover,
+.opc .step-title a:focus {
+    background-image: url(../images/icons/<?php echo $c['general']['btn_hicon_type'] ?>icon_arrow_down.png);
+}
+.block-layered-nav .button-arrow.open,
+.elastislide-vertical .elastislide-prev,
+.button-up,
+.opc .active .step-title a {
+    background-image: url(../images/icons/<?php echo $c['general']['arrow_icon_type'] ?>icon_arrow_up.png);    
+}
+.block-layered-nav .button-arrow.open:hover,
+.block-layered-nav .button-arrow.open:focus,
+.elastislide-vertical .elastislide-prev:hover,
+.elastislide-vertical .elastislide-prev:focus,
+.button-up:hover,
+.button-up:focus,
+.opc .active .step-title a:hover,
+.opc .active .step-title a:focus {
+    background-image: url(../images/icons/<?php echo $c['general']['btn_hicon_type'] ?>icon_arrow_up.png);
+}
+.scrolltop {
+    background-image: url(../images/icons/<?php echo $c['general']['btn_icon_type'] ?>icon_arrow_up_large.png);    
+}
+.scrolltop:hover,
+.scrolltop:focus {
+    background-image: url(../images/icons/<?php echo $c['general']['btn_hicon_type'] ?>icon_arrow_up_large.png);
+}
+.slider-arrow.prev,
+.large-icons .flex-direction-nav .flex-prev,
+.fraction-slider .prev,
+.tp-leftarrow {
+    background-image: url(../images/icons/<?php echo $c['general']['arrow_icon_type'] ?>icon_arrow_prev_large.png);        
+}
+.bx-wrapper .bx-controls-direction .bx-prev {
+    background-image: url(../images/icons/<?php echo $c['general']['arrow_icon_type'] ?>icon_arrow_prev_big.png);        
+}
+.slider-arrow.prev:hover,
+.slider-arrow.prev:focus,
+.large-icons .flex-direction-nav .flex-prev:hover,
+.large-icons .flex-direction-nav .flex-prev:focus,
+.fraction-slider .prev:hover,
+.fraction-slider .prev:focus,
+.tp-leftarrow:hover,
+.tp-leftarrow:focus {
+    background-image: url(../images/icons/<?php echo $c['general']['btn_hicon_type'] ?>icon_arrow_prev_large.png);    
+}
+.bx-wrapper .bx-controls-direction .bx-prev:hover,
+.bx-wrapper .bx-controls-direction .bx-prev:focus {
+    background-image: url(../images/icons/<?php echo $c['general']['btn_hicon_type'] ?>icon_arrow_prev_big.png);
+}
+.slider-arrow.next,
+.large-icons .flex-direction-nav .flex-next,
+.fraction-slider .next,
+.tp-rightarrow {
+    background-image: url(../images/icons/<?php echo $c['general']['arrow_icon_type'] ?>icon_arrow_next_large.png);    
+}
+.bx-wrapper .bx-controls-direction .bx-next {
+    background-image: url(../images/icons/<?php echo $c['general']['arrow_icon_type'] ?>icon_arrow_next_big.png);    
+}
+.slider-arrow.next:hover,
+.slider-arrow.next:focus,
+.large-icons .flex-direction-nav .flex-next:hover,
+.large-icons .flex-direction-nav .flex-next:focus,
+.fraction-slider .next:hover,
+.fraction-slider .next:focus,
+.tp-rightarrow:hover,
+.tp-rightarrow:focus {
+    background-image: url(../images/icons/<?php echo $c['general']['btn_hicon_type'] ?>icon_arrow_next_large.png);    
+}
+.bx-wrapper .bx-controls-direction .bx-next:hover,
+.bx-wrapper .bx-controls-direction .bx-next:focus {
+    background-image: url(../images/icons/<?php echo $c['general']['btn_hicon_type'] ?>icon_arrow_next_big.png);    
+}
+.flex-direction-nav .flex-prev {
+    background-image: url(../images/icons/<?php echo $c['general']['arrow_icon_type'] ?>icon_arrow_prev_small.png);        
+}
+.flex-direction-nav .flex-prev:hover,
+.flex-direction-nav .flex-prev:focus {
+    background-image: url(../images/icons/<?php echo $c['general']['btn_hicon_type'] ?>icon_arrow_prev_small.png);        
+}
+.flex-direction-nav .flex-next {
+    background-image: url(../images/icons/<?php echo $c['general']['arrow_icon_type'] ?>icon_arrow_next_small.png);    
+}
+.flex-direction-nav .flex-next:hover,
+.flex-direction-nav .flex-next:focus {
+    background-image: url(../images/icons/<?php echo $c['general']['btn_hicon_type'] ?>icon_arrow_next_small.png);    
+}
+.button-asc {
+    background-image: url(../images/icons/<?php echo $c['general']['arrow_icon_type'] ?>icon_asc.png);
+}
+.button-asc:hover,
+.button-asc:focus {
+    background-image: url(../images/icons/<?php echo $c['general']['btn_hicon_type'] ?>icon_asc.png);
+}
+.button-desc {
+    background-image: url(../images/icons/<?php echo $c['general']['arrow_icon_type'] ?>icon_desc.png);
+}
+.button-desc:hover,
+.button-desc:focus {
+    background-image: url(../images/icons/<?php echo $c['general']['btn_hicon_type'] ?>icon_desc.png);
+}
+.dropdown-select .arrow {
+    background-image: url(../images/icons/<?php echo $c['general']['arrow_icon_type'] ?>icon_arrow_down.png);
+}
+.dropdown-select.open .arrow,
+.toolbar .dropdown-select.open .arrow {
+    background-image: url(../images/icons/<?php echo $c['general']['btn_hicon_type'] ?>icon_arrow_down.png);
+}
+.toolbar .button-grid,
+.button-viewall {
+    background-image: url(../images/icons/<?php echo $c['general']['arrow_icon_type'] ?>icon_grid.png);
+}
+.toolbar .button-grid:hover,
+.toolbar .button-grid:focus,
+.button-viewall:hover,
+.button-viewall:focus,
+.toolbar .button-active.button-grid {
+    background-image: url(../images/icons/<?php echo $c['general']['btn_hicon_type'] ?>icon_grid.png) !important;
+}
+.toolbar .button-list {
+    background-image: url(../images/icons/<?php echo $c['general']['arrow_icon_type'] ?>icon_list.png);
+}
+.toolbar .button-list:hover,
+.toolbar .button-list:focus,
+.toolbar .button-active.button-list {
+    background-image: url(../images/icons/<?php echo $c['general']['btn_hicon_type'] ?>icon_list.png) !important;
+}
+.button-arrow.btn-remove {
+    background-image: url(../images/icons/<?php echo $c['general']['arrow_icon_type'] ?>icon_remove.png);
+}
+.button-arrow.btn-remove:hover,
+.button-arrow.btn-remove:focus {
+    background-image: url(../images/icons/<?php echo $c['general']['btn_hicon_type'] ?>icon_remove.png);
+}
+.button.next {
+    background-image: url(../images/icons/<?php echo $c['general']['arrow_icon_type'] ?>icon_arrow_next.png);
+}
+.button.next:hover,
+.button.next:focus {
+    background-image: url(../images/icons/<?php echo $c['general']['btn_hicon_type'] ?>icon_arrow_next.png);
+}
+.button.prev {
+    background-image: url(../images/icons/<?php echo $c['general']['arrow_icon_type'] ?>icon_arrow_prev.png);
+}
+.button.prev:hover,
+.button.prev:focus {
+    background-image: url(../images/icons/<?php echo $c['general']['btn_hicon_type'] ?>icon_arrow_prev.png);
+}
+.iradio.hover {
+    background-image: url(../images/icons/<?php echo $c['general']['btn_hicon_type'] ?>icon_radio.png);
+}
+.iradio.checked {
+    background-image: url(../images/icons/<?php echo $c['general']['btn_hicon_type'] ?>icon_radio.png);
+}
+.prettycheckbox:hover > a,
+.prettyradio:hover > a {
+    background-image: url(../images/icons/<?php echo $c['general']['btn_hicon_type'] ?>icon_checkbox.png);
+}
+.prettycheckbox > a.checked,
+.prettyradio > a.checked {
+    background-image: url(../images/icons/<?php echo $c['general']['btn_hicon_type'] ?>icon_checkbox.png);
+}
+.products-grid .item-active .btn-cart,
+body.mobile .products-grid .btn-cart,
+.products-grid .hover-disable .btn-cart {
+    background-image: url(../images/icons/<?php echo $c['general']['arrow_icon_type'] ?>icon_addcart.png);
+}
+.products-grid .item-active .btn-cart:hover,
+.products-grid .item-active .btn-cart:focus {
+    background-image: url(../images/icons/<?php echo $c['general']['btn_hicon_type'] ?>icon_addcart.png);
+}
+.products-grid .price-box,
+.products-list .price-box,
+.product-view .product-img-box .price-box {
+    background-color: <?php echo $c['product']['price_bg_color'] ?>;
+}
+.products-grid .price, 
+.products-grid .price-label,
+.products-list .price,
+.products-list .price-label,
+.product-view .product-img-box .price,
+.product-view .product-img-box .price-label,
+.product-view .product-shop .price,
+.product-view .product-shop .price-label {
+    color: <?php echo $c['product']['price_color'] ?>;
+}
+.slider-wrap .price-box,
+.caption.price-box {
+    background-color: <?php echo $c['home_slider']['price_bg_color'] ?>;
+}
+.caption.slide-title .color {
+    color: <?php echo $c['home_slider']['price_bg_color'] ?>;
+}
+.slider-wrap .price-box .price,
+.caption.price-box .price {
+    color: <?php echo $c['home_slider']['price_color'] ?>;    
+}
+.products-grid .old-price .price,
+.products-grid .old-price .price-label,
+.products-list .old-price .price,
+.products-list .old-price .price-label,
+.product-view .product-img-box .old-price .price,
+.product-view .product-img-box .old-price .price-label,
+.product-view .product-shop .old-price .price,
+.product-view .product-shop .old-price .price-label,
+.product-view .product-shop .price-notice .price,
+.product-view .product-shop .price-notice .price-label {
+    color: <?php echo $c['product']['price_old_color'] ?>;
+}
+.products-grid li.item {
+    text-align: <?php echo $b['category']['grid_align'] ?>;
+}
+<?php if ($b['category']['grid_align'] == 'left') : ?>
+.products-grid li.item .product-shop {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.products-grid .addlinks-block .btn-cart {
+    margin-left: 0 !important;
+}
+<?php endif; ?>
+.products-grid .item-inner {
+    background-color: <?php echo $c['category']['item_bg_color'] ?>;
+    border: <?php echo $c['category']['item_border_width'] ?> solid <?php echo $c['category']['item_border_color'] ?>;
+    -webkit-box-shadow: <?php echo $c['category']['item_shadow'] ?>;
+       -moz-box-shadow: <?php echo $c['category']['item_shadow'] ?>;
+            box-shadow: <?php echo $c['category']['item_shadow'] ?>;
+    padding: <?php echo 21 - (int)$c['category']['item_border_width'] ?>px <?php echo 5 - (int)$c['category']['item_border_width'] ?>px;
+}
+.products-grid .item-active .item-inner {
+    background-color: <?php echo $c['category']['item_hbg_color'] ?>;
+    border: <?php echo $c['category']['item_hborder_width'] ?> solid <?php echo $c['category']['item_hborder_color'] ?>;
+    -webkit-box-shadow: <?php echo $c['category']['item_hshadow'] ?>;
+       -moz-box-shadow: <?php echo $c['category']['item_hshadow'] ?>;
+            box-shadow: <?php echo $c['category']['item_hshadow'] ?>;
+    padding: <?php echo 21 - (int)$c['category']['item_hborder_width'] ?>px <?php echo 5 - (int)$c['category']['item_hborder_width'] ?>px;
+}
+
+/*========== Toolbar ===========*/
+.pager,
+.toolbar-bottom {
+    border-top: 1px solid <?php echo $c['general']['arrow_border_color'] ?>;
+}
+.toolbar {
+    border-bottom: 1px solid <?php echo $c['general']['arrow_border_color'] ?>;
+}
+<?php if ($c['product']['addcart_customize']) : ?>
+.btn-cart {
+    color: <?php echo $c['product']['addcart_color'] ?>;
+    background-color: <?php echo $c['product']['addcart_bg_color'] ?>;
+    border: <?php echo $c['general']['btn_border_width'] ?> solid <?php echo $c['product']['addcart_border_color'] ?>;
+}
+.btn-cart:hover,
+.btn-cart:focus {
+    color: <?php echo $c['product']['addcart_hover_color'] ?>;
+    background-color: <?php echo $c['product']['addcart_hbg_color'] ?>;
+    border: <?php echo $c['general']['btn_border_width'] ?> solid <?php echo $c['product']['addcart_hborder_color'] ?>;
+}
+.products-grid .item-active .btn-cart,
+body.mobile .products-grid .btn-cart,
+.products-grid .hover-disable .btn-cart {
+    background-image: url(../images/icons/<?php echo $c['product']['addcart_icon_type'] ?>icon_addcart.png);
+}
+.products-grid .item-active .btn-cart:hover,
+.products-grid .item-active .btn-cart:focus {
+    background-image: url(../images/icons/<?php echo $c['product']['addcart_hicon_type'] ?>icon_addcart.png);
+}
+<?php endif; ?>
+<?php if ($c['product']['addto_customize']) : ?>
+.link-wishlist, 
+.link-compare, 
+.link-friend, 
+.link-edit {
+    background-color: <?php echo $c['product']['addto_bg_color'] ?>;
+    border: <?php echo $c['general']['btn_border_width'] ?> solid <?php echo $c['product']['addto_border_color'] ?>;
+}
+.link-wishlist:hover, 
+.link-wishlist:focus, 
+.link-compare:hover, 
+.link-compare:focus,
+.link-friend:hover, 
+.link-friend:focus,
+.link-edit:hover,
+.link-edit:focus {
+    background-color: <?php echo $c['product']['addto_hbg_color'] ?>;
+    border: <?php echo $c['general']['btn_border_width'] ?> solid <?php echo $c['product']['addto_hborder_color'] ?>;
+}
+.link-wishlist {
+    background-image: url(../images/icons/<?php echo $c['product']['addto_icon_type'] ?>icon_wishlist.png);
+}
+.link-wishlist:hover,
+.link-wishlist:focus {
+    background-image: url(../images/icons/<?php echo $c['product']['addto_hicon_type'] ?>icon_wishlist.png);
+}
+.link-friend {
+    background-image: url(../images/icons/<?php echo $c['product']['addto_icon_type'] ?>icon_friend.png);
+}
+.link-friend:hover,
+.link-friend:focus {
+    background-image: url(../images/icons/<?php echo $c['product']['addto_hicon_type'] ?>icon_friend.png);
+}
+.link-compare {
+    background-image: url(../images/icons/<?php echo $c['product']['addto_icon_type'] ?>icon_compare.png);
+}
+.link-compare:hover,
+.link-compare:focus {
+    background-image: url(../images/icons/<?php echo $c['product']['addto_hicon_type'] ?>icon_compare.png);
+}
+.link-edit {
+    background-image: url(../images/icons/<?php echo $c['product']['addto_icon_type'] ?>icon_edit.png);
+}
+.link-edit:hover,
+.link-edit:focus {
+    background-image: url(../images/icons/<?php echo $c['product']['addto_hicon_type'] ?>icon_edit.png);
+}
+<?php endif; ?>
+
+/*========== Sidebar, Block, Data Table ==========*/
+.block .block-title {
+    color: <?php echo $c['block']['title_color'] ?>;
+}
+.sidebar {
+    font-size: <?php echo $c['block']['font_size'] ?>;
+<?php if ($c['block']['font_family_group'] == 'google') : ?>
+    font-family: "<?php echo $c['block']['font_family'] ?>", "Helvetica Neue", Helvetica, Arial, sans-serif;
+<?php elseif ($c['block']['font_family_group'] == 'custom') : ?>
+    font-family: <?php echo $c['block']['font_family_custom'] ?>;
+<?php else : ?>
+    font-family: <?php echo $c['block']['font_family_group'] ?>;
+<?php endif; ?>
+}
+.product-options dt label,
+.box-reviews dt,
+.data-table,
+.fraction-slider .slide-subtitle {
+    <?php if ($c['block']['font_family_group'] == 'google') : ?>
+    font-family: "<?php echo $c['block']['font_family'] ?>", "Helvetica Neue", Helvetica, Arial, sans-serif;
+<?php elseif ($c['block']['font_family_group'] == 'custom') : ?>
+    font-family: <?php echo $c['block']['font_family_custom'] ?>;
+<?php else : ?>
+    font-family: <?php echo $c['block']['font_family_group'] ?>;
+<?php endif; ?>
+}
+.sidebar .block-layered-nav .price {
+    font-size: <?php echo $c['block']['font_size'] ?>;
+    font-weight: normal;
+}
+.block .block-title {
+    font-weight: <?php echo $c['block']['title_font_weight'] ?>;
+    text-transform: <?php echo $c['block']['title_text_transform'] ?>;
+}
+.block-layered-nav .block-subtitle,
+.block-layered-nav dt {
+    color: <?php echo $c['block']['title_color'] ?>;
+    font-weight: <?php echo $c['block']['subtitle_font_weight'] ?>;
+    text-transform: <?php echo $c['block']['subtitle_text_transform'] ?>;
+}
+.label,
+.badge {
+    color: <?php echo $c['general']['text_color'] ?>;
+    background-color: transparent;
+}
+.block-layered-nav .currently ol {
+    border: 1px solid <?php echo $c['block']['border_color'] ?>;
+    background-color: <?php echo $c['block']['title_bg_color'] ?>;
+    -webkit-border-radius: <?php echo $c['general']['arrow_border_radius'] ?>;
+       -moz-border-radius: <?php echo $c['general']['arrow_border_radius'] ?>;
+            border-radius: <?php echo $c['general']['arrow_border_radius'] ?>;
+}
+.sidebar a,
+.sidebar .block-layered-nav .price,
+.sidebar .block-layered-nav .price .sub {
+    color: <?php echo $c['general']['link_hover_color'] ?>;    
+}
+.sidebar a:hover,
+.sidebar a:focus {
+    color: <?php echo $c['general']['link_color'] ?>;    
+}
+.sidebar .link-cart, .sidebar .link-wishlist, .sidebar .link-reorder, .sidebar .link-compare,
+.block .actions a {
+    color: <?php echo $c['general']['link_color'] ?>;   
+}
+.sidebar .link-cart:hover, .sidebar .link-wishlist:hover, .sidebar .link-reorder:hover, .sidebar .link-compare:hover, 
+.sidebar .link-cart:focus, .sidebar .link-wishlist:focus, .sidebar .link-reorder:focus, .sidebar .link-compare:focus,
+.block .actions a:hover, .block .actions a:focus {
+    color: <?php echo $c['general']['link_hover_color'] ?>;   
+}
+.sidebar .block dl {
+    border: 1px solid <?php echo $c['block']['border_color'] ?>;
+    border-bottom-width: 0;
+    background-color: <?php echo $c['block']['light_bg_color'] ?>;
+    -webkit-border-radius: <?php echo $c['general']['arrow_border_radius'] ?>;
+       -moz-border-radius: <?php echo $c['general']['arrow_border_radius'] ?>;
+            border-radius: <?php echo $c['general']['arrow_border_radius'] ?>;
+}
+#product-tabs,
+#cart-tabs {
+    border: 1px solid <?php echo $c['block']['border_color'] ?>;
+    border-bottom-width: 0;
+    background-color: <?php echo $c['block']['bg_color'] ?>;
+}
+#product-tabs,
+#cart-tabs {
+    border-bottom-width: 1px;
+}
+.box-reviews dd, 
+.review-title {
+    border-bottom: 1px solid <?php echo $c['block']['border_color'] ?>;
+}
+#product-tabs > dt,
+#cart-tabs > dt {
+    border-bottom: 1px solid <?php echo $c['block']['border_color'] ?>;
+}
+#product-tabs > dd,
+#cart-tabs > dd {
+    border-left: 1px solid <?php echo $c['block']['border_color'] ?>;
+    border-bottom: 1px solid <?php echo $c['block']['border_color'] ?>;
+}
+.sidebar .block dt {
+    color: <?php echo $c['block']['title_color'] ?>;
+    border-bottom: 1px solid <?php echo $c['block']['border_color'] ?>;
+    background-color: <?php echo $c['block']['title_bg_color'] ?>;
+}
+.sidebar .block dd {
+    border-bottom: 1px solid <?php echo $c['block']['border_color'] ?>;
+    background-color: <?php echo $c['block']['light_bg_color'] ?>;
+}
+.block-venedor-ads,
+.block-subscribe {
+    border: 1px solid <?php echo $c['block']['border_color'] ?>;
+    -webkit-border-radius: 3px;
+       -moz-border-radius: 3px;
+            border-radius: 3px;
+    background-color: <?php echo $c['block']['bg_color'] ?>;
+}
+.block-list .price {
+    color: <?php echo $c['block']['price_color'] ?>;
+}
+.block-list .old-price .price,
+.product-shop .tier-prices .price {
+    color: <?php echo $c['general']['text_color'] ?>;
+}
+.data-table {
+    border: 1px solid <?php echo $c['block']['border_color'] ?>;
+    -webkit-border-radius: <?php echo $c['general']['arrow_border_radius'] ?>;
+       -moz-border-radius: <?php echo $c['general']['arrow_border_radius'] ?>;
+            border-radius: <?php echo $c['general']['arrow_border_radius'] ?>;
+}
+.data-table thead tr,
+.data-table tfoot tr {
+    background-color: <?php echo $c['block']['bg_color'] ?>;
+}
+.data-table thead th,
+.data-table thead td,
+.data-table tfoot th,
+.data-table tfoot td,
+.cart .totals table th, 
+.cart .totals table td {
+    color: <?php echo $c['block']['title_color'] ?>;
+    border-right: 1px solid <?php echo $c['block']['border_color'] ?>;
+    border-bottom: 1px solid <?php echo $c['block']['border_color'] ?>;
+}
+.data-table tbody th,
+.data-table tbody td {
+    border-right: 1px solid <?php echo $c['block']['border_color'] ?>;
+    border-bottom: 1px solid <?php echo $c['block']['border_color'] ?>;
+}
+.cart-table tbody th,
+.cart-table tbody td {
+    border-right: 1px solid <?php echo $c['block']['border_light_color'] ?>;
+    border-bottom: 1px solid <?php echo $c['block']['border_light_color'] ?>;
+}
+.data-table tbody th.last,
+.data-table tbody td.last {
+    border-right: 1px solid <?php echo $c['block']['border_color'] ?>;
+}
+.data-table tbody tr.last th,
+.data-table tbody tr.last td {
+    border-bottom: 1px solid <?php echo $c['block']['border_color'] ?>;
+}
+.data-table .price {
+    color: <?php echo $c['block']['title_color'] ?>;
+}
+.data-table .total-price .price,
+.cart .totals table tfoot td .price,
+.compare-table .price {
+    color: <?php echo $c['block']['price_color'] ?>;
+}
+.item-options dd {
+    color: <?php echo $c['block']['title_color'] ?>;
+}
+.compare-table th {
+    color: <?php echo $c['block']['title_color'] ?>;
+}
+.compare-table tr.odd th {
+    background-color: <?php echo $c['block']['thick_bg_color1'] ?>;
+}
+.compare-table tr.even th {
+    background-color: <?php echo $c['block']['thick_bg_color2'] ?>;
+}
+.compare-table tr.even td {
+    background-color: <?php echo $c['block']['bg_color'] ?>;
+}
+.my-account .data-table .price,
+.my-wishlist .data-table .price {
+    font-size: <?php echo $c['general']['font_size'] ?>;
+    color: <?php echo $c['general']['text_color'] ?>;
+    font-weight: normal;
+}
+/* scroll pane, price slider */
+.jspDrag,
+.price-slider .jslider .jslider-pointer {
+    background-image: none;
+    background-color: <?php echo $c['general']['btn_hbg_color'] ?>;
+    -webkit-border-radius: <?php echo $c['general']['btn_border_radius'] ?>;
+       -moz-border-radius: <?php echo $c['general']['btn_border_radius'] ?>;
+            border-radius: <?php echo $c['general']['btn_border_radius'] ?>;
+}
+.price-slider .jslider .jslider-bg .l {
+    -webkit-border-radius: <?php echo $c['general']['btn_border_radius'] ?> 0 0 <?php echo $c['general']['btn_border_radius'] ?>;
+       -moz-border-radius: <?php echo $c['general']['btn_border_radius'] ?> 0 0 <?php echo $c['general']['btn_border_radius'] ?>;
+            border-radius: <?php echo $c['general']['btn_border_radius'] ?> 0 0 <?php echo $c['general']['btn_border_radius'] ?>;
+}
+.price-slider .jslider .jslider-bg .r {
+    -webkit-border-radius: 0 <?php echo $c['general']['btn_border_radius'] ?> <?php echo $c['general']['btn_border_radius'] ?> 0;
+       -moz-border-radius: 0 <?php echo $c['general']['btn_border_radius'] ?> <?php echo $c['general']['btn_border_radius'] ?> 0;
+            border-radius: 0 <?php echo $c['general']['btn_border_radius'] ?> <?php echo $c['general']['btn_border_radius'] ?> 0;
+}
+.price-slider .jslider .jslider-bg .v {
+    background-color: <?php echo $c['general']['btn_hbg_color'] ?>;
+}
+    
+/*========== Checkout Page ==========*/
+.opc .step-title,
+.opc .step-title h2,
+#onepagecheckout_orderform .op_block_title,
+.opc-wrapper-opc h3 {
+    color: <?php echo $c['block']['form_step_color'] ?>;
+<?php if ($c['block']['font_family_group'] == 'google') : ?>
+    font-family: "<?php echo $c['block']['font_family'] ?>", "Helvetica Neue", Helvetica, Arial, sans-serif;
+<?php elseif ($c['block']['font_family_group'] == 'custom') : ?>
+    font-family: <?php echo $c['block']['font_family_custom'] ?>;
+<?php else : ?>
+    font-family: <?php echo $c['block']['font_family_group'] ?>;
+<?php endif; ?>
+}
+.opc .step-title,
+#onepagecheckout_orderform .op_block_title,
+.opc-wrapper-opc h3 {
+    border: 1px solid <?php echo $c['block']['border_color'] ?>;
+    background-color: <?php echo $c['block']['title_bg_color'] ?>;
+}
+.opc,
+#onepagecheckout_orderform {
+    color: <?php echo $c['block']['form_text_color'] ?>;
+}
+
+/*========== Form List ==========*/
+.form-list,
+.form-list li .prettyradio label {
+    color: <?php echo $c['block']['form_text_color'] ?>;
+}
+.form-list li label {
+    color: <?php echo $c['general']['link_color'] ?>;
+    background-color: <?php echo $c['block']['title_bg_color'] ?>;
+    -webkit-border-radius: <?php echo $c['general']['input_border_radius'] ?> 0 0 <?php echo $c['general']['input_border_radius'] ?>;
+       -moz-border-radius: <?php echo $c['general']['input_border_radius'] ?> 0 0 <?php echo $c['general']['input_border_radius'] ?>;
+            border-radius: <?php echo $c['general']['input_border_radius'] ?> 0 0 <?php echo $c['general']['input_border_radius'] ?>;
+    border-right: 1px solid <?php echo $c['block']['border_color'] ?>;
+}
+.form-list li label.label-wide {
+    border-right-width: 0;
+    border-bottom: 1px solid <?php echo $c['block']['border_color'] ?>;
+}
+.form-list li.control label {
+    color: <?php echo $c['general']['text_color'] ?>;
+    background-color: transparent;
+    -webkit-border-radius: 0;
+       -moz-border-radius: 0;
+            border-radius: 0;
+    border-right-width: 0;
+}
+
+/*========== My Account ==========*/
+.dashboard .box-account .number {
+    background-color: <?php echo $c['block']['title_bg_color'] ?>;
+    border: 1px solid <?php echo $c['block']['border_color'] ?>;
+    color: <?php echo $c['general']['text_color'] ?>;
+}
+
+/*========== Slider Controls, Background Colors ==========*/
+.flex-control-paging li a,
+.sequence-pagination li a,
+.fs-pager-wrapper a,
+.bx-wrapper .bx-pager.bx-default-pager a,
+.tp-bullets.simplebullets.round .bullet {
+    background-color: <?php echo $c['block']['title_color'] ?>;
+}
+.flex-control-paging li a.flex-active,
+.sequence-pagination li.current a,
+.fs-pager-wrapper .active,
+.bx-wrapper .bx-pager.bx-default-pager a.active,
+.tp-bullets.simplebullets.round .bullet:hover, 
+.tp-bullets.simplebullets.round .bullet.selected {
+    background-color: <?php echo $c['general']['btn_hbg_color'] ?>;
+}
+.fraction-slider .slide-subtitle {
+    background-color: <?php echo $c['general']['btn_bg_color'] ?>;
+    color: <?php echo $c['general']['btn_color'] ?>;
+}
+.fraction-slider .slide-title {
+    background-color: <?php echo $c['general']['btn_hbg_color'] ?>;
+    color: <?php echo $c['general']['btn_hover_color'] ?>;
+}
+.homeslider-products .product-name a,
+.homeslider-products .product-desc {
+    color: <?php echo $c['general']['btn_bg_color'] ?>;
+}
+.homeslider-products .product-name a:hover,
+.homeslider-products .product-name a:focus {
+    color: <?php echo $c['general']['btn_hbg_color'] ?>;
+}
+.homeslider-products .price-box .price {
+    color: <?php echo $c['category']['banner_price_color'] ?>;
+}
+.homeslider-products .bx-wrapper .bx-controls-direction a {
+    -webkit-border-radius: 0;
+       -moz-border-radius: 0;
+            border-radius: 0;
+    -webkit-box-shadow: none;
+       -moz-box-shadow: none;
+            box-shadow: none;
+}
+.main-slider .bx-wrapper .bx-controls-direction a:hover,
+.main-slider .bx-wrapper .bx-controls-direction a:focus {
+    -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+       -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+<?php if ($c['home_slider']['arrow_customize']) : ?>
+.main-slider fraction-slider .prev, 
+.main-slider .slider-arrow.prev,
+.main-slider .bx-wrapper .bx-controls-direction .bx-prev,
+.main-slider .tp-leftarrow {
+    background-color: <?php echo $c['home_slider']['arrow_bg_color'] ?>;
+    border: <?php echo $c['general']['btn_border_width'] ?> solid <?php echo $c['home_slider']['arrow_border_color'] ?>;
+    background-image: url(../images/icons/<?php echo $c['home_slider']['arrow_icon_type'] ?>icon_arrow_prev_large.png);    
+}
+.main-slider .bx-wrapper .bx-controls-direction .bx-prev {
+    background-image: url(../images/icons/<?php echo $c['home_slider']['arrow_icon_type'] ?>icon_arrow_prev_big.png);    
+}
+.main-slider fraction-slider .next, 
+.main-slider .slider-arrow.next,
+.main-slider .bx-wrapper .bx-controls-direction .bx-next,
+.main-slider .tp-rightarrow {
+    background-color: <?php echo $c['home_slider']['arrow_bg_color'] ?>;
+    border: <?php echo $c['general']['btn_border_width'] ?> solid <?php echo $c['home_slider']['arrow_border_color'] ?>;
+    background-image: url(../images/icons/<?php echo $c['home_slider']['arrow_icon_type'] ?>icon_arrow_next_large.png);
+}
+.main-slider .bx-wrapper .bx-controls-direction .bx-next {
+    background-image: url(../images/icons/<?php echo $c['home_slider']['arrow_icon_type'] ?>icon_arrow_next_big.png);
+}
+.main-slider .slider-arrow.prev:hover,
+.main-slider .slider-arrow.prev:focus, 
+.main-slider fraction-slider .prev:hover, 
+.main-slider fraction-slider .prev:focus, 
+.main-slider .bx-wrapper .bx-controls-direction .bx-prev:hover,
+.main-slider .bx-wrapper .bx-controls-direction .bx-prev:focus,
+.main-slider .tp-leftarrow:hover,
+.main-slider .tp-leftarrow:focus {
+    background-color: <?php echo $c['home_slider']['arrow_hbg_color'] ?>;
+    border: <?php echo $c['general']['btn_border_width'] ?> solid <?php echo $c['home_slider']['arrow_hborder_color'] ?>;
+    background-image: url(../images/icons/<?php echo $c['home_slider']['arrow_hicon_type'] ?>icon_arrow_prev_large.png); 
+}
+.main-slider .bx-wrapper .bx-controls-direction .bx-prev:hover,
+.main-slider .bx-wrapper .bx-controls-direction .bx-prev:focus {
+    background-image: url(../images/icons/<?php echo $c['home_slider']['arrow_hicon_type'] ?>icon_arrow_prev_big.png); 
+}
+.main-slider .slider-arrow.next:hover,
+.main-slider .slider-arrow.next:focus, 
+.main-slider fraction-slider .next:hover, 
+.main-slider fraction-slider .next:focus, 
+.main-slider .bx-wrapper .bx-controls-direction .bx-next:hover,
+.main-slider .bx-wrapper .bx-controls-direction .bx-next:focus,
+.main-slider .tp-rightarrow:hover,
+.main-slider .tp-rightarrow:focus {
+    background-color: <?php echo $c['home_slider']['arrow_hbg_color'] ?>;
+    border: <?php echo $c['general']['btn_border_width'] ?> solid <?php echo $c['home_slider']['arrow_hborder_color'] ?>;
+    background-image: url(../images/icons/<?php echo $c['home_slider']['arrow_hicon_type'] ?>icon_arrow_next_large.png); 
+}
+.main-slider .bx-wrapper .bx-controls-direction .bx-next:hover,
+.main-slider .bx-wrapper .bx-controls-direction .bx-next:focus {
+    background-image: url(../images/icons/<?php echo $c['home_slider']['arrow_hicon_type'] ?>icon_arrow_next_big.png); 
+}
+<?php endif; ?>
+<?php if ($c['twitter']['arrow_customize']) : ?>
+#twitter-slider .flex-direction-nav a {
+    background-color: <?php echo $c['twitter']['arrow_bg_color'] ?>;
+    border: <?php echo $c['general']['btn_border_width'] ?> solid <?php echo $c['twitter']['arrow_border_color'] ?>;
+}
+#twitter-slider .flex-direction-nav a:hover,
+#twitter-slider .flex-direction-nav a:focus {
+    background-color: <?php echo $c['twitter']['arrow_hbg_color'] ?>;
+    border: <?php echo $c['general']['btn_border_width'] ?> solid <?php echo $c['twitter']['arrow_hborder_color'] ?>;
+}
+#twitter-slider .flex-direction-nav .flex-prev {
+    background-image: url(../images/icons/<?php echo $c['twitter']['arrow_icon_type'] ?>icon_tt_slider_prev.png);        
+}
+#twitter-slider .flex-direction-nav .flex-prev:hover,
+#twitter-slider .flex-direction-nav .flex-prev:focus {
+    background-image: url(../images/icons/<?php echo $c['twitter']['arrow_hicon_type'] ?>icon_tt_slider_prev.png);  
+}
+#twitter-slider .flex-direction-nav .flex-next {
+    background-image: url(../images/icons/<?php echo $c['twitter']['arrow_icon_type'] ?>icon_tt_slider_next.png);        
+}
+#twitter-slider .flex-direction-nav .flex-next:hover,
+#twitter-slider .flex-direction-nav .flex-next:focus {
+    background-image: url(../images/icons/<?php echo $c['twitter']['arrow_hicon_type'] ?>icon_tt_slider_next.png); 
+}
+<?php else : ?>
+#twitter-slider .flex-direction-nav .flex-prev {
+    background-image: url(../images/icons/<?php echo $c['general']['arrow_icon_type'] ?>icon_tt_slider_prev.png);        
+}
+#twitter-slider .flex-direction-nav .flex-prev:hover,
+#twitter-slider .flex-direction-nav .flex-prev:focus {
+    background-image: url(../images/icons/<?php echo $c['general']['btn_hicon_type'] ?>icon_tt_slider_prev.png);  
+}
+#twitter-slider .flex-direction-nav .flex-next {
+    background-image: url(../images/icons/<?php echo $c['general']['arrow_icon_type'] ?>icon_tt_slider_next.png);        
+}
+#twitter-slider .flex-direction-nav a:hover,
+#twitter-slider .flex-direction-nav a:focus {
+    background-color: <?php echo $c['twitter']['text_color'] ?>;       
+}
+#twitter-slider .flex-direction-nav .flex-next:hover,
+#twitter-slider .flex-direction-nav .flex-next:focus {
+    background-image: url(../images/icons/<?php echo $c['general']['btn_hicon_type'] ?>icon_tt_slider_next.png); 
+}
+<?php endif; ?>
+
+/* ajax cart */
+div.Growler-notice .cart-success {
+    <?php if ($c['product']['name_font_family_group'] == 'google') : ?>
+    font-family: "<?php echo $c['product']['name_font_family'] ?>", "Helvetica Neue", Helvetica, Arial, sans-serif;
+<?php elseif ($c['product']['name_font_family_group'] == 'custom') : ?>
+    font-family: <?php echo $c['product']['name_font_family_custom'] ?>;
+<?php else : ?>
+    font-family: <?php echo $c['product']['name_font_family_group'] ?>;
+<?php endif; ?>
+}
+
+/* color switcher */
+.product-view .product-options .swatch-attr .select-label,
+#modalboxOptions .product-options .swatch-attr .select-label {
+    color: <?php echo $c['general']['link_color'] ?>;
+}
+.configurable-swatch-list .hover .swatch-link,
+.configurable-swatch-list .selected .swatch-link,
+.swatch-link:hover,
+#narrow-by-list dd .swatch-link:hover .swatch-label {
+    border-color: <?php echo $c['general']['link_color'] ?>;
+}
+
+<?php if ($venedor->isResponsive()) : ?>
+@media (min-width: 1200px) {
+    /* product */
+    <?php if ($b['product']['aspect_ratio']) : ?>
+    .product-essential .elastislide-vertical {
+        margin-top: <?php echo -(430 * $b['product']['image_ratio'] - 97 * $b['product']['image_ratio'] * 4) / 6 ?>px !important;
+    }
+    .product-essential .more-images {
+        height: <?php echo (97 * $b['product']['image_ratio'] + (430 * $b['product']['image_ratio'] - 97 * $b['product']['image_ratio'] * 4) / 3) * 4; ?>px;
+    }
+    .product-essential .more-images img {
+        padding: <?php echo (430 * $b['product']['image_ratio'] - 97 * $b['product']['image_ratio'] * 4) / 6 ?>px 0 !important;
+    }
+    <?php endif; ?>
+}
+@media (min-width: 768px) and (max-width: 991px) {
+    /* header */
+    .header .logo, 
+    .header h1.logo {
+        margin-bottom: <?php echo -(int)$c['header']['logo_top'] ?>px;
+    }
+    <?php if ((int)($c['top_menu']['margin_top']) == 0) : ?>
+    .mobile-header .header-menu {
+        margin-top: 15px;
+    }
+    <?php endif; ?>
+    .mobile-header .quick-access1 {
+        bottom: <?php echo 60 + (int)$c['top_menu']['padding_bottom'] ?>px !important;
+    }
+    /* product */
+    <?php if ($b['product']['aspect_ratio']) : ?>
+    .product-essential .elastislide-vertical {
+        margin-top: <?php echo -(560 * $b['product']['image_ratio'] - 128 * $b['product']['image_ratio'] * 4) / 6 ?>px !important;
+    }
+    .product-essential .more-images {
+        height: <?php echo (128 * $b['product']['image_ratio'] + (560 * $b['product']['image_ratio'] - 128 * $b['product']['image_ratio'] * 4) / 3) * 4; ?>px;
+    }
+    .product-essential .more-images img {
+        padding: <?php echo (560 * $b['product']['image_ratio'] - 128 * $b['product']['image_ratio'] * 4) / 6 ?>px 0 !important;
+    }
+    <?php endif; ?>
+}
+@media (max-width: 767px) {
+    /* header */
+    .nav-container {
+        background-color: transparent;
+        background-image: none;
+    }
+
+    /* product */
+    <?php if ($b['product']['aspect_ratio']) : ?>
+    .product-essential .elastislide-vertical {
+        margin-top: <?php echo -(238 * $b['product']['image_ratio'] - 50 * $b['product']['image_ratio'] * 4) / 6 ?>px !important;
+    }
+    .product-essential .more-images {
+        height: <?php echo (50 * $b['product']['image_ratio'] + (238 * $b['product']['image_ratio'] - 50 * $b['product']['image_ratio'] * 4) / 3) * 4; ?>px;
+    }
+    .product-essential .more-images img {
+        padding: <?php echo (238 * $b['product']['image_ratio'] - 50 * $b['product']['image_ratio'] * 4) / 6 ?>px 0 !important;
+    }
+    <?php endif; ?>
+    /* home slider buttons */
+    <?php if ($c['home_slider']['arrow_customize']) : ?>
+    .main-slider .slider-arrow.prev,
+    .main-slider .fraction-slider .prev,
+    .main-slider .bx-wrapper .bx-controls-direction .bx-prev,
+    .main-slider .tp-leftarrow {
+        background-image: url(../images/icons/<?php echo $c['home_slider']['arrow_icon_type'] ?>icon_arrow_prev.png);        
+    }
+    .main-slider .slider-arrow.prev:hover,
+    .main-slider .slider-arrow.prev:focus,
+    .main-slider .fraction-slider .prev:hover,
+    .main-slider .fraction-slider .prev:focus,
+    .main-slider .bx-wrapper .bx-controls-direction .bx-prev:hover,
+    .main-slider .bx-wrapper .bx-controls-direction .bx-prev:focus,
+    .main-slider .tp-leftarrow:hover,
+    .main-slider .tp-leftarrow:focus {
+        background-image: url(../images/icons/<?php echo $c['home_slider']['arrow_hicon_type'] ?>icon_arrow_prev.png);    
+    }
+    .main-slider .slider-arrow.next,
+    .main-slider .fraction-slider .next,
+    .main-slider .bx-wrapper .bx-controls-direction .bx-next,
+    .main-slider .tp-rightarrow {
+        background-image: url(../images/icons/<?php echo $c['home_slider']['arrow_icon_type'] ?>icon_arrow_next.png);    
+    }
+    .main-slider .slider-arrow.next:hover,
+    .main-slider .slider-arrow.next:focus,
+    .main-slider .fraction-slider .next:hover,
+    .main-slider .fraction-slider .next:focus,
+    .main-slider .bx-wrapper .bx-controls-direction .bx-next:hover,
+    .main-slider .bx-wrapper .bx-controls-direction .bx-next:focus,
+    .main-slider .tp-rightarrow:hover,
+    .main-slider .tp-rightarrow:focus {
+        background-image: url(../images/icons/<?php echo $c['home_slider']['arrow_hicon_type'] ?>icon_arrow_next.png);    
+    }
+    <?php else : ?>
+    .main-slider .slider-arrow.prev,
+    .main-slider .fraction-slider .prev,
+    .main-slider .bx-wrapper .bx-controls-direction .bx-prev,
+    .main-slider .tp-leftarrow {
+        background-image: url(../images/icons/<?php echo $c['general']['arrow_icon_type'] ?>icon_arrow_prev.png);        
+    }
+    .main-slider .slider-arrow.prev:hover,
+    .main-slider .slider-arrow.prev:focus,
+    .main-slider .fraction-slider .prev:hover,
+    .main-slider .fraction-slider .prev:focus,
+    .main-slider .bx-wrapper .bx-controls-direction .bx-prev:hover,
+    .main-slider .bx-wrapper .bx-controls-direction .bx-prev:focus,
+    .main-slider .tp-leftarrow:hover,
+    .main-slider .tp-leftarrow:focus {
+        background-image: url(../images/icons/<?php echo $c['general']['btn_hicon_type'] ?>icon_arrow_prev.png);    
+    }
+    .main-slider .slider-arrow.next,
+    .main-slider .fraction-slider .next,
+    .main-slider .bx-wrapper .bx-controls-direction .bx-next,
+    .main-slider .tp-rightarrow {
+        background-image: url(../images/icons/<?php echo $c['general']['arrow_icon_type'] ?>icon_arrow_next.png);    
+    }
+    .main-slider .slider-arrow.next:hover,
+    .main-slider .slider-arrow.next:focus,
+    .main-slider .fraction-slider .next:hover,
+    .main-slider .fraction-slider .next:focus,
+    .main-slider .bx-wrapper .bx-controls-direction .bx-next:hover,
+    .main-slider .bx-wrapper .bx-controls-direction .bx-next:focus,
+    .main-slider .tp-rightarrow:hover,
+    .main-slider .tp-rightarrow:focus {
+        background-image: url(../images/icons/<?php echo $c['general']['btn_hicon_type'] ?>icon_arrow_next.png);    
+    }
+    <?php endif; ?>
+}
+<?php else: ?>
+#custommenu {
+    display: block !important;
+}
+#custommenu-mobile {
+    display: none !important;
+}
+@media (max-width: 959px) {
+    body { width: 960px; }
+}
+<?php endif; ?>

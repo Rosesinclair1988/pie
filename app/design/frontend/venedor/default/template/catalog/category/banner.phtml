@@ -1,0 +1,196 @@
+
+<?php
+$venedor = $this->helper('venedor');
+$containerClass = $venedor->getContainerClass();
+$rowClass = $venedor->getRowClass();
+$spanClass = $venedor->getSpanClass();
+$b = $venedor->getConfigGroup();
+
+//Default image size
+$imgWidth = 378;
+$imgHeight = 378;
+
+//Aspect Ratio
+if ($b['product']['aspect_ratio'])
+    $imgHeight = $imgWidth * $b['product']['image_ratio'];
+
+$_helper    = $this->helper('catalog/output');
+$_category  = $this->getCurrentCategory();
+
+if ($b['category']['banner_type'] == 'special_products') : ?>
+
+    <?php
+    $categoryID = $_category->getId();
+    if($categoryID) {
+        $category = new Mage_Catalog_Model_Category();
+        $category->load($categoryID); // this is category id
+        $collection = $category->getProductCollection();
+    } else {
+        $collection = Mage::getResourceModel('catalog/product_collection');
+    }
+
+    Mage::getModel('catalog/layer')->prepareProductCollection($collection);
+    $collection->addAttributeToSort('created_at', 'desc');
+    $collection->addStoreFilter();
+    
+    $todayDate  = Mage::app()->getLocale()->date()->toString(Varien_Date::DATETIME_INTERNAL_FORMAT);
+
+    $collection->addAttributeToFilter('special_from_date', array('date' => true, 'to' => $todayDate))
+        ->addAttributeToFilter('special_to_date', array('or'=> array(
+            0 => array('date' => true, 'from' => $todayDate),
+            1 => array('is' => new Zend_Db_Expr('null')))
+        ), 'left');
+
+    $numProducts = $this->getNumProducts() ? $this->getNumProducts() : 6;
+    $collection->setPage(1, $numProducts)->load();
+
+    if (count($collection)): ?>
+    <div class="category-banner">
+        <div class="<?php echo $containerClass ?>">
+            <div id="category-banner-slider" class="flexslider">
+                <ul class="slides">
+                <?php foreach ($collection as $product): ?>
+                    <?php 
+                        $_product = Mage::getModel('catalog/product')->load($product->getId());
+                        $product_name = $product->getName();
+                        $product_desc = strip_tags ($_product->getDescription());
+                        if (strlen($product_desc) > 200)
+                            $product_desc = substr($product_desc, 0, 200) . '...';
+                        $product_price = $product->getPrice();
+                        $product_sprice = $product->getSpecialPrice();
+                        $product_url = $product->getProductUrl();
+                        $decrease_percent = round(($product_sprice - $product_price) / $product_price * 100);
+                    ?>
+                    <li>
+                        <div class="<?php echo $rowClass ?>">
+                            <div class="<?php echo $spanClass ?>5">
+                                <div class="product-image">
+                                    <a href="<?php echo $product_url ?>" title="<?php echo $product_name ?>">
+                                        <img src="<?php echo $venedor->getImage($_product, $imgWidth, $imgHeight, 'thumbnail') ?>" alt="<?php echo $product_name ?>" />
+                                    </a>
+                                    <div class="sales"><?php echo $decrease_percent ?>%</div>
+                                    <a href="#" class="slider-arrow prev"><span class="shadow"></span></a>
+                                    <a href="#" class="slider-arrow next"><span class="shadow"></span></a>
+                                    <div class="slide-shadow"></div>
+                                </div>
+                            </div>
+                            <div class="<?php echo $spanClass ?>7">
+                                <div class="product-details">
+                                    <h3 class="product-name"><?php echo $product_name ?></h3>
+                                    <div class="price-box"><?php echo Mage::helper('checkout')->formatPrice($product_sprice) ?></div>
+                                    <p><?php echo $product_desc ?></p>
+                                    <?php if($_product->isSaleable()): ?>
+                                        <?php $buttonTitle = $this->__('Add to Cart'); ?>
+                                        <?php if($_product->isSaleable()): ?>
+                                            <div class="add-to-cart">
+                                                <button onclick="setLocation('<?php echo $this->helper('checkout/cart')->getAddUrl($_product); ?>');" class="button btn-cart" title="<?php echo $buttonTitle ?>"><span><span><?php echo $buttonTitle ?></span></span></button>
+                                            </div>
+                                        <?php endif; ?>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                <?php endforeach; ?>
+                </ul>
+            </div>            
+        </div>
+    </div>
+    <script type="text/javascript">
+    //<![CDATA[
+        jQuery(function($) {
+            $('#category-banner-slider').flexslider({
+                animation: "<?php echo $b['category']['banner_animation'] ?>",
+                controlNav: false,
+                directionNav: false,
+                slideshowSpeed: <?php echo $b['category']['banner_speed'] ?>
+            });
+            $('#category-banner-slider .prev').click(function(e) {
+                e.preventDefault();
+                $('#category-banner-slider').data('flexslider').flexslider('prev');
+            });
+            $('#category-banner-slider .next').click(function(e) {
+                e.preventDefault();
+                $('#category-banner-slider').data('flexslider').flexslider('next');
+            });
+        });
+    //]]>
+    </script>
+    <?php endif; ?>
+
+<?php elseif ($b['category']['banner_type'] == 'simple_banner') : ?>
+
+    <?php
+    $_category  = $this->getCurrentCategory();
+    $_imgHtml   = '';
+    $_imgUrl = '';
+    if ($_img = $_category->getThumbnail()) {
+        $_imgUrl = $url = Mage::getBaseUrl('media').'catalog/category/'.$_img;
+        $_imgHtml = '<p class="category-image"><img src="'.$_imgUrl.'" alt="'.$this->htmlEscape($_category->getName()).'" title="'.$this->htmlEscape($_category->getName()).'" /></p>';
+        $_imgHtml = $_helper->categoryAttribute($_category, $_imgHtml, 'thumbnail');
+    }
+    ?>
+    <div class="category-banner">
+        <div class="<?php echo $containerClass ?>">
+            <div class="<?php echo $rowClass ?>">
+                <?php if($_imgUrl): ?>
+                <div class="<?php echo $spanClass ?>5 category-image-wrap">
+                    <?php echo $_imgHtml ?>
+                </div>
+                <div class="<?php echo $spanClass ?>7 category-details-wrap">
+                <?php else: ?>
+                <div class="<?php echo $spanClass ?>12 category-details-wrap">
+                <?php endif; ?>
+                    <div class="category-details">
+                        <div class="page-title category-title">
+                            <?php if($this->IsRssCatalogEnable() && $this->IsTopCategory()): ?>
+                                <a href="<?php echo $this->getRssLink() ?>" class="link-rss"><?php echo $this->__('Subscribe to RSS Feed') ?></a>
+                            <?php endif; ?>
+                            <h1><?php echo $_helper->categoryAttribute($_category, $_category->getName(), 'name') ?></h1>
+                        </div>
+
+                        <?php if($_description=$this->getCurrentCategory()->getDescription()): ?>
+                            <div class="category-description std">
+                                <?php 
+                                $category_desc = $_helper->categoryAttribute($_category, $_description, 'description');
+                                $category_short_desc = $category_desc;
+                                if (strlen($category_short_desc) > 200)
+                                    $category_short_desc = substr($category_short_desc, 0, 200) . '...';
+                                echo $category_short_desc;
+                                ?>
+                            </div>
+                            
+                            <a title="<?php echo $_helper->categoryAttribute($_category, $_category->getName(), 'name') ?>" id="category-learnmore" class="button button-inverse" href="#category-full-description"><span><span><?php echo $this->__('Learn More') ?></span></span></a>
+                            
+                            <script type="text/javascript">
+                            //<![CDATA[
+                                jQuery(document).ready(function($) {
+                                    $('#category-learnmore').colorbox({
+                                        inline: true,
+                                        width: '80%'
+                                    })
+                                });
+                            //]]>
+                            </script>
+                        <?php endif; ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <?php if($_description=$this->getCurrentCategory()->getDescription()): ?>
+        <?php 
+        $category_desc = $_helper->categoryAttribute($_category, $_description, 'description');
+        ?>
+        <div id="category-full-description">
+            <div class="page-title category-title">
+                <h1><?php echo $_helper->categoryAttribute($_category, $_category->getName(), 'name') ?></h1>
+            </div>
+            <?php echo $category_desc ?>
+        </div>
+    <?php endif; ?>
+
+<?php else : ?>
+    <?php // see category/view.phtml ?>
+<?php endif; ?>

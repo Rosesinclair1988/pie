@@ -1,0 +1,30 @@
+<?php
+$venedor = $this->helper('venedor');
+$blockIds = $venedor->getAdsBlockIds();
+if (count($blockIds) > 0):
+?>
+<div class="block block-venedor-ads">
+    <div class="block-content">
+        <div id="venedor-ads" class="flexslider">
+            <ul class="slides">
+                <?php foreach ($blockIds as $blockId) : ?>
+                    <li>
+                        <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId($blockId)->toHtml(); ?>
+                    </li>
+                <?php
+                endforeach; ?>
+            </ul>
+        </div>
+        <script type="text/javascript">
+        //<![CDATA[
+            jQuery(function($) {
+                $('#venedor-ads').flexslider({
+                    directionNav: false,
+                    slideshowSpeed: 4000
+                });
+            });
+        //]]>
+        </script>
+    </div>
+</div>
+<?php endif; ?>

@@ -1,0 +1,32 @@
+<div class="language-switcher">
+    <?php
+    $stores = Mage::app()->getStores();
+	$currentStore = Mage::app()->getStore()->getName();
+    $enUrl = '';
+    $frUrl = '';
+	?>
+    <?php foreach($stores as $store) : ?>
+	<?php $storeName = $store->getName() ?>
+        <?php
+            if ($store->getCode() == 'en') : $enUrl = $store->getBaseUrl();
+            elseif ($store->getCode() == 'default') : $frUrl = $store->getBaseUrl();
+            endif;
+        ?>
+		<?php if ( $currentStore == $storeName) : ?>
+			<a href="<?php echo $store->getBaseUrl(); ?>" class="<?php echo $store->getCode()?> current">
+				<span><?php echo $store->getName()?></span>
+			</a>
+		<?php else : ?>
+			<a href="<?php echo $store->getBaseUrl(); ?>" class="<?php echo $store->getCode()?>">
+				<span><?php echo $store->getName()?></span>
+			</a>
+		<?php endif ?>
+    <?php endforeach; ?>
+    <a href="<?php echo $enUrl.'international-ca' ?>" class="ca">
+        <span><?php echo $this->__('Canadian')?></span>
+    </a>
+    <a href="<?php echo $frUrl.'international-be' ?>" class="be">
+        <span><?php echo $this->__('Belgian')?></span>
+    </a>
+
+</div>

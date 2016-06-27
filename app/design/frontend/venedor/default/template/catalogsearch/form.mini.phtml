@@ -1,0 +1,89 @@
+<?php
+/* @var $this Mage_Core_Block_Template */
+/* @var $catalogSearchHelper Mage_Catalogsearch_Helper_Data */
+$catalogSearchHelper =  $this->helper('catalogsearch');
+$venedor = $this->helper('venedor');
+$c = $venedor->getConfigGroupDesign();
+$input_width = (int)$c['header']['search_input_width'];
+if ($input_width <= 0)
+    $input_width = 160;
+?>
+<form id="search_mini_form" action="<?php echo $catalogSearchHelper->getResultUrl() ?>" method="get">
+    <div class="form-search">
+        <label for="search"><?php echo $this->__('Search:') ?></label>
+        <input id="search" type="text" name="<?php echo $catalogSearchHelper->getQueryParamName() ?>" value="<?php echo $catalogSearchHelper->getEscapedQueryText() ?>" class="input-text" maxlength="<?php echo $catalogSearchHelper->getMaxQueryLength();?>" /><button type="submit" title="<?php echo $this->__('Search') ?>" class="button"><span><span><?php echo $this->__('Search') ?></span></span></button>
+        <div id="search_autocomplete" class="search-autocomplete"></div>
+        <script type="text/javascript">
+        //<![CDATA[
+            var searchForm = new Varien.searchForm('search_mini_form', 'search', '<?php echo $this->__('Search here') ?>');
+            searchForm.initAutocomplete('<?php echo $catalogSearchHelper->getSuggestUrl() ?>', 'search_autocomplete');
+        //]]>
+        </script>
+    </div>
+</form>
+<script type="text/javascript">
+//<![CDATA[
+jQuery(function($) {
+    var form_mini_timer;
+    var search_input_width = <?php echo $input_width ?>;
+    
+    function venedor_resize_searchbox() {
+        var winWidth = $('.header-menu > div').width();
+        if (winWidth <= 940 || (winWidth > 940 && $('.header-menu-right').length)) {
+            $('#search_mini_form .form-search .input-text').stop().animate({
+                width: 0,
+                left: 2
+            }, 400, function() {
+                $(this).hide();
+            });
+            $('#search_mini_form .form-search .input-text').attr('data-mobile', '1');
+        } else {
+            $('#search_mini_form .form-search .input-text').show().stop().animate({
+                width: search_input_width,
+                left: -search_input_width
+            }, 400);
+            $('#search_mini_form .form-search .input-text').attr('data-mobile', '');
+        }
+        if (form_mini_timer) clearTimeout(form_mini_timer); 
+    }
+    
+    $(window).load(venedor_resize_searchbox);
+    $(window).resize(function() {
+        clearTimeout(form_mini_timer); 
+        form_mini_timer = setTimeout(venedor_resize_searchbox, 200); 
+    });
+    $('#search_mini_form .button').click(function() {
+        var $input = $('#search_mini_form .form-search .input-text');
+        if ($input.css('display') == 'none') {
+            $input.show().stop().animate({
+                width: search_input_width,
+                left: -search_input_width
+            }, 400);
+            return false;
+        }
+        var data_mobile = $('#search_mini_form .form-search .input-text').attr('data-mobile');
+        var right_menu = false;
+        var winWidth = $('.header-menu > div').width();
+        if (winWidth > 940 && $('.header-menu-right').length)
+            right_menu = true;
+        var value = $('#search_mini_form .form-search .input-text').val();
+        if ((data_mobile == '1' || right_menu) && value == '<?php echo $this->__('Search here') ?>') {
+            if ($input.css('display') == 'none') {
+                $input.show().stop().animate({
+                    width: search_input_width,
+                    left: -search_input_width
+                }, 400);
+            } else {
+                $input.stop().animate({
+                    width: 0,
+                    left: 2
+                }, 400, function() {
+                    $(this).hide();
+                });
+            }
+            return false;
+        }
+    });
+})
+//]]>
+</script>

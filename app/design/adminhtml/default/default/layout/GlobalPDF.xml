@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+
+<layout>
+
+    <globalpdf_catalog_form>
+        <reference name="head">
+            <action method="addJs">
+                <script>mdn/GlobalPDF.js</script>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="GlobalPDF/Catalog_Form" template="GlobalPDF/Catalog/Form.phtml" name="catalog_form">
+                <block type="GlobalPDF/Catalog_Products" name="product_grid">
+                </block>
+            </block>
+        </reference>
+    </globalpdf_catalog_form>
+
+</layout>

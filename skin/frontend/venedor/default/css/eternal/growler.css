@@ -1,0 +1,188 @@
+#extabs span#tb4 {
+	width: 100px;
+}
+div#noticeevents {
+	border: 1px solid #999;
+	background-color: #FFF;
+	height: 100px;
+	overflow: auto;
+}
+div#noticeevents div {
+	border-bottom: 1px dotted #DDD;
+	padding: 3px;
+	margin: 0px;
+}
+.runner {
+	float: right;
+	font-size: .8em;
+	background-color: #333;
+	color: #FFF;
+	padding: 2px 10px 5px 10px;
+	cursor: pointer;
+}
+
+div.Growler {
+    z-index: 100000;
+}
+
+/** Growler Notice Custom Styling **/
+div.Growler-notice {
+	background-color: 		#000;
+	color: 					#fff;
+	zoom: 					1;
+	padding: 				10px 20px;
+	margin:     			0 auto 0 auto;
+	font-size: 				15px;
+	text-align: 			center;
+	display: 				none;
+    width:                  420px;
+	z-index:                100000;
+    -webkit-box-shadow:     0 0 2px rgba(0, 0, 0, 0.5);
+       -moz-box-shadow:     0 0 2px rgba(0, 0, 0, 0.5);
+            box-shadow:     0 0 2px rgba(0, 0, 0, 0.5);
+}
+
+div.Growler-notice .cart-success {
+    font-size: 17px;
+    line-height: 23px;
+    padding: 10px;
+}
+div.Growler-notice .button {
+    margin: 5px;
+}
+
+div.Growler-notice-head {
+	font-weight: 			bold;
+	font-size:				12px;
+    display:                none;
+}
+
+div.Growler-notice-exit {
+	float: 					right;
+	font-weight: 			bold;
+	font-size: 				14px;
+	cursor:					pointer;
+}
+
+/** Plain Theme **/
+div.plain {
+	color: 					#000;
+	margin-top: 			5px;
+	margin-bottom: 			5px;
+	text-align: 			left;
+	display: 				none;
+	background-color: 		#EDEDED;
+	border: 				1px solid #777;
+}
+
+div.plain div.Growler-notice-head {
+	font-weight: 			bold;
+	font-size:				12px;
+	padding: 				2px 10px;
+}
+
+div.plain div.Growler-notice-exit {
+	float: 					right;
+	cursor:					pointer;
+	margin: 				0px;
+	padding: 				0px 0px 2px 2px;
+	width: 					10px;
+	height: 				10px;
+	color: 					#BFBFBF;
+}
+div.plain div.Growler-notice-body {
+	padding: 5px;
+}
+
+
+/** Mac OS X Theme **/
+div.macosx {
+	color: 					#000;
+	margin-top: 			5px;
+	margin-bottom: 			5px;
+	text-align: 			left;
+	display: 				none;
+	background: #d7d7d7 url(images/macosx.jpg) repeat-y 0;
+	border: 				1px solid #C9C9C9;
+}
+
+div.macosx div.Growler-notice-head {
+	font-weight: 			bold;
+	font-size:				13px;
+	padding: 				5px 10px;
+}
+
+div.macosx div.Growler-notice-exit {
+	width: 					15px;
+	height: 				15px;
+	float: 					left;
+	cursor:					pointer;
+	margin: 				4px;
+	margin-left: 			1px;
+	font-size: 				0em;
+	color: 					transparent;
+	background: transparent url(images/macosx_exit.png) no-repeat left 0;
+}
+div.macosx div.Growler-notice-exit:hover {
+	background: transparent url(images/macosx_exit_over.png) no-repeat left 0;
+}
+div.macosx div.Growler-notice-body {
+	padding: 2px 0 10px 25px;
+}
+
+/** Candybars Theme **/
+div.candybar {
+	color: 					#000;
+	margin-top: 			5px;
+	margin-bottom: 			5px;
+	text-align: 			left;
+	display: 				none;
+	background-color: 		#F5F7FA;
+	border: 				1px solid #19304B;
+}
+
+div.candybar div.Growler-notice-head {
+	font-weight: 			bold;
+	font-size:				12px;
+	background: 			url(images/candybars.jpg) repeat-x;
+	padding: 				5px 10px;
+}
+
+div.candybar div.Growler-notice-exit {
+	float: 					right;
+	cursor:					pointer;
+	margin: 				3px;
+}
+div.candybar div.Growler-notice-body {
+	border-top: 1px solid #999;
+	padding: 10px;
+}
+
+/** Construction Theme **/
+div.atwork {
+	color: 					#FFF;
+	margin-top: 			5px;
+	margin-bottom: 			5px;
+	text-align: 			left;
+	display: 				none;
+	background: 			#4d4d4d url(images/atwork.png) repeat-y 0;
+	border: 				1px solid #222;
+}
+
+div.atwork div.Growler-notice-head {
+	font-weight: 			bold;
+	font-size:				13px;
+	padding: 				5px 20px;
+	color: 					#efca23;
+	
+}
+
+div.atwork div.Growler-notice-exit {
+	float: 					right;
+	cursor:					pointer;
+	margin: 				3px;
+}
+div.atwork div.Growler-notice-body {
+	padding: 2px 0 10px 25px;
+}
+

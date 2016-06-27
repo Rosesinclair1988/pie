@@ -1,0 +1,338 @@
+<root>
+    <blocks>
+        <cms_block>
+            <title>Contact Information</title>
+            <identifier>block_header_contact</identifier>
+            <content><![CDATA[<div class="block"><span class="icon-phone">&nbsp;</span><span>+(404) 158 14 25 78<br />+(404) 851 21 48 15</span></div>
+<div class="block"><span class="icon-skype">&nbsp;</span><span>venedor_support</span><br /><a href="mailto:support@venedor.com"><span class="icon-email">&nbsp;</span><span>support@venedor.com</span></a></div>]]></content>
+            <is_active>1</is_active>
+            <stores><item>0</item></stores>
+        </cms_block>
+        <cms_block>
+            <title>Contact Information</title>
+            <identifier>block_header_contact2</identifier>
+            <content><![CDATA[<p style="font-size: 12px; text-align:right;">SUPPORT SERVICE: +(404) 851-21-48-15; +(404) 158-14-25-78</p>]]></content>
+            <is_active>1</is_active>
+            <stores><item>0</item></stores>
+        </cms_block>
+        <cms_block>
+            <title>Contact Information</title>
+            <identifier>block_footer_contact</identifier>
+            <content><![CDATA[<div class="vcard">
+<div class="fn org"><strong>VENEDOR LTD</strong></div>
+<div class="adr">
+<div class="country">United Kingdom</div>
+<div class="locality">Greater London</div>
+<div class="region">London 02587</div>
+<div class="street-address">Oxford Street 48/188</div>
+</div>
+<div class="working-days">Working Days: Mon. - Sun.</div>
+<div class="working-hours">Working Hours: 9.00AM - 8.00PM</div>
+</div>]]></content>
+            <is_active>1</is_active>
+            <stores><item>0</item></stores>
+        </cms_block>
+        <cms_block>
+            <title>Information</title>
+            <identifier>block_footer_links</identifier>
+            <content><![CDATA[<ul class="links">
+<li class="first"><a title="New products" href="#">New products</a></li>
+<li><a title="Top sellers" href="#">Top sellers</a></li>
+<li><a title="Specials" href="#">Specials</a></li>
+<li><a title="Manufactures" href="#">Manufacuters</a></li>
+<li><a title="Suppliers" href="#">Suppliers</a></li>
+<li class=" last"><a class="link-rss" title="Our stores" href="#">Our stores</a></li>
+</ul>]]></content>
+            <is_active>1</is_active>
+            <stores><item>0</item></stores>
+        </cms_block>
+        <cms_block>
+            <title>Footer Social Links</title>
+            <identifier>block_footer_social_links</identifier>
+            <content><![CDATA[<div class="social-links"><a title="Facebook" href="#"><span class="icon icon-facebook">&nbsp;</span></a> <a title="Twitter" href="#"><span class="icon icon-twitter">&nbsp;</span></a> <a title="RSS" href="#"><span class="icon icon-rss">&nbsp;</span></a> <a title="Delicious" href="#"><span class="icon icon-delicious">&nbsp;</span></a> <a title="LinkedIn" href="#"><span class="icon icon-linkedin">&nbsp;</span></a> <a title="Blog" href="#"><span class="icon icon-blog">&nbsp;</span></a> <a title="Skype" href="#"><span class="icon icon-skype">&nbsp;</span></a> <a title="Email" href="#"><span class="icon icon-email">&nbsp;</span></a></div>]]></content>
+            <is_active>1</is_active>
+            <stores><item>0</item></stores>
+        </cms_block>
+        <cms_block>
+            <title>Home Slider (Sequence Slider 1)</title>
+            <identifier>block_homeslider1</identifier>
+            <content><![CDATA[<div class="slider-bg"><img src="{{media url="wysiwyg/eternal/homeslider/sequence/slider1_bg.png"}}" alt="" /></div>
+<div class="slider-wrap"><img class="model" src="{{media url="wysiwyg/eternal/homeslider/sequence/slider1_model.png"}}" alt="" />
+<h2 class="slide-title">Enjoy the Wide Possibilities <br />with Venedor</h2>
+<p class="slide-desc slide-desc1"><img src="{{media url="wysiwyg/eternal/homeslider/sequence/slider1_arrow.png"}}" alt="" />Easy to use &amp; customize</p>
+<p class="slide-desc slide-desc2"><img src="{{media url="wysiwyg/eternal/homeslider/sequence/slider1_arrow.png"}}" alt="" />Responsive layout</p>
+<p class="slide-desc slide-desc3"><img src="{{media url="wysiwyg/eternal/homeslider/sequence/slider1_arrow.png"}}" alt="" />Unlimited color skins</p>
+<p class="slide-desc slide-desc4"><img src="{{media url="wysiwyg/eternal/homeslider/sequence/slider1_arrow.png"}}" alt="" />Retina ready</p>
+<p class="slide-desc slide-desc5"><img src="{{media url="wysiwyg/eternal/homeslider/sequence/slider1_arrow.png"}}" alt="" />Documentation &amp; support</p>
+</div>]]></content>
+            <is_active>1</is_active>
+            <stores><item>0</item></stores>
+        </cms_block>
+        <cms_block>
+            <title>Home Slider (Sequence Slider 2)</title>
+            <identifier>block_homeslider2</identifier>
+            <content><![CDATA[<div class="slider-bg"><img src="{{media url="wysiwyg/eternal/homeslider/sequence/slider2_bg.jpg"}}" alt="" /></div>
+<div class="slider-wrap"><img class="boy" src="{{media url="wysiwyg/eternal/homeslider/sequence/slider2_boy.png"}}" alt="" /><img class="phone" src="{{media url="wysiwyg/eternal/homeslider/sequence/slider2_phone.png"}}" alt="" />
+<div class="price-box"><span class="price">$1150</span></div>
+<h2 class="slide-title">The Next Big Thing...</h2>
+<p class="slide-desc">Take, view and share photos with the 13MP camera and stunning 5" display</p>
+<a class="slide-link button" href="#">Learn More</a></div>]]></content>
+            <is_active>1</is_active>
+            <stores><item>0</item></stores>
+        </cms_block>
+        <cms_block>
+            <title>Home Slider (Sequence Slider 3)</title>
+            <identifier>block_homeslider3</identifier>
+            <content><![CDATA[<div class="slider-bg"><img src="{{media url="wysiwyg/eternal/homeslider/sequence/slider3_bg.jpg"}}" alt="" /></div>
+<div class="slider-wrap"><img class="tv" src="{{media url="wysiwyg/eternal/homeslider/sequence/slider3_tv.png"}}" alt="" /><img class="tablet" src="{{media url="wysiwyg/eternal/homeslider/sequence/slider3_tablet.png"}}" alt="" /> <img class="iphone" src="{{media url="wysiwyg/eternal/homeslider/sequence/slider3_iphone.png"}}" alt="" /> <img class="man" src="{{media url="wysiwyg/eternal/homeslider/sequence/slider3_man.png"}}" alt="" />
+<h2 class="slide-title">Control. Navigate. Be Recognized.</h2>
+<p class="slide-desc">Smart Interaction lets you interact with you TV as never before.</p>
+<a class="slide-link button" href="#">Learn More</a></div>]]></content>
+            <is_active>1</is_active>
+            <stores><item>0</item></stores>
+        </cms_block>
+        <cms_block>
+            <title>Home Slider (Fraction Slider 1)</title>
+            <identifier>block_homeslider4</identifier>
+            <content><![CDATA[<div class="slide"><img src="{{media url="wysiwyg/eternal/homeslider/fractionslider/model1.png"}}" alt="" width="330" height="600" data-position="0,170" data-in="bottom" data-out="fade" />
+<h2 class="slide-title" data-position="145,650" data-in="top" data-step="1" data-out="top" data-delay="200">New</h2>
+<h3 class="slide-subtitle" data-position="200,650" data-in="bottom" data-step="1" data-out="bottom" data-delay="200">Men Collection</h3>
+<p class="slide-desc" style="width: 460px;" data-position="280,650" data-in="left" data-step="1" data-out="fade" data-delay="300">Integer ultrices ipsum id justo ultrices sed blandit felis ultricies. Duis semper tristique congue. Pellentesque id orcised ligula elementum tempor ut non nulla. Aenean lectus nulla, rutrum in tincidunt non, vestibulum a arcu...</p>
+<a class="btn slide-link" href="#" data-position="395,650" data-in="bottom" data-step="1" data-out="bottom" data-delay="300">Shop Now</a></div>]]></content>
+            <is_active>1</is_active>
+            <stores><item>0</item></stores>
+        </cms_block>
+        <cms_block>
+            <title>Home Slider (Fraction Slider 2)</title>
+            <identifier>block_homeslider5</identifier>
+            <content><![CDATA[<div class="slide"><img src="{{media url="wysiwyg/eternal/homeslider/fractionslider/model2.png"}}" alt="" width="300" height="600" data-position="0,130" data-in="right" data-out="left" />
+<h2 class="slide-title" data-position="145,605" data-in="left" data-step="1" data-out="top" data-delay="50">Sale</h2>
+<h3 class="slide-subtitle" data-position="200,605" data-in="top" data-step="1" data-out="bottom" data-delay="50">It&rsquo;s here &amp; You&rsquo;re invited</h3>
+<p class="slide-desc" style="width: 460px;" data-position="280,605" data-in="bottom" data-step="1" data-out="top" data-delay="100">Nulla facilisi. Sed ultrices augue in neque aliquet eleifend volutpat augue viverra. Integer ante tellus, gravida ut vestibulum ut, varius id leo. Aliquam congue augue nec neque egestas bibendum. Phasellus dapibus tellus quis metus...</p>
+<a class="btn slide-link" href="#" data-position="420,605" data-in="bottom" data-step="1" data-out="left" data-delay="100">Shop Sale</a></div>]]></content>
+            <is_active>1</is_active>
+            <stores><item>0</item></stores>
+        </cms_block>
+        <cms_block>
+            <title>Home Slider (Fraction Slider 3)</title>
+            <identifier>block_homeslider6</identifier>
+            <content><![CDATA[<div class="slide"><img src="{{media url="wysiwyg/eternal/homeslider/fractionslider/model3.png"}}" alt="" width="560" height="600" data-position="0,30" data-in="right" data-out="bottom" />
+<h2 class="slide-title" data-position="145,645" data-in="left" data-step="1" data-out="bottom" data-delay="50">Lookbook</h2>
+<h3 class="slide-subtitle" data-position="200,645" data-in="bottom" data-step="1" data-out="fade" data-delay="50">Spring-Summer-2013</h3>
+<p class="slide-desc" style="width: 460px;" data-position="280,645" data-in="bottom" data-step="1" data-out="top" data-delay="100">Praesent arcu urna, cursus sit amet condimentum id, dapibus a mauris. Sed ante massa pellentesque luctus, magna sed ultricies molestie, felis tortor pellentesque ligula, in sagittis neque turpis eget augue.</p>
+<a class="btn slide-link" href="#" data-position="395,645" data-in="bottom" data-step="1" data-out="left" data-delay="100">Take Look</a></div>]]></content>
+            <is_active>1</is_active>
+            <stores><item>0</item></stores>
+        </cms_block>
+        <cms_block>
+            <title>Home Slider (Revolution Slider 1)</title>
+            <identifier>block_homeslider7</identifier>
+            <content><![CDATA[<ul>
+<li data-transition="papercut" data-slotamount="15" data-masterspeed="300" data-target="_blank" data-delay="8700"><img src="{{media url="wysiwyg/eternal/homeslider/revolution/slider1_bg.jpg"}}" alt="" />
+<div class="caption slide-title lfr stl" data-x="1105" data-y="170" data-speed="300" data-start="500" data-easing="easeOutExpo" data-end="8800" data-endspeed="300" data-endeasing="easeInSine">Bags start at <span class="color">$25.00</span></div>
+<div class="caption slide-desc lfr stl" data-x="1105" data-y="254" data-speed="300" data-start="800" data-easing="easeOutExpo" data-end="9100" data-endspeed="300" data-endeasing="easeInSine">Pellentesque accumsan vitae ante ac vulputate. <br />Interdum et malesuada fames ac ante ipsum primis <br />in faucibus. Aenean ut mi mauris. Quisque ultrices <br />pretium dolor, a lacinia ante mollis eget.</div>
+<a class="caption button lfr stl" href="#" data-x="1105" data-y="410" data-speed="300" data-start="1000" data-easing="easeOutExpo" data-end="9100" data-endspeed="300" data-endeasing="easeInSine">Discover Now</a>
+<div class="caption lft ltb" data-x="400" data-y="60" data-speed="600" data-start="1100" data-easing="easeOutExpo" data-end="3100" data-endspeed="600" data-endeasing="easeInSine"><a href="#"><img src="{{media url="wysiwyg/eternal/homeslider/revolution/bag1.png"}}" alt="" /></a></div>
+<div class="caption sfb stb price-box" data-x="715" data-y="170" data-speed="500" data-start="1700" data-easing="easeOutExpo" data-end="3200" data-endspeed="300" data-endeasing="easeInSine"><span class="price">$120</span></div>
+<div class="caption lft ltb" data-x="375" data-y="135" data-speed="600" data-start="3600" data-easing="easeOutExpo" data-end="5600" data-endspeed="600" data-endeasing="easeInSine"><a href="#"><img src="{{media url="wysiwyg/eternal/homeslider/revolution/bag2.png"}}" alt="" /></a></div>
+<div class="caption sfb stb price-box" data-x="752" data-y="112" data-speed="500" data-start="4200" data-easing="easeOutExpo" data-end="5700" data-endspeed="300" data-endeasing="easeInSine"><span class="price">$258</span></div>
+<div class="caption lft ltb" data-x="425" data-y="65" data-speed="600" data-start="6100" data-easing="easeOutExpo" data-end="8100" data-endspeed="300" data-endeasing="easeInSine"><a href="#"><img src="{{media url="wysiwyg/eternal/homeslider/revolution/bag3.png"}}" alt="" /></a></div>
+<div class="caption sfb stb price-box" data-x="664" data-y="205" data-speed="500" data-start="6700" data-easing="easeOutExpo" data-end="8200" data-endspeed="300" data-endeasing="easeInSine"><span class="price">$364</span></div>
+</li>
+</ul>]]></content>
+            <is_active>1</is_active>
+            <stores><item>0</item></stores>
+        </cms_block>
+        <cms_block>
+            <title>Home Slider  (Revolution Slider 2)</title>
+            <identifier>block_homeslider8</identifier>
+            <content><![CDATA[<ul>
+<li data-transition="flyin" data-slotamount="10"><img src="{{media url="wysiwyg/eternal/homeslider/revolution/slider2_bg.jpg"}}" alt="" />
+<div class="caption lft slide-title" data-x="1105" data-y="170" data-speed="900" data-start="1200" data-easing="easeOutBack">What's New?</div>
+<div class="caption slide-desc lfr" data-x="1105" data-y="254" data-speed="340" data-start="2400" data-easing="easeOutExpo">Sed volutpat vel massa id euismod. Nullam et nulla <br />pulvinar, consequat massa sit amet, molestie nisl. <br />Aenean sagittis diam consectetur augue viverra, <br />at interdum elit blandit.</div>
+<a class="caption button lfr" href="#" data-x="1105" data-y="410" data-speed="340" data-start="2600" data-easing="easeOutExpo">Take Look</a>
+<div class="caption lfb" data-x="290" data-y="35" data-hoffset="150" data-speed="900" data-start="2000" data-easing="easeOutSine"><a href="#"><img src="{{media url="wysiwyg/eternal/homeslider/revolution/girl1.png"}}" alt="" /></a></div>
+<div class="caption lfb" data-x="520" data-y="35" data-speed="900" data-start="2600" data-easing="easeOutSine"><a href="#"><img src="{{media url="wysiwyg/eternal/homeslider/revolution/girl2.png"}}" alt="" /></a></div>
+<div class="caption lfb" data-x="785" data-y="35" data-hoffset="-150" data-speed="900" data-start="3200" data-easing="easeOutSine"><a href="#"><img src="{{media url="wysiwyg/eternal/homeslider/revolution/girl3.png"}}" alt="" /></a></div>
+</li>
+</ul>]]></content>
+            <is_active>1</is_active>
+            <stores><item>0</item></stores>
+        </cms_block>
+        <cms_block>
+            <title>Home Slider (Revolution Slider 3)</title>
+            <identifier>block_homeslider9</identifier>
+            <content><![CDATA[<ul>
+<li data-transition="flyin" data-slotamount="10"><img src="{{media url="wysiwyg/eternal/homeslider/revolution/slider3_bg.jpg"}}" alt="" />
+<div class="caption lft slide-title" data-x="center" data-y="170" data-speed="900" data-start="1200" data-easing="easeOutExpo">Back In Black</div>
+<div class="caption slide-desc lfb center" data-x="center" data-y="254" data-speed="340" data-start="2400" data-easing="easeOutExpo">Wide-brimmed hats, tomboy touches <br />and witchy black lace will leave <br />you spellbound.</div>
+<a class="caption button lfb" href="#" data-x="center" data-y="390" data-speed="340" data-start="2600" data-easing="easeOutExpo">Take Look</a>
+<div class="caption sfl" data-x="310" data-y="35" data-hoffset="150" data-speed="1900" data-start="1500" data-easing="easeOutSine"><a href="#"><img src="{{media url="wysiwyg/eternal/homeslider/revolution/girl4.png"}}" alt="" /></a></div>
+<div class="caption sfl" data-x="460" data-y="35" data-speed="900" data-start="900" data-easing="easeOutSine"><a href="#"><img src="{{media url="wysiwyg/eternal/homeslider/revolution/girl5.png"}}" alt="" /></a></div>
+<div class="caption sfr" data-x="1200" data-y="20" data-speed="900" data-start="3000" data-easing="easeOutBack"><a href="#"><img src="{{media url="wysiwyg/eternal/homeslider/revolution/girl6.png"}}" alt="" /></a></div>
+<div class="caption sfr" data-x="1375" data-y="20" data-speed="900" data-start="3900" data-easing="easeOutBack"><a href="#"><img src="{{media url="wysiwyg/eternal/homeslider/revolution/girl7.png"}}" alt="" /></a></div>
+</li>
+</ul>]]></content>
+            <is_active>1</is_active>
+            <stores><item>0</item></stores>
+        </cms_block>
+        <cms_block>
+            <title>Home Banner 1 (3 columns -blue)</title>
+            <identifier>block_homebanner1</identifier>
+            <content><![CDATA[<p><a href="#"><img src="{{media url="wysiwyg/eternal/homeslider/banner/banner1.png"}}" alt="" /></a></p>]]></content>
+            <is_active>1</is_active>
+            <stores><item>0</item></stores>
+        </cms_block>
+        <cms_block>
+            <title>Home Banner 2 (3 columns -blue)</title>
+            <identifier>block_homebanner2</identifier>
+            <content><![CDATA[<p><a href="#"><img src="{{media url="wysiwyg/eternal/homeslider/banner/banner2.png"}}" alt="" /></a></p>]]></content>
+            <is_active>1</is_active>
+            <stores><item>0</item></stores>
+        </cms_block>
+        <cms_block>
+            <title>Home Banner 2 (3 columns -blue)</title>
+            <identifier>block_homebanner3</identifier>
+            <content><![CDATA[<p><a href="#"><img src="{{media url="wysiwyg/eternal/homeslider/banner/banner3.png"}}" alt="" /></a></p>]]></content>
+            <is_active>1</is_active>
+            <stores><item>0</item></stores>
+        </cms_block>
+        <cms_block>
+            <title>Home Banner 1 (2 columns -orange)</title>
+            <identifier>block_homebanner4</identifier>
+            <content><![CDATA[<p><a href="#"><img src="{{media url="wysiwyg/eternal/homeslider/banner/banner4.png"}}" alt="" /></a></p>]]></content>
+            <is_active>1</is_active>
+            <stores><item>0</item></stores>
+        </cms_block>
+        <cms_block>
+            <title>Home Banner 2 (2 columns -orange)</title>
+            <identifier>block_homebanner5</identifier>
+            <content><![CDATA[<p><a href="#"><img src="{{media url="wysiwyg/eternal/homeslider/banner/banner5.png"}}" alt="" /></a></p>]]></content>
+            <is_active>1</is_active>
+            <stores><item>0</item></stores>
+        </cms_block>
+        <cms_block>
+            <title>Home Banner 1 (3 column -pink)</title>
+            <identifier>block_homebanner6</identifier>
+            <content><![CDATA[<p><a href="#"><img src="{{media url="wysiwyg/eternal/homeslider/banner/banner6.png"}}" alt="" /></a></p>]]></content>
+            <is_active>1</is_active>
+            <stores><item>0</item></stores>
+        </cms_block>
+        <cms_block>
+            <title>Home Banner 2 (3 columns -pink)</title>
+            <identifier>block_homebanner7</identifier>
+            <content><![CDATA[<p><a href="#"><img src="{{media url="wysiwyg/eternal/homeslider/banner/banner7.png"}}" alt="" /></a></p>]]></content>
+            <is_active>1</is_active>
+            <stores><item>0</item></stores>
+        </cms_block>
+        <cms_block>
+            <title>Home Banner 3 (3 columns -pink)</title>
+            <identifier>block_homebanner8</identifier>
+            <content><![CDATA[<p><a href="#"><img src="{{media url="wysiwyg/eternal/homeslider/banner/banner8.png"}}" alt="" /></a></p>]]></content>
+            <is_active>1</is_active>
+            <stores><item>0</item></stores>
+        </cms_block>
+    <cms_block>
+            <title>Advertising (Green 1)</title>
+            <identifier>sidebar_advertising1</identifier>
+            <content><![CDATA[<a href="#"><img src="{{media url="wysiwyg/eternal/venedor/sidebar/banner1.jpg"}}" alt="Free Shipping" /></a>]]></content>
+            <is_active>1</is_active>
+            <stores><item>0</item></stores>
+        </cms_block>
+        <cms_block>
+            <title>Advertising (Green 2)</title>
+            <identifier>sidebar_advertising2</identifier>
+            <content><![CDATA[<a href="#"><img src="{{media url="wysiwyg/eternal/venedor/sidebar/banner2.jpg"}}" alt="Sale" /></a>]]></content>
+            <is_active>1</is_active>
+            <stores><item>0</item></stores>
+        </cms_block>
+        <cms_block>
+            <title>Advertising (Green 3)</title>
+            <identifier>sidebar_advertising3</identifier>
+            <content><![CDATA[<a href="#"><img src="{{media url="wysiwyg/eternal/venedor/sidebar/banner3.jpg"}}" alt="Special Offer" /></a>]]></content>
+            <is_active>1</is_active>
+            <stores><item>0</item></stores>
+        </cms_block>
+        <cms_block>
+            <title>Advertising (Orange 1)</title>
+            <identifier>sidebar_advertising4</identifier>
+            <content><![CDATA[<a href="#"><img src="{{media url="wysiwyg/eternal/venedor/sidebar/banner4.jpg"}}" alt="Free Shipping" /></a>]]></content>
+            <is_active>1</is_active>
+            <stores><item>0</item></stores>
+        </cms_block>
+        <cms_block>
+            <title>Advertising (Orange 2)</title>
+            <identifier>sidebar_advertising5</identifier>
+            <content><![CDATA[<a href="#"><img src="{{media url="wysiwyg/eternal/venedor/sidebar/banner5.jpg"}}" alt="Sale" /></a>]]></content>
+            <is_active>1</is_active>
+            <stores><item>0</item></stores>
+        </cms_block>
+        <cms_block>
+            <title>Advertising (Orange 3)</title>
+            <identifier>sidebar_advertising6</identifier>
+            <content><![CDATA[<a href="#"><img src="{{media url="wysiwyg/eternal/venedor/sidebar/banner6.jpg"}}" alt="Special Offer" /></a>]]></content>
+            <is_active>1</is_active>
+            <stores><item>0</item></stores>
+        </cms_block>
+        <cms_block>
+            <title>Custom</title>
+            <identifier>menu_custom_block</identifier>
+            <content><![CDATA[<div class="row">
+<div class="col-sm-3"><div class="cell"><a href="#"><span class="icon icon1">&nbsp;</span></a>
+<h3><a href="#">Responsive Theme</a></h3>
+<p>Cras pellentesque, nisi ac tempus pellentesque, orci sem commodo urna,amet egestas ipsum orci sit amet tellus.</p>
+</div></div>
+<div class="col-sm-3"><div class="cell"><a href="#"><span class="icon icon2">&nbsp;</span></a>
+<h3><a href="#">Powerful Admin Panel</a></h3>
+<p>Etiam dapibus mattis sapien, blandit molestie nunc venenatis ut. Phasellus imperdiet lacinia est, nec convallis dolor aliquet ac.</p>
+</div></div>
+<div class="col-sm-3"><div class="cell"><a href="#"><span class="icon icon3">&nbsp;</span></a>
+<h3><a href="#">Awesome Sliders</a></h3>
+<p>Duis a dignissim nulla. Phasellus lacinia aliquam lorem, a consequat erat interdum nec. Aenean ut leo sem, id gravida tortor.</p>
+</div></div>
+<div class="col-sm-3"><div class="cell"><a href="#"><span class="icon icon4">&nbsp;</span></a>
+<h3><a href="#">Premium Support</a></h3>
+<p>Pellentesque ut libero in nibh aliquet pretium eget elementum felis. Integer dapibus auctor tincidunt. Suspendisse potenti.</p>
+</div></div>
+</div>]]></content>
+            <is_active>1</is_active>
+            <stores><item>0</item></stores>
+        </cms_block>
+        <cms_block>
+            <title>Links</title>
+            <identifier>menu_custom_links</identifier>
+            <content><![CDATA[<ul id="nav-links">
+<li class="level0  level-top parent"><a class="level-top" href="#"> <span>Links</span> </a>
+<ul class="level0">
+<li class="level1 "><a href="#"> <span>About Us</span> </a></li>
+<li class="level1 "><a href="#"> <span>Contact Us</span> </a></li>
+<li class="level1 "><a href="#"> <span>FAQ</span> </a></li>
+</ul>
+</li>
+</ul>]]></content>
+            <is_active>1</is_active>
+            <stores><item>0</item></stores>
+        </cms_block>
+        <cms_block>
+            <title>Links</title>
+            <identifier>menu_custom_mobile_links</identifier>
+            <content><![CDATA[<div id="menu-mobile-custom" class="menu-mobile level0">
+<div class="parentMenu"><a href="#"><span>Links</span> </a> <span class="button" onclick="eternalSubMenuToggle(this, 'menu-mobile-custom', 'submenu-mobile-custom');">&nbsp;</span></div>
+<div id="submenu-mobile-custom" class="eternal-custom-menu-submenu" style="display: none;">
+<div  class="itemMenu level1">
+<div class="parentMenu"><a class="itemMenuName level1" href="#"><span>About Us</span></a></div>
+</div>
+<div class="itemMenu level1">
+<div class="parentMenu"><a class="itemMenuName level1" href="#"><span>Contact Us</span></a></div>
+</div>
+<div class="itemMenu level1">
+<div class="parentMenu"><a class="itemMenuName level1" href="#"><span>FAQ</span></a></div>
+</div>
+</div>
+<div class="clearBoth">&nbsp;</div>
+</div>]]></content>
+            <is_active>1</is_active>
+            <stores><item>0</item></stores>
+        </cms_block>
+    </blocks>
+</root>

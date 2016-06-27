@@ -1,0 +1,36 @@
+<script type="text/javascript">
+
+    if (typeof M2eProAmazonUpgradeTutorial == 'undefined') {
+        M2eProAmazonUpgradeTutorial = {};
+        M2eProAmazonUpgradeTutorial.url = {};
+        M2eProAmazonUpgradeTutorial.formData = {};
+        M2eProAmazonUpgradeTutorial.text = {};
+    }
+
+    M2eProAmazonUpgradeTutorial.text.confim_offer_show_video = '<?php echo Mage::helper('M2ePro')->escapeJs(Mage::helper('M2ePro')->__('It is strongly recommended to watch 5 min. video tutorial before starting configuration. Would you like to watch the video?')); ?>';
+    M2eProAmazonUpgradeTutorial.text.confim_close_video = '<?php echo Mage::helper('M2ePro')->escapeJs(Mage::helper('M2ePro')->__('Are you sure?')); ?>';
+
+    AmazonUpgradeVideoTutorialHandlerObj = new VideoTutorialHandler(M2eProAmazonUpgradeTutorial,'amazon_upgrade_video_tutorial_pop_up',
+                                                                         '<?php echo Mage::helper('M2ePro')->escapeJs(Mage::helper('M2ePro')->__('M2E Pro - Amazon/Magento Integration : Configuration Wizard')); ?>',
+                                                                         function(){setLocation(M2ePro.url.welcome);});
+
+</script>
+
+<div class="wizard-note">
+    <a class="wizard-close" href="javascript:void(0);" onclick="WizardHandlerObj.skip('<?php echo $this->getUrl('*/adminhtml_wizard/skip', array('mode' => Ess_M2ePro_Model_Wizard::MODE_UPGRADE)) ?>');" title="<?php echo Mage::helper('M2ePro')->__('Skip Wizard') ?>">&times;</a>
+    <div>
+        <?php
+            $tempString = Mage::helper('M2ePro')->__('<strong>You have successfully upgraded M2E Pro to v. %ver%.</strong><br/><br/>
+New <strong>Amazon</strong> component was added to this version.<br />
+Click <a href="javascript:void(0);" onclick="AmazonUpgradeVideoTutorialHandlerObj.openPopUp();">Start Configuration</a> to quickly set Amazon component settings or <a href="javascript:void(0);" onclick="WizardHandlerObj.skip(\''.$this->getUrl('*/adminhtml_wizard/skip', array('mode' => Ess_M2ePro_Model_Wizard::MODE_UPGRADE)).'\')">Skip Wizard</a> if you do not intend to use it.<br /><br />
+<strong>Note:</strong> If you close the wizard now, you can set Amazon settings manually at any time.');
+            echo str_replace('%ver%',$this->version,$tempString);
+        ?>
+    </div>
+</div>
+
+<div id="amazon_upgrade_video_tutorial_pop_up" style="display: none;">
+    <div class="player_container" style="margin: 20px 5px; ">
+       <object width="853" height="480"><param name="movie" value="http://www.youtube.com/v/VDeoadfO2gA?version=3&amp;hl=ru_RU&amp;rel=0"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/VDeoadfO2gA?version=3&amp;hl=ru_RU&amp;rel=0" type="application/x-shockwave-flash" width="853" height="480" allowscriptaccess="always" allowfullscreen="true"></embed></object>
+    </div>
+</div>

@@ -1,0 +1,245 @@
+<?php
+/**
+ * Product list template
+ *
+ * @see Mage_Catalog_Block_Product_List
+ */
+?>
+<?php
+$venedor = $this->helper('venedor');
+$rowClass = $venedor->getRowClass();
+$spanClass = $venedor->getSpanClass();
+$b = $venedor->getConfigGroup();
+
+$_productCollection=$this->getLoadedProductCollection();
+$_helper = $this->helper('catalog/output');
+
+//Default image size
+$imgWidth = 228;
+$imgHeight = 228;
+
+//Aspect Ratio
+if ($b['product']['aspect_ratio'])
+    $imgHeight = $imgWidth * $b['product']['image_ratio'];
+
+?>
+<?php if(!$_productCollection->count()): ?>
+<p class="note-msg"><?php echo $this->__('There are no products matching the selection.') ?></p>
+<?php else: ?>
+<div class="category-products">
+    <?php echo $this->getToolbarHtml() ?>
+    <?php // List mode ?>
+    <?php if($this->getMode()!='grid'): ?>
+    <?php $_iterator = 0; ?>
+    <ol class="products-list" id="products-list">
+    <?php foreach ($_productCollection as $_product): ?>
+        <li class="item<?php if( ++$_iterator == sizeof($_productCollection) ): ?> last<?php endif; ?>">
+            <?php // Product Image & Price ?>
+            <div class="product-image<?php if (!$b['product']['price_on_image']) echo ' no-price' ?>">
+                <?php 
+                if ($b['category']['hover_image'])
+                    $hoverImgHtml = $venedor->getHoverImageHtml($_product, $imgWidth, $imgHeight); 
+                ?>
+                <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->htmlEscape($this->getImageLabel($_product, 'small_image')) ?>">
+                    <img<?php if ($hoverImgHtml) echo ' class="primary-image"'; ?> src="<?php echo $venedor->getImage($_product, $imgWidth, $imgHeight, 'small_image'); ?>" alt="<?php echo $this->htmlEscape($_product->getName()) ?>" />
+                    <?php echo $hoverImgHtml; ?>
+                    <?php 
+                    $labels_tl = ''; $labels_tr = ''; $labels_bl = ''; $labels_br = '';
+                    if ($b['product']['new_label']) {
+                        // New Product 
+                        $newsFromDate = $_product->getNewsFromDate();
+                        $newsToDate = $_product->getNewsToDate();
+                        $new_html= '';
+                        if ($newsFromDate && $newsToDate && Mage::app()->getLocale()->IsStoreDateInInterval(Mage::app()->getStore(), $newsFromDate, $newsToDate))
+                            $new_html = '<div class="new ' . $b['product']['new_label_type'] . '">'. $this->__('New') .'</div>';
+                        switch ($b['product']['new_label_pos']) {
+                            case 'top-right': $labels_tr .= $new_html; break;
+                            case 'bottom-left': $labels_bl .= $new_html; break;
+                            case 'bottom-right': $labels_br .= $new_html; break;
+                            default: $labels_tl .= $new_html; break;
+                        }
+                    }
+                    if ($b['product']['sale_label']) {
+                        // Special Product
+                        $specialPriceFromDate = $_product->getSpecialFromDate();
+                        $specialPriceToDate = $_product->getSpecialToDate();
+                        $sales_html = '';
+                        if ($specialPriceFromDate && $specialPriceToDate && Mage::app()->getLocale()->isStoreDateInInterval(Mage::app()->getStore(), $specialPriceFromDate, $specialPriceToDate)) {
+                            $_finalPrice = $this->helper('tax')->getPrice($_product, $_product->getFinalPrice());
+                            $_regularPrice = $this->helper('tax')->getPrice($_product, $_product->getPrice());
+                            if ($_regularPrice != $_finalPrice) {
+                                $getpercentage = number_format($_finalPrice / $_regularPrice * 100, 2);
+                                $finalpercentage = 100 - $getpercentage;
+                                $sales_html = '<div class="sales ' . $b['product']['sale_label_type'] . '">' . - number_format($finalpercentage, 0) . '%</div>';
+                            }
+                        }
+                        switch ($b['product']['sale_label_pos']) {
+                            case 'top-right': $labels_tr .= $sales_html; break;
+                            case 'bottom-left': $labels_bl .= $sales_html; break;
+                            case 'bottom-right': $labels_br .= $sales_html; break;
+                            default: $labels_tl .= $sales_html; break;
+                        }
+                    }
+                    if ($labels_tl) echo '<div class="labels top-left">' . $labels_tl . '</div>';
+                    if ($labels_tr) echo '<div class="labels top-right">' . $labels_tr . '</div>';
+                    if ($labels_bl) echo '<div class="labels bottom-left">' . $labels_bl . '</div>';
+                    if ($labels_br) echo '<div class="labels bottom-right">' . $labels_br . '</div>';
+                    ?>
+                </a>
+                <?php if ($b['product']['price_on_image']) : ?>
+                    <?php echo $this->getPriceHtml($_product, true) ?>
+                <?php endif; ?>
+            </div>
+            <?php // Product description ?>
+            <div class="product-shop">
+                <?php $_productNameStripped = $this->stripTags($_product->getName(), null, true); ?>
+                <h2 class="product-name"><a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $_productNameStripped; ?>"><?php echo $_helper->productAttribute($_product, $_product->getName() , 'name'); ?></a></h2>
+                
+                <?php if (!$b['product']['price_on_image']) : ?>
+                <div class="price-review">
+                    <?php echo $this->getPriceHtml($_product, true) ?>
+                <?php endif; ?>
+                    
+                    <?php if($_product->getRatingSummary()): ?>
+                    <?php echo $this->getReviewsSummaryHtml($_product, 'short') ?>
+                    <?php endif; ?>
+                
+                <?php if (!$b['product']['price_on_image']) : ?></div><?php endif; ?>
+                
+                <div class="desc std"><?php echo $_product->getShortDescription() ?></div>
+                <div class="actions clearfix">
+                    <?php if($_product->isSaleable()): ?>
+                        <button type="button" title="<?php echo $this->__('Add to Cart') ?>" class="button btn-cart" onclick="setLocation('<?php echo $this->getAddToCartUrl($_product) ?>')"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button>
+                    <?php else: ?>
+                        <span class="availability out-of-stock"><span><?php echo $this->__('Out of Stock') ?></span></span>
+                    <?php endif; ?>
+                    <?php if (($b['product']['addlinks_wishlist'] && $this->helper('wishlist')->isAllow()) || ($b['product']['addlinks_compare'] && $this->getAddToCompareUrl($_product))) : ?>
+                    <span class="add-to-links">
+                        <?php if ($b['product']['addlinks_wishlist'] && $this->helper('wishlist')->isAllow()) : ?>
+                            <a href="<?php echo $this->helper('wishlist')->getAddUrl($_product) ?>" class="button link-wishlist" title="<?php echo $this->__('Add to Wishlist') ?>"><?php echo $this->__('Add to Wishlist') ?></a>
+                        <?php endif; ?>
+                        <?php if($b['product']['addlinks_compare'] && $_compareUrl=$this->getAddToCompareUrl($_product)): ?>
+                            <a href="<?php echo $_compareUrl ?>" class="button link-compare" title="<?php echo $this->__('Add to Compare') ?>"><?php echo $this->__('Add to Compare') ?></a>
+                        <?php endif; ?>
+                    </span>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </li>
+    <?php endforeach; ?>
+    </ol>
+    <script type="text/javascript">decorateList('products-list', 'none-recursive')</script>
+
+    <?php else: ?>
+
+    <?php // Grid Mode ?>
+
+    <?php 
+    $_collectionSize = $_productCollection->count();
+    //$_columnCount = $this->getColumnCount();
+    $i = 0;
+    ?>
+        <ul class="products-grid <?php echo $rowClass ?>">
+        <?php foreach ($_productCollection as $_product): ?>
+            <li class="<?php echo $spanClass ?>4 item col2-<?php echo $i % 2 + 1; ?> col3-<?php echo $i % 3 + 1; ?> col4-<?php echo $i % 4 + 1; ?><?php if ($i % 3 == 0) echo ' item-first' ?><?php if (!$b['category']['grid_effect']) echo ' hover-disable' ?><?php if (!$b['category']['grid_addliks_inline']) echo ' addlinks-block' ?>"><div class="item-inner">
+                <?php // Product Image & Price ?>
+                <div class="product-image">
+                    <?php 
+                    if ($b['category']['hover_image'])
+                        $hoverImgHtml = $venedor->getHoverImageHtml($_product, $imgWidth, $imgHeight); 
+                    ?>
+                    <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->htmlEscape($this->getImageLabel($_product, 'small_image')) ?>">
+                        <img<?php if (isset($hoverImgHtml) && $hoverImgHtml) echo ' class="primary-image"'; ?> src="<?php echo $venedor->getImage($_product, $imgWidth, $imgHeight, 'small_image'); ?>" alt="<?php echo $this->htmlEscape($_product->getName()) ?>" />
+                        <?php echo $hoverImgHtml; ?>
+                        <?php 
+                        $labels_tl = ''; $labels_tr = ''; $labels_bl = ''; $labels_br = '';
+                        if ($b['product']['new_label']) {
+                            // New Product 
+                            $newsFromDate = $_product->getNewsFromDate();
+                            $newsToDate = $_product->getNewsToDate();
+                            $new_html = '';
+                            if ($newsFromDate && $newsToDate && Mage::app()->getLocale()->IsStoreDateInInterval(Mage::app()->getStore(), $newsFromDate, $newsToDate))
+                                $new_html = '<div class="new ' . $b['product']['new_label_type'] . '">'. $this->__('New') .'</div>';
+                            switch ($b['product']['new_label_pos']) {
+                                case 'top-right': $labels_tr .= $new_html; break;
+                                case 'bottom-left': $labels_bl .= $new_html; break;
+                                case 'bottom-right': $labels_br .= $new_html; break;
+                                default: $labels_tl .= $new_html; break;
+                            }
+                        }
+                        if ($b['product']['sale_label']) {
+                            // Special Product
+                            $specialPriceFromDate = $_product->getSpecialFromDate();
+                            $specialPriceToDate = $_product->getSpecialToDate();
+                            $sales_html = '';
+                            if ($specialPriceFromDate && $specialPriceToDate && Mage::app()->getLocale()->isStoreDateInInterval(Mage::app()->getStore(), $specialPriceFromDate, $specialPriceToDate)) {
+                                $_finalPrice = $this->helper('tax')->getPrice($_product, $_product->getFinalPrice());
+                                $_regularPrice = $this->helper('tax')->getPrice($_product, $_product->getPrice());
+                                if ($_regularPrice != $_finalPrice) {
+                                    $getpercentage = number_format($_finalPrice / $_regularPrice * 100, 2);
+                                    $finalpercentage = 100 - $getpercentage;
+                                    $sales_html = '<div class="sales ' . $b['product']['sale_label_type'] . '">' . - number_format($finalpercentage, 0) . '%</div>';
+                                }
+                            }
+                            switch ($b['product']['sale_label_pos']) {
+                                case 'top-right': $labels_tr .= $sales_html; break;
+                                case 'bottom-left': $labels_bl .= $sales_html; break;
+                                case 'bottom-right': $labels_br .= $sales_html; break;
+                                default: $labels_tl .= $sales_html; break;
+                            }
+                        }
+                        if ($labels_tl) echo '<div class="labels top-left">' . $labels_tl . '</div>';
+                        if ($labels_tr) echo '<div class="labels top-right">' . $labels_tr . '</div>';
+                        if ($labels_bl) echo '<div class="labels bottom-left">' . $labels_bl . '</div>';
+                        if ($labels_br) echo '<div class="labels bottom-right">' . $labels_br . '</div>';
+                        ?>
+                    </a>
+                    <?php if ($b['product']['price_on_image']) : ?>
+                        <?php echo $this->getPriceHtml($_product, true) ?>
+                    <?php endif; ?>
+                </div>
+                <?php // Product description ?>
+                <div class="product-shop">
+                    <?php if (!$b['product']['price_on_image']) : ?>
+                    <div class="price-review">
+                        <?php echo $this->getPriceHtml($_product, true) ?>
+                    <?php endif; ?>
+                        
+                    <div class="reviews-wrap">
+                        <?php if($_product->getRatingSummary()): ?>
+                        <?php echo $this->getReviewsSummaryHtml($_product, 'short') ?>
+                        <?php endif; ?>
+                    </div>
+                    
+                    <h2 class="product-name"><a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($_product->getName(), null, true) ?>"><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></a></h2>
+                    <div class="actions clearfix">
+                        <?php if($_product->isSaleable()): ?>
+                            <button type="button" title="<?php echo $this->__('Add to Cart') ?>" class="button btn-cart" onclick="setLocation('<?php echo $this->getAddToCartUrl($_product) ?>')"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button>
+                        <?php else: ?>
+                            <span class="availability out-of-stock"><span><?php echo $this->__('Out of Stock') ?></span></span>
+                        <?php endif; ?>
+                        <?php if (($b['product']['addlinks_wishlist'] && $this->helper('wishlist')->isAllow()) || ($b['product']['addlinks_compare'] && $this->getAddToCompareUrl($_product))) : ?>
+                        <span class="add-to-links">
+                            <?php if ($b['product']['addlinks_wishlist'] && $this->helper('wishlist')->isAllow()) : ?>
+                                <a href="<?php echo $this->helper('wishlist')->getAddUrl($_product) ?>" class="button link-wishlist" title="<?php echo $this->__('Add to Wishlist') ?>"><?php echo $this->__('Add to Wishlist') ?></a>
+                            <?php endif; ?>
+                            <?php if($b['product']['addlinks_compare'] && $_compareUrl=$this->getAddToCompareUrl($_product)): ?>
+                                <a href="<?php echo $_compareUrl ?>" class="button link-compare" title="<?php echo $this->__('Add to Compare') ?>"><?php echo $this->__('Add to Compare') ?></a>
+                            <?php endif; ?>
+                        </span>
+                        <?php endif; ?>
+                    </div>
+                    
+                    <?php if (!$b['product']['price_on_image']) : ?></div><?php endif; ?>
+                </div>
+            </div></li>
+        <?php $i++; endforeach; ?>
+        </ul>
+        <script type="text/javascript">decorateGeneric($$('ul.products-grid'), ['odd','even','first','last'])</script>
+    <?php endif; ?>
+
+    <div class="toolbar-bottom">
+        <?php echo $this->getToolbarHtml() ?>
+    </div>
+</div>
+<?php endif; ?>

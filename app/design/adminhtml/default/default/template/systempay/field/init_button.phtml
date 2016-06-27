@@ -1,0 +1,27 @@
+<?php
+#####################################################################################################
+#
+#					Module pour la plateforme de paiement Systempay
+#						Version : 1.2 (révision 46959)
+#									########################
+#					Développé pour Magento
+#						Version : 1.5.1.0
+#						Compatibilité plateforme : V2
+#									########################
+#					Développé par Lyra Network
+#						http://www.lyra-network.com/
+#						13/05/2013
+#						Contact : supportvad@lyra-network.com
+#
+#####################################################################################################
+?>
+
+<table>
+    <tr>
+        <td>
+            <button onclick="javascript:window.location='<?php echo $this->getButtonUrl()?>'; return false;" class="scalable" type="button" id="<?php echo $this->getHtmlId() ?>_button">
+                <span><?php echo $this->escapeHtml($this->getButtonLabel()); ?></span>
+            </button>
+        </td>
+    </tr>
+</table>

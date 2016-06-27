@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<config>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <globalpdf module="GlobalPDF">
+                                        <title>GlobalPDF</title>
+                                    </globalpdf>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                    <catalog>
+                        <children>
+                            <build_pdf_catalog module="GlobalPDF">
+                                <title>Build PDF Catalog</title>
+                            </build_pdf_catalog>
+                        </children>
+                    </catalog>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+    <translate>
+        <modules>
+            <MDN_GlobalPDF>
+                <files>
+                    <default>MDN_GlobalPDF.csv</default>
+                </files>
+            </MDN_GlobalPDF>
+        </modules>
+    </translate>
+    <layout>
+        <updates>
+            <GlobalPDF>
+                <file>GlobalPDF.xml</file>
+            </GlobalPDF>
+        </updates>
+    </layout>
+    <menu>
+        <catalog>
+            <children>
+                <build_pdf_catalog translate="title" module="GlobalPDF">
+                    <title>Build PDF Catalog</title>
+                    <action>GlobalPDF/Catalog/Form</action>
+                    <sort_order>90</sort_order>
+                </build_pdf_catalog>
+            </children>
+        </catalog>
+    </menu>
+    
+    <routers>
+        <GlobalPDF>
+            <use>standard</use>
+            <args>
+                <module>MDN_GlobalPDF</module>
+                <frontName>GlobalPDF</frontName>
+            </args>
+        </GlobalPDF>
+    </routers>
+    
+</config>

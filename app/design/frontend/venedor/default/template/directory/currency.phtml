@@ -1,0 +1,64 @@
+<?php
+/**
+ * Currency switcher
+ *
+ * @see Mage_Directory_Block_Currency
+ */
+?>
+<?php if($this->getCurrencyCount()>1): ?>
+<?php
+// store currency code eg. USD, INR
+$currency_code = Mage::app()->getStore()->getCurrentCurrencyCode();
+
+// store currency symbol eg. $ 
+$currency_symbol = Mage::app()->getLocale()->currency( $currency_code )->getSymbol();
+
+// store currency name eg. Indian Rupee
+$currency_name = Mage::app()->getLocale()->currency( $currency_code )->getName();
+?>
+<div class="block block-currency">
+    <div class="block-title">
+        <span><?php echo $this->__('Select Your Currency') ?></span>
+    </div>
+    <div class="block-content dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="false" title="<?php echo $this->__('Select Your Currency') ?>">
+            <span class="name"><?php echo $currency_name ?></span><span class="symbol"><?php echo $currency_symbol ?></span>
+        </a>
+        <ul class="dropdown-menu">
+            <?php foreach ($this->getCurrencies() as $_code => $_name): 
+            $symbol = Mage::app()->getLocale()->currency( $_code )->getSymbol();
+            ?>
+                <?php if ($_code!=$this->getCurrentCurrencyCode()): ?>
+                    <li><a tabindex="-1" href="<?php echo $this->getSwitchCurrencyUrl($_code) ?>"><span class="name"><?php echo $_name ?></span><span class="symbol"><?php echo $symbol ?></span></a></li>
+                <?php endif; ?>
+            <?php endforeach; ?>            
+        </ul>
+    </div>
+</div>
+<script type="text/javascript">
+//<![CDATA[
+jQuery(function($) {
+    var venedor_currency_timer;
+    
+    function venedor_resize_currency() {
+        var w1 = $('.block-currency .dropdown-toggle').css('width','auto').innerWidth() + 1;
+        var w2 = $('.block-currency .dropdown-menu').css('width','auto').innerWidth() + 1;
+        if (w1 > w2) {
+            $('.block-currency .dropdown-toggle').css('width', w1 + 'px');
+            $('.block-currency .dropdown-menu').css('width', w1 + 'px');
+        } else {
+            $('.block-currency .dropdown-toggle').css('width', w2 + 'px');
+            $('.block-currency .dropdown-menu').css('width', w2 + 'px');
+        }
+        if (venedor_currency_timer) clearTimeout(venedor_currency_timer); 
+    }
+    
+    $(window).resize(function() {
+        clearTimeout(venedor_currency_timer); 
+        venedor_currency_timer = setTimeout(venedor_resize_currency, 100); 
+    });
+    venedor_resize_currency();
+});
+//]]>
+</script>
+<?php endif; ?>
